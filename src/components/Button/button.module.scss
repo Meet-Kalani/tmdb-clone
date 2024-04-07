@@ -1,0 +1,7 @@
+@use '../../styles' as *;
+
+.button {
+    padding: $padding-8 $padding-16;
+    border-radius: $border-radius-small;
+    background-color: $color-white;
+}
