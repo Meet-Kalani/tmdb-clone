@@ -1,73 +1,67 @@
-@use '../../styles' as *;
+@use "../../styles" as *;
 
-.footer{
-    background-image: radial-gradient(at 30% top, #0a1e30 0%, rgba(3,37,65, 1) 70%);
-    background-position: center top;
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-size: $font-size-16;
-}
+.footer {
+  background-image: radial-gradient(
+    at 30% top,
+    #0a1e30 0%,
+    rgba(3, 37, 65, 1) 70%
+  );
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: $font-size-16;
 
-.footer-navbar{
-    display: flex;
+  @include laptop {
+    padding: $padding-40 0;
+  }
+
+  .footer-navbar {
     gap: $gap-40;
     display: flex;
     justify-content: center;
     padding: $padding-80 $padding-0;
-}
 
-.footer-navlinks{
-    @include flex-column();
-}
+    @include laptop {
+      flex-direction: column;
+      padding: 0 $padding-20;
+    }
 
-.footer-navlinks-list{
-    list-style: none;
-    line-height: $line-height-16;
-}
+    .logo-container {
+      @include flex-column();
+      width: fit-content;
+      gap: $gap-48;
+      position: relative;
 
-.footer-navlinks-title{
-    color: $color-white;
-    white-space: nowrap;
-    text-transform: uppercase;
-    line-height: $line-height-14;
-}
+      .logo {
+        width: 130px;
+        height: 94px;
+        aspect-ratio: auto 130/94;
+        position: absolute;
+        right: 0;
+        top: -38px;
 
-.footer-navlink{
-    color: $color-white;
-    text-decoration: none;
-}
+        @include laptop {
+          display: none;
+        }
+      }
 
-.logo-container{
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    gap: $gap-48;
-    position: relative;
-}
+      .join-community-btn {
+        margin-top: auto;
+        text-decoration: none;
+        color: rgba(1, 180, 228, 1);
+        word-wrap: break-word;
+        font-size: $font-size-18;
+        text-transform: uppercase;
+        font-weight: $font-weight-700;
+        border: 2px solid #fff;
+      }
+    }
+  }
 
-.logo{  
-    width: 130px;
-    height: 94px;
-    aspect-ratio: auto 130/94;
-    position: absolute;
-    right: 0;
-    top: -30px;
-}
-
-.join-community-btn{
-    margin-top: auto;
-    text-decoration: none;
-    color: rgba(1, 180, 228, 1);
-    word-wrap: break-word;
-    font-size: $font-size-18;
-    text-transform: uppercase;
-    font-weight: 700;
-    border: 2px solid #fff;
-}
-
-.build-info{
+  .build-info {
     text-align: center;
     color: $color-white;
-    opacity: .1;
+    opacity: 0.1;
     font-size: $font-size-12;
+  }
 }

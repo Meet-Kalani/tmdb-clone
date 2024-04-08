@@ -1,0 +1,81 @@
+@use "../../styles" as *;
+
+.signup-cta__container {
+  background-image: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter\(duotone,190235,ad47dd\)/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: $color-white;
+  max-width: $maxPrimaryPageWidth;
+  margin: auto;
+
+  .signup-cta__wrapper {
+    padding: 30px 40px;
+
+    @include laptop{
+        padding: 30px 20px;
+    }
+
+    .signup-cta__header {
+      display: flex;
+      align-content: center;
+
+      .signup-cta__title {
+        font-size: $font-size-32;
+      }
+    }
+
+    .signup-cta__content {
+      padding: 20px 0;
+      display: flex;
+      gap: 40px;
+
+      @include laptop {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .signup-cta__info {
+        width: 65%;
+        margin-right: $margin-40;
+        @include flex-column();
+        gap: $gap-20;
+
+        @include laptop{
+            width: 100%;
+        }
+
+        .signup-cta__description {
+          font-size: $font-size-20;
+
+          .signup-cta__emphasized {
+            opacity: 0.7;
+          }
+        }
+
+        .signup-cta__btn {
+          text-decoration: none;
+          background-color: rgb(128, 91, 231);
+          color: $color-white;
+          font-weight: $font-weight-600;
+          font-size: $font-size-18;
+          width: fit-content;
+        }
+      }
+
+      .signup-cta__benefits {
+        width: auto;
+        // issue when you go small screen than next line starts with bullet point
+        .signup-cta__list{
+            list-style-position: inside;
+
+            .signup-cta__benefit {
+              opacity: 0.8;
+              font-size: $font-size-16;
+            }
+        }
+
+      }
+    }
+  }
+}

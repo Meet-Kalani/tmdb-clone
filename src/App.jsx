@@ -1,12 +1,13 @@
-import Footer from "./components/Footer/Footer"
+// import Footer from "./components/Footer/Footer"
+import SignupCTA from "./components/SignupCTA/SignupCTA";
 
 function App() {
-
   return (
     <>
-      <Footer />
+      {/* <Footer /> */}
+      <SignupCTA />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

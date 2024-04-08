@@ -1,6 +1,31 @@
+$maxPrimaryPageWidth: 1400px;
+
 // background colors
+// i havent implemented this part as it is causing error i have implementd colo manually
 $color-primary:3,37,65; // blue
+$color-purple: 128,91,231; //purple
 $color-white:#fff;
+
+// font weight
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-600: 600;
+$font-weight-700: 700;
+
+// margin
+$margin-0: 0;
+$margin-4: 4px;
+$margin-8: 8px;
+$margin-12: 12px;
+$margin-16: 16px;
+$margin-20: 20px;
+$margin-24: 24px;
+$margin-28: 28px;
+$margin-32: 32px;
+$margin-36: 36px;
+$margin-40: 40px;
+$margin-44: 44px;
+$margin-48: 48px;
 
 // padding
 $padding-0: 0;
@@ -44,6 +69,7 @@ $gap-56: 5.6rem;
 
 // font sizes
 $font-size-12: 1.2rem;
+$font-size-14: 1.4rem;
 $font-size-16: 1.6rem;
 $font-size-18: 1.8rem;
 $font-size-20: 2rem;
@@ -56,21 +82,27 @@ $font-size-44: 4.4rem;
 $font-size-48: 4.8rem;
 
 // line height
-$line-height-0: 0em;
-$line-height-4: 0.4em;
-$line-height-8: 0.8em;
-$line-height-12: 1.2em;
-$line-height-14: 1.4em;
-$line-height-16: 1.6em;
-$line-height-20: 2em;
-$line-height-24: 2.4em;
-$line-height-28: 2.8em;
-$line-height-32: 3.2em;
-$line-height-36: 3.6em;
-$line-height-40: 4em;
-$line-height-44: 4.4em;
-$line-height-48: 4.8em;
-
+$line-height-0: 0rem;
+$line-height-2: 0.2rem; 
+$line-height-4: 0.4rem;
+$line-height-6: 0.6rem; 
+$line-height-8: 0.8rem;
+$line-height-10: 1rem; 
+$line-height-12: 1.2rem;
+$line-height-14: 1.4rem;
+$line-height-16: 1.6rem;
+$line-height-18: 1.8rem; 
+$line-height-20: 2rem;
+$line-height-22: 2.2rem; 
+$line-height-24: 2.4rem;
+$line-height-26: 2.6rem; 
+$line-height-28: 2.8rem;
+$line-height-30: 3rem; 
+$line-height-32: 3.2rem;
+$line-height-34: 3.4rem;
+$line-height-36: 3.6rem;
+$line-height-38: 3.8rem; 
+$line-height-40: 4rem;
 
 // border-radius
 $border-radius-small: 5px

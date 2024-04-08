@@ -1,0 +1,13 @@
+@use "../../../styles" as *;
+
+.footer-navlinks {
+  @include flex-column();
+
+  .footer-navlinks-title {
+    color: $color-white;
+    white-space: nowrap;
+    text-transform: uppercase;
+    line-height: $line-height-28;
+    font-size: $font-size-20;
+  }
+}
