@@ -1,10 +1,12 @@
-$maxPrimaryPageWidth: 1400px;
+$maxPrimaryPageWidth: 1300px;
 
 // background colors
 // i havent implemented this part as it is causing error i have implementd colo manually
 $color-primary:3,37,65; // blue
 $color-purple: 128,91,231; //purple
 $color-white:#fff;
+$color-white-hover:#f8f9fa;
+$color-black:#000;
 
 // font weight
 $font-weight-400: 400;
@@ -105,4 +107,6 @@ $line-height-38: 3.8rem;
 $line-height-40: 4rem;
 
 // border-radius
-$border-radius-small: 5px
+$border-radius-3: 3px;
+$border-radius-4: 4px;
+$border-radius-small: 5px;

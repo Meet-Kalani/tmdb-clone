@@ -1,4 +1,4 @@
-import style from "./signupcta.module.scss";
+import style from "./signup-cta.module.scss";
 import AnchorButton from "../UI/AnchorButton/AnchorButton";
 
 const SignupCTA = () => {

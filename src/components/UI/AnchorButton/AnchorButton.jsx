@@ -1,4 +1,4 @@
-import style from "./anchorbutton.module.scss"
+import style from "./anchor-button.module.scss"
 import PropTypes from 'prop-types';
 
 const AnchorButton = ({ children, hyperlink, className }) => {

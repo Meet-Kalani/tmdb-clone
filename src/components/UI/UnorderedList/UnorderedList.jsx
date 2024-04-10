@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import style from "./unordered.module.scss";
+import style from "./unordered-list.module.scss";
 
-const UnorderedList = ({ data }) => {
+const UnorderedList = ({ data, className }) => {
   return (
-    <ul className={style["footer-navlinks-list"]}>
+    <ul className={`${style["list"]} ${className}`}>
       {data.map(({ id, label, link }) => {
         return (
           <li key={id} className={style["navlink-wrapper"]}>
-            <a href={link} className={style["footer-navlink"]}>
+            <a href={link} className={style["navlink"]}>
               {label}
             </a>
           </li>
@@ -18,6 +18,7 @@ const UnorderedList = ({ data }) => {
 };
 
 UnorderedList.propTypes = {
+  className: PropTypes.string,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,

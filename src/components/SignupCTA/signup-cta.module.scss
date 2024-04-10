@@ -67,7 +67,8 @@
         width: auto;
         // issue when you go small screen than next line starts with bullet point
         .signup-cta__list{
-            list-style-position: inside;
+            // list-style-position: outside;
+            margin-left: $margin-20;
 
             .signup-cta__benefit {
               opacity: 0.8;

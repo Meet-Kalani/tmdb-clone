@@ -6,6 +6,7 @@ const Navlinks = ({ label, data }) => {
   return (
     <div className={style["footer-navlinks"]}>
       <h3 className={style["footer-navlinks-title"]}>{label}</h3>
+      {console.log(data)}
       <UnorderedList data={data} />
     </div>
   );

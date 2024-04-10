@@ -1,0 +1,149 @@
+@use "../../styles" as *;
+
+.desktop-navbar {
+
+  @include laptop(){
+    display: none;
+  }
+
+  .header {
+    background-color: rgb(3, 37, 65);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .navbar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: $maxPrimaryPageWidth;
+      padding: 0 $padding-40;
+
+      @include laptop {
+        display: none;
+      }
+
+      .primary-navlinks {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .navlinks {
+        display: flex;
+        gap: 14px;
+        list-style: none;
+        align-items: center;
+        position: relative;
+
+        .navlink {
+          text-decoration: none;
+          color: $color-white;
+          font-size: $font-size-16;
+          font-weight: $font-weight-600;
+          display: flex;
+          padding: $padding-8;
+        }
+
+        .language-btn {
+          border: 1px solid $color-white;
+          border-radius: $border-radius-3;
+          padding: 3px 5px !important;
+          font-size: $font-size-14;
+          transition: 200ms;
+
+          &:hover {
+            background-color: $color-white;
+            color: rgb(3, 37, 65);
+          }
+        }
+
+        .nested-navlinks-wrapper {
+          position: absolute;
+          background-color: $color-white;
+          padding: $padding-8 $padding-0;
+          border-radius: $border-radius-4;
+          display: none;
+
+          .nested-navlinks {
+            list-style: none;
+            font-size: $font-size-16;
+
+            .nested-navlink-wrapper {
+              height: 30px;
+              width: max-content;
+              display: flex;
+              align-items: center;
+
+              &:hover {
+                background-color: $color-white-hover;
+              }
+            }
+            .nested-navlink {
+              line-height: $line-height-24;
+              text-decoration: none;
+              color: $color-black;
+              padding: 3px 64px 3px 24px;
+            }
+          }
+        }
+
+        .navlink-wrapper:hover .nested-navlinks-wrapper {
+          display: block;
+        }
+      }
+
+      .cta-navlinks {
+        .navlinks {
+          gap: 30px;
+
+          .navlink {
+            padding: 0;
+          }
+
+          .navlink-wrapper {
+            position: relative;
+
+            .hidden-container {
+              // position: absolute;
+              padding: 12.8px;
+              width: 240px;
+              border-radius: $border-radius-4;
+              // display: none;
+              background-color: $color-white;
+              font-size: $font-size-16;
+              left: -109px;
+              visibility: hidden;
+              position: absolute;
+              z-index: 1;
+              top: 150%;
+
+              &::before {
+                content: " ";
+                position: absolute;
+                bottom: 100%; /* At the top of the tooltip */
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent transparent $color-white transparent;
+              }
+            }
+          }
+
+          .navlink-wrapper:hover .hidden-container {
+            // display: block;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+}
