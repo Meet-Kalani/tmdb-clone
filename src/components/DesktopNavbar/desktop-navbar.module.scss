@@ -2,7 +2,7 @@
 
 .desktop-navbar {
 
-  @include laptop(){
+  @include laptop{
     display: none;
   }
 
