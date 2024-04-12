@@ -1,0 +1,38 @@
+@use "../../styles" as *;
+
+.tabs {
+    width: fit-content;
+  border-radius: 30px;
+  border: 1px solid rgba(3, 37, 65, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .tab {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1em;
+    font-weight: 600;
+    justify-content: center;
+    margin-bottom: 0;
+    padding: 4px 20px;
+    white-space: nowrap;
+    .tab-title {
+      font-size: $font-size-16;
+      color: rgb(3, 37, 65);
+      text-decoration: none;
+    }
+
+    .selected {
+      -webkit-text-fill-color: transparent;
+      background: linear-gradient(90deg, #c0fecf 0, #1ed5a9);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+  }
+
+  .selected-tab {
+    background: #032541;
+    border-radius: inherit;
+  }
+}

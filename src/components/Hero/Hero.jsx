@@ -1,5 +1,8 @@
 import style from "./hero.module.scss";
 
+// in input if you enter large string than it goes behind the button so
+// fix it wiht limiting the lengtjh of the input
+
 const Hero = () => {
   return (
     <header className={style["hero"]}>

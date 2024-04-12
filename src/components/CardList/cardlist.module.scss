@@ -1,0 +1,90 @@
+@use "../../styles" as *;
+
+// NOTE: have changed font size of .cardlist-title for small screen to due to issue and also
+//       the cardlist tab is different in mobile screen so keep that in mind
+
+.cardlist {
+  padding-top: 30px;
+  max-width: $maxPrimaryPageWidth;
+  margin: auto;
+  position: relative;
+  .cardlist-header {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .cardlist-title {
+      font-size: $font-size-24;
+      font-weight: $font-weight-600;
+
+      @media screen and (max-width: 375px) {
+        font-size: $font-size-18;
+      }
+    }
+
+    .cardlist-tabs {
+      border-radius: 30px;
+      border: 1px solid rgba(3, 37, 65, 1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .cardlist-tab {
+        align-items: center;
+        display: inline-flex;
+        font-size: 1em;
+        font-weight: 600;
+        justify-content: center;
+        margin-bottom: 0;
+        padding: 4px 20px;
+        white-space: nowrap;
+        .cardlist-tab-name {
+          font-size: $font-size-16;
+          color: rgb(3, 37, 65);
+          text-decoration: none;
+        }
+
+        .selected {
+          -webkit-text-fill-color: transparent;
+          background: linear-gradient(90deg, #c0fecf 0, #1ed5a9);
+          background-clip: text;
+          -webkit-background-clip: text;
+        }
+      }
+
+      .selected-tab {
+        background: #032541;
+        border-radius: inherit;
+        height: -webkit-fill-available;
+      }
+    }
+  }
+
+  .cardlist-content {
+    display: flex;
+    overflow-x: scroll;
+    gap: 20px;
+    padding: 20px 40px;
+
+    &::after {
+      content: "";
+      width: 60px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0,
+        #fff 100%
+      );
+      will-change: opacity;
+      pointer-events: none;
+    }
+
+    @include laptop {
+      padding: 20px;
+    }
+  }
+}

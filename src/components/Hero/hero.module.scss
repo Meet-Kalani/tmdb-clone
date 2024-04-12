@@ -74,7 +74,7 @@
     height: 191.48px;
     padding: 30px 40px;
     @include flex-column();
-    gap: 20px;
+    gap: 24px;
 
     .view-btn {
       color: $color-white;
@@ -89,6 +89,7 @@
       align-items: center;
       font-size: $font-size-16;
       font-weight: $font-weight-600;
+      font-family: "Source Sans Pro", Arial, sans-serif;
 
       .right-arrow {
         background-image: url("https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-830-arrow-thin-right-white-27b356aac3227210acca2ae44fcfed8a6c0ca7adde4e867fe9793cae4ebda9d1.svg");
