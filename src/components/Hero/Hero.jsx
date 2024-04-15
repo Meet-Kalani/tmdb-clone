@@ -1,9 +1,16 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./hero.module.scss";
 
-// in input if you enter large string than it goes behind the button so
-// fix it wiht limiting the lengtjh of the input
-
 const Hero = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/search?query=${searchTerm}`);
+  };
+
   return (
     <header className={style["hero"]}>
       <section className={style["welcome-section"]}>
@@ -13,12 +20,14 @@ const Hero = () => {
             Millions of movies, TV shows and people to discover. Explore now.
           </h3>
         </div>
-        <form className={style["search-form"]}>
+        <form className={style["search-form"]} onSubmit={handleSubmit}>
           <input
             className={style["search-input"]}
             type="text"
             placeholder="Search for a movie, tv show, person......"
             spellCheck="false"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
           <button className={style["search-btn"]} type="submit">
             Search

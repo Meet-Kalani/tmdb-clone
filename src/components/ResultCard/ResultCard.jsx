@@ -1,31 +1,36 @@
 import style from "./result-card.module.scss";
+import PropTypes from "prop-types";
 
-const ResultCard = () => {
+// check the alignments of card
+
+const ResultCard = ({ poster_path, name, overview, first_air_date }) => {
+  const imageSource = poster_path
+    ? `https://media.themoviedb.org/t/p/w94_and_h141_bestv2${poster_path}`
+    : "https://placehold.jp/14/ccc/ffffff/94x141.png?text=Not%20Found";
+
   return (
     <div className={`${style["result-card"]} ${style["card"]}`}>
-      <img
-        className={style["card-image"]}
-        src="https://media.themoviedb.org/t/p/w94_and_h141_bestv2/dgqcyTB80gi26UjXTZbyGx5Md2d.jpg"
-        alt=""
-      />
+      <img className={style["card-image"]} src={imageSource} alt="" />
       <div className={style["card-content"]}>
         <div>
           <a href="#" className={style["card-title-link"]}>
-            <h2 className={style["card-title"]}>RANDOM</h2>
+            <h2 className={style["card-title"]}>{name}</h2>
           </a>
-          <span className={style["release-date"]}>August 16, 2016</span>
+          <span className={style["release-date"]}>{first_air_date}</span>
         </div>
         <div>
-          <p className={style["card-description"]}>
-            Trapped in an apartment and before a mystery that disturbs their
-            existence, six friends face their demons while secrets of the past
-            resurface and masks begin to fall. And if the confinement was just
-            the beginning?
-          </p>
+          <p className={style["card-description"]}>{overview}</p>
         </div>
       </div>
     </div>
   );
+};
+
+ResultCard.propTypes = {
+  poster_path: PropTypes.string,
+  name: PropTypes.string,
+  overview: PropTypes.string,
+  first_air_date: PropTypes.string,
 };
 
 export default ResultCard;

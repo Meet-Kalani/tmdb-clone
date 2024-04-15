@@ -37,7 +37,11 @@
         color: rgba(0, 0, 0, 0.5);
         border: 0;
         border-radius: 30px;
-        padding: 10px 20px;
+        padding: 10px 120px 10px 20px;
+
+        &:focus-within{
+          outline: none;
+        }
       }
       .search-btn {
         height: 46px;

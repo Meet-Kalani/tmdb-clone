@@ -1,0 +1,6 @@
+@use "../../styles" as *;
+
+.result-card-list{
+    @include flex-column();
+    gap: 20px;
+}

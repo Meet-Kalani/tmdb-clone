@@ -10,16 +10,14 @@
 
   .card-image {
     width: 94px;
+    height: 141px;
     border-radius: 8px 0 0 8px;
   }
 
   .card-content {
     padding: 10px 15px;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    align-items: center;
+    @include flex-column();
+    justify-content: center;
     gap: 20px;
 
     .card-title-link {

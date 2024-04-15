@@ -2,23 +2,29 @@
 // import SignupCTA from "./components/SignupCTA/SignupCTA";
 // import DesktopNavbar from "./components/DesktopNavbar/DesktopNavbar";
 // import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
-// import Hero from "./components/Hero/Hero";
+import Hero from "./components/Hero/Hero";
 // import CardList from "./components/CardList/CardList";
 // import Test from "./components/Test/Test";
 // import SearchResultCategory from "./components/SearchResultCategory/SearchResultCategory";
-import ResultCard from "./components/ResultCard/ResultCard";
+import { Routes, Route } from "react-router-dom";
+import ResultCardList from "./components/ResultCardList/ResultCardList";
 
 function App() {
   return (
     <>
-      {/* <DesktopNavbar />
-      <MobileNavbar />
-      <Hero />
-      <Test />
+      {
+        /* <DesktopNavbar />
+      <MobileNavbar /> */
+        <Hero />
+        /*  <Test />
       <SignupCTA />
-      <Footer /> */}
+      <Footer /> */
+      }
       {/* <SearchResultCategory /> */}
-      <ResultCard />
+      {/* <ResultCard /> */}
+      <Routes>
+        <Route path="/search" element={<ResultCardList />}></Route>
+      </Routes>
     </>
   );
 }
