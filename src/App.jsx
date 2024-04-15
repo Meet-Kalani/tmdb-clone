@@ -5,7 +5,8 @@
 // import Hero from "./components/Hero/Hero";
 // import CardList from "./components/CardList/CardList";
 // import Test from "./components/Test/Test";
-import SearchResultCategory from "./components/SearchResultCategory/SearchResultCategory";
+// import SearchResultCategory from "./components/SearchResultCategory/SearchResultCategory";
+import ResultCard from "./components/ResultCard/ResultCard";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <Test />
       <SignupCTA />
       <Footer /> */}
-      <SearchResultCategory />
+      {/* <SearchResultCategory /> */}
+      <ResultCard />
     </>
   );
 }
