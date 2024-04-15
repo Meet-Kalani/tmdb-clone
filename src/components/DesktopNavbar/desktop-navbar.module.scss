@@ -70,7 +70,7 @@
           background-color: $color-white;
           padding: $padding-8 $padding-0;
           border-radius: $border-radius-4;
-          display: none;
+          // display: none;
 
           .nested-navlinks {
             list-style: none;
@@ -81,23 +81,24 @@
               width: max-content;
               display: flex;
               align-items: center;
-
+              width: 100%;
+              
               &:hover {
                 background-color: $color-white-hover;
               }
-            }
-            .nested-navlink {
-              line-height: $line-height-24;
-              text-decoration: none;
-              color: $color-black;
-              padding: 3px 64px 3px 24px;
+              .nested-navlink {
+                line-height: $line-height-24;
+                text-decoration: none;
+                color: $color-black;
+                padding: 3px 64px 3px 24px;
+              }
             }
           }
         }
 
-        .navlink-wrapper:hover .nested-navlinks-wrapper {
-          display: block;
-        }
+        // .navlink-wrapper:hover .nested-navlinks-wrapper {
+        //   display: block;
+        // }
       }
 
       .cta-navlinks {

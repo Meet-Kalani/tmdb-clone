@@ -1,4 +1,5 @@
 // import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import style from "./desktop-navbar.module.scss";
 import PropTypes from "prop-types";
 
@@ -71,8 +72,14 @@ const ctaNavlinkData = [
 ];
 
 const Navbar = () => {
+  const [openNavlink, setOpenNavlink] = useState(0);
+
+  const handleOpenNavlink = (id) => {
+    setOpenNavlink(id);
+  };
+
   return (
-    <section className={style['desktop-navbar']}>
+    <section className={style["desktop-navbar"]}>
       <header className={style["header"]}>
         <nav className={style["navbar"]}>
           <div className={style["primary-navlinks"]}>
@@ -87,13 +94,14 @@ const Navbar = () => {
               </a>
             </div>
             <ul className={style["navlinks"]}>
-              {primaryNavlinkData.map(({ id, label, href, nestedLinks }) => (
-                <li key={id} className={style["navlink-wrapper"]}>
-                  <a href={href} className={style["navlink"]}>
-                    {label}
-                  </a>
-                  <NestedNavlinkContainer nestedLinks={nestedLinks} />
-                </li>
+              {primaryNavlinkData.map(({ id,...props }) => (
+                <NestedNavlinkContainer
+                  key={id}
+                  id={id}
+                  {...props}
+                  openNavlink={openNavlink}
+                  handleOpenNavlink={handleOpenNavlink}
+                />
               ))}
             </ul>
           </div>
@@ -133,23 +141,67 @@ function HiddenContainer() {
   );
 }
 
-function NestedNavlinkContainer({ nestedLinks }) {
+function NestedNavlinkContainer({
+  href,
+  label,
+  nestedLinks,
+  openNavlink,
+  handleOpenNavlink,
+  id,
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(()=>{
+    if(openNavlink !== id){
+      setIsVisible(false);
+    }
+  },[id,openNavlink]);
+
+  const handleNestedNavigationVisibility = () => {
+    setIsVisible((previousValue) => {
+      return !previousValue;
+    });
+
+    handleOpenNavlink(id);
+  };
+
+  const tempStyle = {
+    width: "max-content"
+  }
+  
   return (
-    <div className={style["nested-navlinks-wrapper"]}>
-      <ul className={style["nested-navlinks"]}>
-        {nestedLinks.map(({ id, label, href }) => (
-          <li key={id} className={style["nested-navlink-wrapper"]}>
-            <a href={href} className={style["nested-navlink"]}>
-              {label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <li className={style["navlink-wrapper"]}>
+      <a
+        href={href}
+        className={style["navlink"]}
+        onClick={handleNestedNavigationVisibility}
+      >
+        {label}
+      </a>
+      <div className={style["nested-navlinks-wrapper"]}>
+        {isVisible && (
+          <ul className={style["nested-navlinks"]}>
+            {nestedLinks.map(({ id, label, href }) => (
+              // have applied quick fix so fix it
+              <li key={id} className={style["nested-navlink-wrapper"]} style={label === "Popular People" ? tempStyle : null}>
+                <a href={href} className={style["nested-navlink"]}>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </li>
   );
 }
 
 NestedNavlinkContainer.propTypes = {
+  id: PropTypes.number,
+  href: PropTypes.string,
+  label: PropTypes.string,
+  openNavlink: PropTypes.number,
+  handleOpenNavlink: PropTypes.func,
   nestedLinks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
