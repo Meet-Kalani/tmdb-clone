@@ -1,0 +1,132 @@
+@use "../../styles" as *;
+
+.search-result-container {
+  width: 260px;
+  font-size: $font-size-16;
+  border-radius: 8px;
+  border: 1px solid rgb(227, 227, 227);
+
+  .header {
+    border-radius: 8px 8px 0 0;
+    background-color: rgb(1, 180, 228);
+    color: $color-white;
+    padding: 20px;
+    font-weight: $font-weight-600;
+  }
+
+  .content {
+    padding: 8px 0;
+
+    .category-container {
+      list-style: none;
+      .category-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .category {
+          padding: 10px 20px;
+          width: 100%;
+          text-decoration: none;
+          color: $color-black;
+          line-height: 22.4px;
+        }
+
+        .count {
+          background-color: rgba(0, 0, 0, 0.08);
+          padding: 0 10px;
+          margin-right: 20px;
+          border-radius: 8px;
+        }
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.08);
+
+          .count {
+            background-color: $color-white;
+          }
+        }
+      }
+      .selected {
+        background-color: rgba(0, 0, 0, 0.08);
+
+        .category {
+          font-weight: $font-weight-600;
+        }
+
+        .count {
+          background-color: $color-white;
+        }
+      }
+    }
+  }
+
+  @include laptop {
+    width: 100%;
+    border-radius: 0;
+
+    .header {
+      border-radius: 0;
+      padding: 10px 20px;
+    }
+
+    .content {
+      padding: 0;
+      position: relative;
+      .category-container {
+        display: flex;
+        gap: 24px;
+        overflow-x: scroll;
+        padding: 0 20px;
+
+        &::after {
+          content: "";
+          width: 40px;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0),
+            #fff
+          );
+        }
+
+        .category-wrapper {
+          gap: 5px;
+          .category {
+            padding: 14px 0;
+          }
+
+          .count {
+            margin-right: 0;
+            padding: 2px 6px;
+            border-radius: 6px;
+            border: 1px solid rgb(227, 227, 227);
+            background-color: $color-white;
+            font-size: 12.8px;
+            font-weight: 300;
+            line-height: 12.8px;
+            font-family: "Roboto Mono", monospace;
+          }
+
+          &:hover {
+            background-color: $color-white;
+          }
+        }
+        .selected {
+          background-color: rgba(0, 0, 0, 0.08);
+
+          .category {
+            color: rgb(1, 180, 228);
+          }
+
+          .count {
+            border-color: rgb(1, 180, 228);
+          }
+        }
+      }
+    }
+  }
+}

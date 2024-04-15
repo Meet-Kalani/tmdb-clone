@@ -1,20 +1,22 @@
-import Footer from "./components/Footer/Footer";
-import SignupCTA from "./components/SignupCTA/SignupCTA";
-import DesktopNavbar from "./components/DesktopNavbar/DesktopNavbar";
-import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
-import Hero from "./components/Hero/Hero";
+// import Footer from "./components/Footer/Footer";
+// import SignupCTA from "./components/SignupCTA/SignupCTA";
+// import DesktopNavbar from "./components/DesktopNavbar/DesktopNavbar";
+// import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
+// import Hero from "./components/Hero/Hero";
 // import CardList from "./components/CardList/CardList";
-import Test from "./components/Test/Test";
+// import Test from "./components/Test/Test";
+import SearchResultCategory from "./components/SearchResultCategory/SearchResultCategory";
 
 function App() {
   return (
     <>
-      <DesktopNavbar />
+      {/* <DesktopNavbar />
       <MobileNavbar />
       <Hero />
       <Test />
       <SignupCTA />
-      <Footer />
+      <Footer /> */}
+      <SearchResultCategory />
     </>
   );
 }
