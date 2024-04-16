@@ -2,6 +2,7 @@ import CardList from "../CardList/CardList";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
+import { VITE_API_READ_ACCESS_TOKEN } from "../../envConstants";
 
 const Test = () => {
   const [selectedTab, setSelectedTab] = useState("Movies");
@@ -25,7 +26,7 @@ const Test = () => {
     axios
       .get(`${BASE_URL}/${category}/popular`, {
         headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_READ_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${VITE_API_READ_ACCESS_TOKEN}`,
         },
       })
       .then((res) => setMovies(res.data.results))

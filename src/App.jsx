@@ -5,9 +5,10 @@
 import Hero from "./components/Hero/Hero";
 // import CardList from "./components/CardList/CardList";
 // import Test from "./components/Test/Test";
-// import SearchResultCategory from "./components/SearchResultCategory/SearchResultCategory";
+import SearchResultCategory from "./components/SearchResultCategory/SearchResultCategory";
+
 import { Routes, Route } from "react-router-dom";
-import ResultCardList from "./components/ResultCardList/ResultCardList";
+// import ResultCardList from "./components/ResultCardList/ResultCardList";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       {/* <SearchResultCategory /> */}
       {/* <ResultCard /> */}
       <Routes>
-        <Route path="/search" element={<ResultCardList />}></Route>
+        <Route path="/search" element={<SearchResultCategory />}></Route>
       </Routes>
     </>
   );

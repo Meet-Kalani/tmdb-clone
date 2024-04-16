@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { BASE_URL } from "../../constants";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { VITE_API_READ_ACCESS_TOKEN } from "../../envConstants";
 
 const ResultCardList = () => {
   const [searchParams] = useSearchParams();
@@ -13,7 +14,7 @@ const ResultCardList = () => {
     axios
       .get(`${BASE_URL}/search/tv?query=${searchParams.get("query")}`, {
         headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_READ_ACCESS_TOKEN}`,
+          Authorization: `Bearer ${VITE_API_READ_ACCESS_TOKEN}`,
         },
       })
       .then((res) => {

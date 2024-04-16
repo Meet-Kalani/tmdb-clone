@@ -23,6 +23,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
 
         .category {
           padding: 10px 20px;
@@ -37,6 +38,9 @@
           padding: 0 10px;
           margin-right: 20px;
           border-radius: 8px;
+          font-family: "Roboto Mono", monospace;
+          font-weight: 300;
+          font-size: 12.8px;
         }
 
         &:hover {
@@ -108,7 +112,6 @@
             font-size: 12.8px;
             font-weight: 300;
             line-height: 12.8px;
-            font-family: "Roboto Mono", monospace;
           }
 
           &:hover {
