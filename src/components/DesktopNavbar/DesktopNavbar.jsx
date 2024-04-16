@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import style from "./desktop-navbar.module.scss";
 import PropTypes from "prop-types";
@@ -84,14 +84,14 @@ const Navbar = () => {
         <nav className={style["navbar"]}>
           <div className={style["primary-navlinks"]}>
             <div className={style["logo-container"]}>
-              <a href="/" className={style["logo"]}>
+              <Link to="/" className={style["logo"]}>
                 <img
                   src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
                   alt="The Movie Database (TMDB)"
                   width="154"
                   height="20"
                 />
-              </a>
+              </Link>
             </div>
             <ul className={style["navlinks"]}>
               {primaryNavlinkData.map(({ id,...props }) => (
