@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import style from "./search-result-category.module.scss";
 import { useSearchParams } from "react-router-dom";
-import { BASE_URL } from "../../constants";
-import { VITE_API_READ_ACCESS_TOKEN } from "../../envConstants";
+import { BASE_URL } from "../../constants/constants";
+import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
 import axios from "axios";
 import PropTypes from "prop-types";
 

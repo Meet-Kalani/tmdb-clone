@@ -1,8 +1,8 @@
 import CardList from "../CardList/CardList";
 import { useEffect, useState } from "react";
-import { BASE_URL } from "../../constants";
+import { BASE_URL } from "../../constants/constants";
 import axios from "axios";
-import { VITE_API_READ_ACCESS_TOKEN } from "../../envConstants";
+import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
 
 const Test = () => {
   const [selectedTab, setSelectedTab] = useState("Movies");
@@ -32,7 +32,14 @@ const Test = () => {
       .then((res) => setMovies(res.data.results))
       .catch((err) => console.error(err));
   };
-  return <CardList tabs={tabs} movies={movies} selectedTab={selectedTab} handleTabSelection={handleTabSelection} />;
+  return (
+    <CardList
+      tabs={tabs}
+      movies={movies}
+      selectedTab={selectedTab}
+      handleTabSelection={handleTabSelection}
+    />
+  );
 };
 
 export default Test;
