@@ -1,47 +1,35 @@
 import ResultCard from "../ResultCard/ResultCard";
 import style from "./result-card-list.module.scss";
-import { useSearchParams } from "react-router-dom";
-import { BASE_URL } from "../../constants";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { VITE_API_READ_ACCESS_TOKEN } from "../../envConstants";
+import PropTypes from "prop-types";
 
-const ResultCardList = () => {
-  const [searchParams] = useSearchParams();
-  const [searchResult, setSearchResult] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/search/tv?query=${searchParams.get("query")}`, {
-        headers: {
-          Authorization: `Bearer ${VITE_API_READ_ACCESS_TOKEN}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.results)
-        setSearchResult(res.data.results);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [searchParams]);
-
+const ResultCardList = ({ data }) => {
   return (
     <div className={style["result-card-list"]}>
-      {searchResult.map(
-        ({ id, poster_path, name, overview, first_air_date }) => {
-          return (
-            <ResultCard
-              key={id}
-              poster_path={poster_path}
-              name={name}
-              overview={overview}
-              first_air_date={first_air_date}
-            />
-          );
-        }
-      )}
+      {data.map(({ id, poster_path, name, overview, first_air_date }) => {
+        return (
+          <ResultCard
+            key={id}
+            poster_path={poster_path}
+            name={name}
+            overview={overview}
+            first_air_date={first_air_date}
+          />
+        );
+      })}
     </div>
   );
 };
+
+ResultCardList.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      poster_path: PropTypes.string,
+      name: PropTypes.string,
+      overview: PropTypes.string,
+      first_air_date: PropTypes.string,
+    })
+  ),
+};
+
 export default ResultCardList;

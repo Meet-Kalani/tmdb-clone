@@ -1,0 +1,9 @@
+@use "../../styles" as *;
+
+.search-result-page{
+    display: flex;
+    gap: 30px;
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+    padding: 30px 40px;
+}
