@@ -16,6 +16,14 @@ const Card = ({
     navigate(`/movie/${id}`);
   };
 
+  const convertDate = (date, month = 'short') => {
+    return new Date(date).toLocaleString('en-US', {
+      day: 'numeric',
+      month: month,
+      year: 'numeric',
+    });
+  };
+
   return (
     <div className={style["wrapper"]} onClick={handleCardOpener}>
       <div className={style["card"]}>
@@ -34,7 +42,7 @@ const Card = ({
           <a href="#" className={style["movie-name"]}>
             {original_title}
           </a>
-          <span className={style["movie-launch-date"]}>{release_date}</span>
+          <span className={style["movie-launch-date"]}>{convertDate(release_date)}</span>
         </div>
       </div>
     </div>
