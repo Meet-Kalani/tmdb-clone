@@ -3,6 +3,7 @@ import Hero from "../../components/Hero/Hero";
 import CardList from "../../components/CardList/CardList";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants/constants";
+import style from "./home-page.module.scss";
 import axios from "axios";
 import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
 
@@ -21,7 +22,7 @@ const HomePage = () => {
 
   const handlePopularTabSelection = (event) => {
     const currentTab = event.target.textContent;
-    setPopularSelectedTab(currentTab); 
+    setPopularSelectedTab(currentTab);
     if (currentTab === "On TV") {
       fetchPopularData("tv");
     } else {
@@ -62,13 +63,15 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <CardList
-        tabs={tabsOfTrendingList}
-        data={trendingData}
-        selectedTab={trendingSelectedTab}
-        handleTabSelection={handleTrendingTabSelection}
-        label="Trending"
-      />
+      <div className={style['wrapper']}>
+        <CardList
+          tabs={tabsOfTrendingList}
+          data={trendingData}
+          selectedTab={trendingSelectedTab}
+          handleTabSelection={handleTrendingTabSelection}
+          label="Trending"
+        />
+      </div>
       <CardList
         tabs={tabsOfPopularList}
         data={popularData}

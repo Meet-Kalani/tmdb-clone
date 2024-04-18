@@ -1,3 +1,4 @@
+// import Rating from "../Rating/Rating";
 import PropTypes from "prop-types";
 import style from "./card.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -39,6 +40,7 @@ const Card = ({
               {Math.round(vote_average * 10)}
             </span>
           </div>
+          {/* <Rating rating={Math.round(vote_average * 10)} /> */}
           <a href="#" className={style["movie-name"]}>
             {original_title}
           </a>
