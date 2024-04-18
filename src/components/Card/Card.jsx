@@ -1,11 +1,23 @@
 import PropTypes from "prop-types";
 import style from "./card.module.scss";
-
+import { useNavigate } from "react-router-dom";
 // correct the img src
 
-const Card = ({ original_title, release_date, poster_path, vote_average }) => {
+const Card = ({
+  id,
+  original_title,
+  release_date,
+  poster_path,
+  vote_average,
+}) => {
+  const navigate = useNavigate();
+
+  const handleCardOpener = () => {
+    navigate(`/movie/${id}`);
+  };
+
   return (
-    <div className={style["wrapper"]}>
+    <div className={style["wrapper"]} onClick={handleCardOpener}>
       <div className={style["card"]}>
         <div className={style["card-header"]}>
           <img
@@ -30,6 +42,7 @@ const Card = ({ original_title, release_date, poster_path, vote_average }) => {
 };
 
 Card.propTypes = {
+  id: PropTypes.number,
   original_title: PropTypes.string,
   release_date: PropTypes.string,
   poster_path: PropTypes.string,

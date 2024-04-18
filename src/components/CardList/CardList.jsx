@@ -16,6 +16,7 @@ const CardList = ({ tabs, movies, handleTabSelection, selectedTab }) => {
             return (
               <Card
                 key={id}
+                id={id}
                 original_title={original_title}
                 release_date={release_date}
                 poster_path={poster_path}

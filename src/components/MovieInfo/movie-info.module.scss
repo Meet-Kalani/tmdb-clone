@@ -1,0 +1,123 @@
+@use "../../styles" as *;
+
+.movie-info {
+  padding: 30px 40px;
+  display: flex;
+  gap: 40px;
+  font-size: $font-size-16;
+  background-color: #0c497b;
+  color: $color-white;
+
+  .poster-container {
+    border-radius: 8px;
+    background-color: #032541;
+    .poster {
+      border-radius: 8px 8px 0 0;
+      width: 300px;
+    }
+    .watch-provider-container {
+      margin-top: -4px;
+      height: 60px;
+      display: flex;
+      color: $color-white;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+
+      .watch-provider-logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .watch-provider-link-wrapper {
+        align-items: center;
+        align-content: center;
+        .label {
+          opacity: 0.8;
+          display: block;
+          line-height: 16px;
+        }
+
+        .watch-provider-link {
+          text-decoration: none;
+          color: $color-white;
+          font-weight: $font-weight-600;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+
+  .content {
+    @include flex-column();
+    justify-content: center;
+
+    .name-container {
+      .name {
+        font-size: 35.2px;
+        display: inline;
+      }
+      .release-year {
+        font-size: 35.2px;
+        opacity: 0.8;
+      }
+    }
+
+    .wrapper {
+        margin: 20px 0;
+        display: flex;
+        gap: 20px;
+      .rating-container {
+        position: relative;
+        width: fit-content;
+        .rating-progressbar {
+          color: #21d07a;
+        }
+        .rating-count {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-weight: $font-weight-600;
+          fon .percentage-sign {
+            font-size: 8px;
+          }
+        }
+      }
+      .play-link-container{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .play-icon{
+            background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-175-play-806cb05551791b8dedd7f8d38fd3bd806e2d397fcfeaa00a5cc9129f0819fd07.svg);
+            filter: invert(1);
+            width: 22.4px;
+            height: 22.4px;
+        }
+
+        .play-link{
+            text-decoration:none;
+            color: $color-white;
+            font-weight: $font-weight-600;
+        }
+      }
+    }
+
+    .overview-container {
+      .tagline {
+        opacity: 0.7;
+        font-style: italic;
+        font-size: 17.6px;
+      }
+
+      .overview-title {
+        display: block;
+        font-size: 20.8px;
+        font-weight: 600;
+        margin: 10px 0 8px 0;
+      }
+    }
+  }
+}

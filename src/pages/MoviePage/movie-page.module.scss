@@ -1,0 +1,6 @@
+@use '../../styles' as *;
+
+.movie-page{
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+}

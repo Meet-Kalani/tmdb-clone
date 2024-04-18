@@ -99,7 +99,6 @@ const SearchResultPage = () => {
         setOpenLinkId={setOpenLinkId}
         searchData={searchData}
       />
-      {console.log(resultCardListData.length > 0 && "damn")}
       {resultCardListData.length > 0 && (
         <ResultCardList data={resultCardListData} />
       )}
