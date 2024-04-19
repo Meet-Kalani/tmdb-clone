@@ -34,6 +34,7 @@
 
       .search-input {
         width: 100%;
+        font-family: "Source Sans Pro", Arial, sans-serif;
         height: 46px;
         line-height: 46px;
         font-size: 17.6px;
@@ -44,6 +45,10 @@
 
         &:focus-within {
           outline: none;
+        }
+
+        &::-webkit-input-placeholder{
+          font-weight: 400;
         }
       }
 

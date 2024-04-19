@@ -16,8 +16,8 @@ const HomePage = () => {
   const [popularData, setPopularData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
   useEffect(() => {
-    fetchPopularData("movie");
     fetchTrendingData("day");
+    fetchPopularData("tv");
   }, []);
 
   const handlePopularTabSelection = (event) => {

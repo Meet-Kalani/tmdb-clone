@@ -1,4 +1,4 @@
-// import Rating from "../Rating/Rating";
+import Rating from "../Rating/Rating";
 import PropTypes from "prop-types";
 import style from "./card.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -17,11 +17,11 @@ const Card = ({
     navigate(`/movie/${id}`);
   };
 
-  const convertDate = (date, month = 'short') => {
-    return new Date(date).toLocaleString('en-US', {
-      day: 'numeric',
+  const convertDate = (date, month = "short") => {
+    return new Date(date).toLocaleString("en-US", {
+      day: "numeric",
       month: month,
-      year: 'numeric',
+      year: "numeric",
     });
   };
 
@@ -35,16 +35,15 @@ const Card = ({
           />
         </div>
         <div className={style["card-content"]}>
-          <div className={style["liked-container"]}>
-            <span className={style["liked"]}>
-              {Math.round(vote_average * 10)}
-            </span>
+          <div className={style["rating-container"]}>
+            <Rating rating={Math.round(vote_average * 10)} size={38} />
           </div>
-          {/* <Rating rating={Math.round(vote_average * 10)} /> */}
           <a href="#" className={style["movie-name"]}>
             {original_title}
           </a>
-          <span className={style["movie-launch-date"]}>{convertDate(release_date)}</span>
+          <span className={style["movie-launch-date"]}>
+            {convertDate(release_date)}
+          </span>
         </div>
       </div>
     </div>

@@ -72,6 +72,15 @@
     gap: 20px;
     padding: 20px 40px;
 
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+      background-color: #DBDBDB;
+      border-radius: 10px;
+    }
+
     &::after {
       content: "";
       width: 60px;
@@ -79,9 +88,11 @@
       position: absolute;
       top: 0;
       right: 0;
-      background-image: linear-gradient(to right,
-          rgba(255, 255, 255, 0) 0,
-          #fff 100%);
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0,
+        #fff 100%
+      );
       will-change: opacity;
       pointer-events: none;
     }

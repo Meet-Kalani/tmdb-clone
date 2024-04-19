@@ -11,3 +11,12 @@ html {
 body {
   font-family: "Source Sans Pro", Arial, sans-serif;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  background-color: #dbdbdb;
+  border-radius: 10px;
+}
