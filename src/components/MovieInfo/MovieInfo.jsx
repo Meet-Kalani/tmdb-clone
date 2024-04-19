@@ -6,9 +6,7 @@ import {
 } from "../../constants/constants";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { BASE_URL } from "../../constants/constants";
-import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
+import { fetchWatchProviders } from "../../helpers/DataPullers";
 
 // implement trailer fix user score fix rating color also there is diff color accordingl
 
@@ -27,16 +25,7 @@ const MovieInfo = ({
   const [watchProvider, setWatchProvider] = useState({});
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/movie/${id}/watch/providers`, {
-        headers: {
-          Authorization: `Bearer ${VITE_API_READ_ACCESS_TOKEN}`,
-        },
-      })
-      .then((res) => {
-        setWatchProvider({ US: res.data.results.US });
-      })
-      .catch((err) => console.error(err));
+    fetchWatchProviders(id).then((res) => setWatchProvider({ US: res }));
   }, [id]);
 
   const watchProviderLogo =
@@ -44,15 +33,7 @@ const MovieInfo = ({
   const dateParts = release_date.split("-");
   const formattedReleaseDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`;
   const formattedRuntime = `${Math.floor(runtime / 60)}h ${runtime % 60}m`;
-  const rating = vote_average * 10;
-//   const ratingColor =
-//     rating >= 70
-//       ? "success"
-//       : rating < 70 && rating >= 40
-//         ? "warning"
-//         : rating < 40 && rating > 0
-//           ? "error"
-//           : "info";
+  const rating = Math.floor(vote_average * 10);
 
   return (
     <div className={style["movie-info"]}>

@@ -3,13 +3,7 @@ import Card from "../Card/Card";
 import Tabs from "../Tabs/Tabs";
 import style from "./cardlist.module.scss";
 
-const CardList = ({
-  tabs,
-  data,
-  handleTabSelection,
-  selectedTab,
-  label,
-}) => {
+const CardList = ({ tabs, data, handleTabSelection, selectedTab, label }) => {
   return (
     <section className={style["cardlist"]}>
       <div className={style["cardlist-header"]}>

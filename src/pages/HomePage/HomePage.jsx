@@ -1,11 +1,9 @@
 import SignupCTA from "../../components/SignupCTA/SignupCTA";
 import Hero from "../../components/Hero/Hero";
 import CardList from "../../components/CardList/CardList";
-import { BASE_URL } from "../../constants/constants";
-import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
 import { useEffect, useState } from "react";
 import style from "./home-page.module.scss";
-import axios from "axios";
+import { fetchPopularData, fetchTrendingData } from "../../helpers/DataPullers";
 
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
@@ -16,17 +14,17 @@ const HomePage = () => {
   const [popularData, setPopularData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
   useEffect(() => {
-    fetchTrendingData("day");
-    fetchPopularData("tv");
+    fetchTrendingData("day").then((res) => setTrendingData(res));
+    fetchPopularData("tv").then((res) => setPopularData(res));
   }, []);
 
   const handlePopularTabSelection = (event) => {
     const currentTab = event.target.textContent;
     setPopularSelectedTab(currentTab);
     if (currentTab === "On TV") {
-      fetchPopularData("tv");
+      fetchPopularData("tv").then((res) => setPopularData(res));
     } else {
-      fetchPopularData("movie");
+      fetchPopularData("movie").then((res) => setPopularData(res));
     }
   };
 
@@ -34,36 +32,15 @@ const HomePage = () => {
     const currentTab = event.target.textContent;
     setTrendingSelectedTab(currentTab);
     if (currentTab === "Today") {
-      fetchTrendingData("day");
+      fetchTrendingData("day").then((res) => setTrendingData(res));
     } else {
-      fetchTrendingData("week");
+      fetchTrendingData("week").then((res) => setTrendingData(res));
     }
-  };
-
-  const fetchTrendingData = (time_window) => {
-    axios
-      .get(`${BASE_URL}/trending/movie/${time_window}`, {
-        headers: {
-          Authorization: `Bearer ${VITE_API_READ_ACCESS_TOKEN}`,
-        },
-      })
-      .then((res) => setTrendingData(res.data.results))
-      .catch((err) => console.error(err));
-  };
-  const fetchPopularData = (category) => {
-    axios
-      .get(`${BASE_URL}/${category}/popular`, {
-        headers: {
-          Authorization: `Bearer ${VITE_API_READ_ACCESS_TOKEN}`,
-        },
-      })
-      .then((res) => setPopularData(res.data.results))
-      .catch((err) => console.error(err));
   };
   return (
     <>
       <Hero />
-      <div className={style['wrapper']}>
+      <div className={style["wrapper"]}>
         <CardList
           tabs={tabsOfTrendingList}
           data={trendingData}
