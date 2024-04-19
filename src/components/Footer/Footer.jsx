@@ -1,4 +1,4 @@
-import AnchorButton from "../UI/AnchorButton/AnchorButton";
+import AnchorButton from "../AnchorButton/AnchorButton";
 import Navlinks from "./Navlinks/Navlinks";
 import style from "./footer.module.scss";
 

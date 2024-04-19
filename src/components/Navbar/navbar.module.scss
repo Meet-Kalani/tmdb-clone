@@ -1,0 +1,32 @@
+.slideOut{
+    animation-name: slideOut;
+    animation-duration: 500ms;
+    animation-delay: 300ms;
+    animation-fill-mode: backwards;
+    position: absolute;
+    top: -64px;
+}
+
+@keyframes slideOut {
+    from{
+        top:0;
+    }
+    to{
+        top: -64px;
+    }
+}
+
+.slideIn{
+    animation-name: slideIn;
+    animation-duration: 500ms;
+    position: absolute;
+}
+
+@keyframes slideIn {
+    from{
+        top: -64px;
+    }
+    to{
+        top:0;
+    }
+}

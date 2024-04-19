@@ -1,11 +1,11 @@
 import SignupCTA from "../../components/SignupCTA/SignupCTA";
 import Hero from "../../components/Hero/Hero";
 import CardList from "../../components/CardList/CardList";
-import { useEffect, useState } from "react";
 import { BASE_URL } from "../../constants/constants";
+import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
+import { useEffect, useState } from "react";
 import style from "./home-page.module.scss";
 import axios from "axios";
-import { VITE_API_READ_ACCESS_TOKEN } from "../../constants/envConstants";
 
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];

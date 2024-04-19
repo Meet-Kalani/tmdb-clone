@@ -119,8 +119,6 @@ const Navbar = () => {
                   >
                     {label}
                   </a>
-                  {/* belowe HIddenConrtainer component make it use props and do the loop here and pass the props to show it in function */}
-                  {id === 1 && <HiddenContainer />}
                 </li>
               ))}
             </ul>
@@ -130,16 +128,6 @@ const Navbar = () => {
     </section>
   );
 };
-
-function HiddenContainer() {
-  return (
-    <div className={style["hidden-container"]}>
-      <p className={style["hidden-content"]}>
-        Can&#39;t find a movie or TV show? Login to create it.
-      </p>
-    </div>
-  );
-}
 
 function NestedNavlinkContainer({
   href,

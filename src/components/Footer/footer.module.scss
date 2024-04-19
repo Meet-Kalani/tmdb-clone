@@ -38,7 +38,7 @@
         aspect-ratio: auto 130/94;
         position: absolute;
         right: 0;
-        top: -38px;
+        top: -36px;
 
         @include laptop {
           display: none;
@@ -50,7 +50,7 @@
         text-decoration: none;
         color: rgba(1, 180, 228, 1);
         word-wrap: break-word;
-        font-size: $font-size-18;
+        font-size: 18.72px;
         text-transform: uppercase;
         font-weight: $font-weight-700;
         border: 2px solid #fff;

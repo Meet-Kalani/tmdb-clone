@@ -1,13 +1,13 @@
 import Footer from "./components/Footer/Footer";
-import DesktopNavbar from "./components/DesktopNavbar/DesktopNavbar";
-import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
+import Navbar from "./components/Navbar/Navbar";
+import Spacer from "./components/Spacer/Spacer";
 import Router from "./router/Router";
 
 function App() {
   return (
     <>
-      <DesktopNavbar />
-      <MobileNavbar />
+      <Navbar />
+      <Spacer />
       <Router />
       <Footer />
     </>

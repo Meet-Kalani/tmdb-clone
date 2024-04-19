@@ -10,4 +10,18 @@
     line-height: $line-height-28;
     font-size: $font-size-20;
   }
+
+  .list {
+    list-style: none;
+
+    .navlink-wrapper {
+      line-height: $line-height-24;
+
+      .navlink {
+        color: $color-white;
+        text-decoration: none;
+        font-size: 17.28px;
+      }
+    }
+  }
 }

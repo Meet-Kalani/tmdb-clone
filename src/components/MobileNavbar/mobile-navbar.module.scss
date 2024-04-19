@@ -1,10 +1,12 @@
 @use "../../styles" as *;
 
 .mobile-navbar {
-
-    @include desktop(){
-        display: none;
-    }
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  @include desktop() {
+    display: none;
+  }
 
   .header {
     background-color: rgb(3, 37, 65);

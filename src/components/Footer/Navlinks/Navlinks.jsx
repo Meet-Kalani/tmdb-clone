@@ -1,4 +1,3 @@
-import UnorderedList from "../../UI/UnorderedList/UnorderedList";
 import PropTypes from "prop-types";
 import style from "./navlinks.module.scss";
 
@@ -21,5 +20,33 @@ Navlinks.propTypes = {
     })
   ),
 };
+
+const UnorderedList = ({ data }) => {
+  return (
+    <ul className={style["list"]}>
+      {data.map(({ id, label, link }) => {
+        return (
+          <li key={id} className={style["navlink-wrapper"]}>
+            <a href={link} className={style["navlink"]}>
+              {label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+UnorderedList.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      label: PropTypes.string,
+      link: PropTypes.string,
+    })
+  ),
+};
+
 
 export default Navlinks;
