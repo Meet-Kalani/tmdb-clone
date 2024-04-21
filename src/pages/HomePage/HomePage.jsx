@@ -1,60 +1,94 @@
 import SignupCTA from "../../components/SignupCTA/SignupCTA";
 import Hero from "../../components/Hero/Hero";
-import CardList from "../../components/CardList/CardList";
+import MovieCardList from "../../components/MovieCardList/MovieCardList";
 import { useEffect, useState } from "react";
 import style from "./home-page.module.scss";
 import { fetchPopularData, fetchTrendingData } from "../../helpers/DataPullers";
-
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const [popularIsLoading, setPopularIsLoading] = useState(true);
+  const [trendingIsLoading, setTrendingIsLoading] = useState(true);
   const [popularSelectedTab, setPopularSelectedTab] = useState("On TV");
   const [trendingSelectedTab, setTrendingSelectedTab] = useState("Today");
   const [popularData, setPopularData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
-  useEffect(() => {
-    fetchTrendingData("day").then((res) => setTrendingData(res));
-    fetchPopularData("tv").then((res) => setPopularData(res));
-  }, []);
+  const navigate = useNavigate();
 
-  const handlePopularTabSelection = (event) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setTrendingData(await fetchTrendingData("day"));
+        setPopularData(await fetchPopularData("tv"));
+      } catch (err) {
+        console.error(err);
+        navigate('/not-found');
+      } finally {
+        setPopularIsLoading(false);
+        setTrendingIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [navigate]);
+
+  const handlePopularTabSelection = async (event) => {
+    setPopularIsLoading(true);
     const currentTab = event.target.textContent;
     setPopularSelectedTab(currentTab);
-    if (currentTab === "On TV") {
-      fetchPopularData("tv").then((res) => setPopularData(res));
-    } else {
-      fetchPopularData("movie").then((res) => setPopularData(res));
+    try {
+      if (currentTab === "On TV") {
+        setPopularData(await fetchPopularData("tv"));
+      } else {
+        setPopularData(await fetchPopularData("movie"));
+      }
+    } catch (err) {
+      console.error(err);
+      navigate('/not-found');
+    } finally {
+      setPopularIsLoading(false);
     }
   };
 
-  const handleTrendingTabSelection = (event) => {
+  const handleTrendingTabSelection = async (event) => {
+    setTrendingIsLoading(true);
     const currentTab = event.target.textContent;
     setTrendingSelectedTab(currentTab);
-    if (currentTab === "Today") {
-      fetchTrendingData("day").then((res) => setTrendingData(res));
-    } else {
-      fetchTrendingData("week").then((res) => setTrendingData(res));
+    try {
+      if (currentTab === "Today") {
+        setTrendingData(await fetchTrendingData("day"));
+      } else {
+        setTrendingData(await fetchTrendingData("week"));
+      }
+    } catch (err) {
+      console.error(err);
+      navigate('/not-found');
+    } finally {
+      setTrendingIsLoading(false);
     }
   };
   return (
     <>
       <Hero />
       <div className={style["wrapper"]}>
-        <CardList
+        <MovieCardList
           tabs={tabsOfTrendingList}
           data={trendingData}
           selectedTab={trendingSelectedTab}
           handleTabSelection={handleTrendingTabSelection}
           label="Trending"
+          isLoading={trendingIsLoading}
         />
       </div>
-      <CardList
+      <MovieCardList
         tabs={tabsOfPopularList}
         data={popularData}
         selectedTab={popularSelectedTab}
         handleTabSelection={handlePopularTabSelection}
         label="What's Popular"
+        isLoading={popularIsLoading}
       />
       <SignupCTA />
     </>

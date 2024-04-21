@@ -1,11 +1,9 @@
 @use "../../styles" as *;
 
 .footer {
-  background-image: radial-gradient(
-    at 30% top,
-    #0a1e30 0%,
-    rgba(3, 37, 65, 1) 70%
-  );
+  background-image: radial-gradient(at 30% top,
+      #0a1e30 0%,
+      rgba(3, 37, 65, 1) 70%);
   background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;

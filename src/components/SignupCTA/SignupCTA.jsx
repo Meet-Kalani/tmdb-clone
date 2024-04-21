@@ -18,7 +18,7 @@ const SignupCTA = () => {
               ,
               <em className={style["signup-cta__emphasized"]}>
                 track what you&#39;ve seen
-              </em>{" "}
+              </em>
               and search and filter for
               <em className={style["signup-cta__emphasized"]}>
                 what to watch next

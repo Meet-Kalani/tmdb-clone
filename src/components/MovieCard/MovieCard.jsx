@@ -1,10 +1,10 @@
 import Rating from "../Rating/Rating";
 import PropTypes from "prop-types";
-import style from "./card.module.scss";
+import style from "./movie-card.module.scss";
 import { useNavigate } from "react-router-dom";
-// correct the img src
+import { IMAGE_BASE_URL } from "../../constants/constants";
 
-const Card = ({
+const MovieCard = ({
   id,
   original_title,
   release_date,
@@ -31,7 +31,7 @@ const Card = ({
         <div className={style["card-header"]}>
           <img
             className={style["card-image"]}
-            src={`https://media.themoviedb.org/t/p/w220_and_h330_face${poster_path}`}
+            src={`${IMAGE_BASE_URL}${poster_path}`}
           />
         </div>
         <div className={style["card-content"]}>
@@ -50,7 +50,7 @@ const Card = ({
   );
 };
 
-Card.propTypes = {
+MovieCard.propTypes = {
   id: PropTypes.number,
   original_title: PropTypes.string,
   release_date: PropTypes.string,
@@ -58,4 +58,4 @@ Card.propTypes = {
   vote_average: PropTypes.number,
 };
 
-export default Card;
+export default MovieCard;

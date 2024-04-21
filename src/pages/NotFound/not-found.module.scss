@@ -1,0 +1,39 @@
+@use "../../styles/" as *;
+
+.not-found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    font-size: $font-size-16;
+
+    .wrapper {
+        max-width: 1400px;
+        width: 100%;
+        @include flex-column();
+        align-items: flex-start;
+        align-content: flex-start;
+        padding: 30px 40px;
+
+        .error-wrapper {
+            display: flex;
+            margin-bottom: 20px;
+
+            .title {
+                padding: 0;
+                margin: 0;
+                line-height: 1;
+                display: flex;
+                align-content: center;
+                font-size: 1.5em;
+                font-weight: 600;
+            }
+        }
+
+        .link {
+            color: rgba(1, 180, 228, 1);
+            text-decoration: none;
+        }
+    }
+}
