@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const CastInfo = ({ id }) => {
   const [castData, setCastData] = useState([]);
   const navigate = useNavigate();
-  console.log(id);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

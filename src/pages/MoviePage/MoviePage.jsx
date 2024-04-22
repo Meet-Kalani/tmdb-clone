@@ -1,6 +1,7 @@
 import style from "./movie-page.module.scss";
 import MovieInfo from "../../components/MovieInfo/MovieInfo";
 import CastInfo from "../../components/CastInfo/CastInfo";
+import StatsPanel from "../../components/StatsPanel/StatsPanel";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieData } from "../../helpers/DataPullers";
@@ -33,17 +34,27 @@ const MoviePage = () => {
   return (
     <div className={style["movie-page"]}>
       <div className={style["primary-info"]} style={backdropStyle}>
-        <div className={style["wrapper"]}>
+        <div className={style["movie-info-wrapper"]}>
           {Object.keys(movie).length > 0 && (
             <MovieInfo {...movie} id={movieId} />
           )}
         </div>
       </div>
       <div className={style["secondary-info"]}>
-        <div className={style['wrapper']}>
+        <div className={style["wrapper"]}>
           <CastInfo id={movieId} />
         </div>
-        <div></div>
+        <div>
+          {
+            Object.keys(movie).length > 0 && <StatsPanel
+            status={movie.status}
+            languages={movie.spoken_languages}
+            revenue={movie.revenue}
+            budget={movie.budget}
+            id={movieId}
+          />
+          }
+        </div>
       </div>
     </div>
   );

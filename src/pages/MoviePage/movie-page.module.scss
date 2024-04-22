@@ -2,16 +2,20 @@
 
 .movie-page {
 
-  .wrapper {
+  .movie-info-wrapper {
     max-width: $maxPrimaryPageWidth;
     margin: auto;
   }
-
+  
   .secondary-info{
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
     display: flex;
+    padding: 30px 40px;
 
     .wrapper{
       max-width: 1052px;
+      padding-right: 30px;
     }
   }
 }

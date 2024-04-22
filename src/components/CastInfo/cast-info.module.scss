@@ -5,12 +5,14 @@
   .title {
     font-size: 22.4px;
     margin-bottom: 20px;
+    font-weight: $font-weight-600;
   }
 
   .cast-card-container {
     display: flex;
     overflow-x: scroll;
     gap: 14px;
+    padding-bottom: 20px;
 
     &::-webkit-scrollbar {
       height: 8px;

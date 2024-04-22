@@ -82,3 +82,16 @@ export const fetchCastData = async (id) => {
     throw error;
   }
 };
+
+export const fetchKeywordsData = async (id) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/movie/${id}/keywords`,
+      defaultHeaders,
+    );
+    return res.data.keywords;
+  } catch (error) {
+    console.error("Error fetching keywords data:", error);
+    throw error;
+  }
+};
