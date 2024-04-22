@@ -8,11 +8,18 @@ const Rating = ({ rating, size }) => {
       ? "green"
       : rating < 70 && rating >= 40
         ? "yellow"
-        : rating < 40 && rating > 0
-          && "red";
+        : rating < 40 && rating > 0 && "red";
+
+  const ratingColorInner =
+    rating >= 70
+      ? "green-inner"
+      : rating < 70 && rating >= 40
+        ? "yellow-inner"
+        : rating < 40 && rating > 0 && "red-inner";
 
   return (
     <div className={style["rating-container"]}>
+      <div className={style['wrapper']}>
       <CircularProgress
         variant="determinate"
         className={`${style["rating-progressbar"]} ${style[ratingColor]}`}
@@ -20,6 +27,14 @@ const Rating = ({ rating, size }) => {
         thickness={3}
         size={size}
       />
+      <CircularProgress
+        variant="determinate"
+        className={`${style[ratingColorInner]}`}
+        value={100}
+        thickness={3}
+        size={size}
+      />
+      </div>
       <span className={style["rating-count"]}>
         {rating}
         <span className={style["percentage-sign"]}>%</span>
