@@ -24,18 +24,14 @@
                 height: 225px;
                 background-color: rgb(197, 191, 191);
                 border-radius: 8px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                @include flex-center();
             }
 
             .rating-loader-container {
                 position: relative;
 
                 .rating-loader {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    @include flex-center();
                     font-weight: 600;
                     width: 38px;
                     height: 38px;

@@ -4,9 +4,7 @@
     width: fit-content;
   border-radius: 30px;
   border: 1px solid rgba(3, 37, 65, 1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center();
 
   .tab {
     align-items: center;

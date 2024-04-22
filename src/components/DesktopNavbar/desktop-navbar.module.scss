@@ -11,9 +11,7 @@
   .header {
     background-color: rgb(3, 37, 65);
     height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center();
 
     .navbar {
       width: 100%;

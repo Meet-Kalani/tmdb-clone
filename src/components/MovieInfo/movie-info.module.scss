@@ -18,10 +18,9 @@
     .watch-provider-container {
       margin-top: -4px;
       height: 60px;
-      display: flex;
+      
       color: $color-white;
-      justify-content: center;
-      align-items: center;
+      @include flex-center();
       gap: 12px;
 
       .watch-provider-logo {
