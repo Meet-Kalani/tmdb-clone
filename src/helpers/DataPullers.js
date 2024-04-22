@@ -56,3 +56,16 @@ export const fetchWatchProviders = async (movieId) => {
     throw error;
   }
 };
+
+export const fetchYoutubeVideo = async (id) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/movie/${id}/videos`,
+      defaultHeaders,
+    );
+    return res.data.results[0].key;
+  } catch (error) {
+    console.error("Error fetching watch providers data:", error);
+    throw error;
+  }
+};

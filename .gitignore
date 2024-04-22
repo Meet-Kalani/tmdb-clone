@@ -26,3 +26,4 @@ dist-ssr
 cred.txt
 notes.txt
 .env
+.eslintcache

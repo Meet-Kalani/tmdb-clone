@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import style from "./mobile-navbar.module.scss";
+import { Link } from "react-router-dom";
 
 const primaryNavlinkData = [
   {
@@ -52,7 +53,7 @@ const MobileNavbar = () => {
   };
 
   return (
-    <section className={style['mobile-navbar']}>
+    <section className={style["mobile-navbar"]}>
       <header className={style["header"]}>
         <nav className={style["navbar"]}>
           <div className={style["wrapper"]}>
@@ -66,12 +67,12 @@ const MobileNavbar = () => {
           </div>
           <div className={style["wrapper"]}>
             <div className={style["logo-wrapper"]}>
-              <a href="#" className={style["logo"]}>
+              <Link to="/" className={style["logo"]}>
                 <img
                   src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
                   alt="Logo"
                 />
-              </a>
+              </Link>
             </div>
           </div>
           <div className={style["wrapper"]}>

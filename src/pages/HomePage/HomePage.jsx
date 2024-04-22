@@ -8,6 +8,8 @@ const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
 import { useNavigate } from "react-router-dom";
 
+// fix tv series opeingn which displayts movie instead of series
+
 const HomePage = () => {
   const [popularIsLoading, setPopularIsLoading] = useState(true);
   const [trendingIsLoading, setTrendingIsLoading] = useState(true);
@@ -69,6 +71,8 @@ const HomePage = () => {
       setTrendingIsLoading(false);
     }
   };
+
+  console.log(popularData)
   return (
     <>
       <Hero />

@@ -1,6 +1,9 @@
-@use '../../styles' as *;
+@use "../../styles" as *;
 
-.movie-page{
+.movie-page {
+
+  .wrapper {
     max-width: $maxPrimaryPageWidth;
     margin: auto;
+  }
 }
