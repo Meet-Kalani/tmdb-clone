@@ -27,3 +27,4 @@ cred.txt
 notes.txt
 .env
 .eslintcache
+.gitignore

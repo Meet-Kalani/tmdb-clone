@@ -8,3 +8,6 @@ export const WATCH_PROVIDER_LOGO_BASE_URL =
 
 export const BACKDROP_BASE_URL =
   "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces";
+
+export const CAST_PROFILE_BASE_URL =
+  "https://www.themoviedb.org/t/p/w138_and_h175_face";

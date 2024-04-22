@@ -84,13 +84,19 @@ const MovieInfo = ({
               {formattedReleaseDate}
             </span>
             {origin_country.map((country, index) => {
-              return <span key={index}>{country}</span>;
+              return <span key={index}>{` (${country})`}</span>;
             })}
+            <span className={style['divider']}>•</span>
             <span className={style["genre"]}>
-              {genres.map(({ name }) => {
-                return `${name}, `;
+              {genres.map(({ name },index) => {
+                if(index == 0){
+                  return `${name}`;
+                } else {
+                  return `, ${name}`;
+                }
               })}
             </span>
+            <span className={style['divider']}>•</span>
             <span className={style["genre"]}>{formattedRuntime}</span>
           </div>
           <div className={style["wrapper"]}>

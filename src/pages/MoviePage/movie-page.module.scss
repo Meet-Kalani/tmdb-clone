@@ -6,4 +6,12 @@
     max-width: $maxPrimaryPageWidth;
     margin: auto;
   }
+
+  .secondary-info{
+    display: flex;
+
+    .wrapper{
+      max-width: 1052px;
+    }
+  }
 }

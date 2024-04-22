@@ -65,7 +65,20 @@ export const fetchYoutubeVideo = async (id) => {
     );
     return res.data.results[0].key;
   } catch (error) {
-    console.error("Error fetching watch providers data:", error);
+    console.error("Error fetching youtube data:", error);
+    throw error;
+  }
+};
+
+export const fetchCastData = async (id) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/movie/${id}/credits`,
+      defaultHeaders,
+    );
+    return res.data.cast;
+  } catch (error) {
+    console.error("Error fetching cast data:", error);
     throw error;
   }
 };
