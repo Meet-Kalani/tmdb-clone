@@ -1,0 +1,22 @@
+@use "../../styles" as *;
+
+.recommendation-card {
+  width: 250px;
+
+  .recommendation-image {
+    border-radius: 8px;
+  }
+
+  .recommendation-info {
+    display: flex;
+    justify-content: space-between;
+
+    .recommendation-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      padding-right: 20px;
+    }
+  }
+}

@@ -108,3 +108,16 @@ export const fetchUserReviews = async (id) => {
     throw error;
   }
 };
+
+export const fetchRecommendations = async (id) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/movie/${id}/recommendations`,
+      defaultHeaders,
+    );
+    return res.data.results;
+  } catch (error) {
+    console.error("Error fetching user reviews data:", error);
+    throw error;
+  }
+};

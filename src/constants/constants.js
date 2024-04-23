@@ -14,3 +14,6 @@ export const CAST_PROFILE_BASE_URL =
 
 export const REVIEWER_PROFILE_BASE_URL =
   "https://media.themoviedb.org/t/p/w45_and_h45_face";
+
+export const RECOMMENDATION_BASE_URL =
+  "https://media.themoviedb.org/t/p/w250_and_h141_face";
