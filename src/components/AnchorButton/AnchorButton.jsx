@@ -14,7 +14,7 @@ const AnchorButton = ({ children, hyperlink, className }) => {
 };
 
 AnchorButton.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   hyperlink: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
