@@ -4,6 +4,7 @@
   position: fixed;
   z-index: 2;
   width: 100%;
+
   @include desktop() {
     display: none;
   }
@@ -27,6 +28,7 @@
 
       .menu-icon-wrapper {
         display: flex;
+
         .menu-icon {
           background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-600-menu-7ef6e3f4266b4b216a8ef5920da43fc8c96e1ee805a219c5628fed5bfac854d5.svg);
           filter: invert(1);
@@ -39,6 +41,7 @@
       .logo-wrapper {
         display: flex;
         justify-content: center;
+
         .logo {
           width: 55px;
           aspect-ratio: auto 55 / 40;
@@ -52,6 +55,7 @@
         gap: 14px;
         justify-content: flex-end;
         align-items: center;
+
         .user-icon {
           background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-7de7dfcae838579a18f4eebc5b8847230d154718e481c5cd01c477cfcbc85993.svg);
           filter: invert(1);
@@ -81,45 +85,6 @@
       .primary-navlinks {
         list-style: none;
         @include flex-column();
-
-        .navlink-wrapper {
-          margin-bottom: 10px;
-          display: inline-block;
-
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-
-          .navlink {
-            font-size: 20.8px;
-            text-decoration: none;
-            font-weight: 600;
-            color: $color-white;
-          }
-
-          .nested-navlinks {
-            margin: 10px 0 20px 0;
-            list-style: none;
-
-            .nested-navlink-wrapper {
-              padding-bottom: 10px;
-
-              &:last-of-type {
-                padding-bottom: 0;
-              }
-
-              .nested-navlink {
-                text-decoration: none;
-                color: $color-white;
-                font-size: 16px;
-              }
-            }
-          }
-
-          &:last-of-type .nested-navlinks {
-            margin-bottom: 0;
-          }
-        }
       }
 
       .secondary-navlinks {
@@ -144,6 +109,7 @@
 
       .login-navlink {
         margin-top: 10px;
+
         .navlink-wrapper {
           padding-bottom: 0;
         }

@@ -2,46 +2,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import style from "./mobile-navbar.module.scss";
 import { Link } from "react-router-dom";
-
-const primaryNavlinkData = [
-  {
-    id: 1,
-    label: "Movies",
-    href: "#",
-    nestedLinks: [
-      { id: 1, label: "Popular", href: "#" },
-      { id: 2, label: "Top Rated", href: "#" },
-      { id: 3, label: "Upcoming", href: "#" },
-      { id: 4, label: "Now Playing", href: "#" },
-    ],
-  },
-  {
-    id: 2,
-    label: "TV Shows",
-    href: "#",
-    nestedLinks: [
-      { id: 1, label: "Popular", href: "#" },
-      { id: 2, label: "Top Rated", href: "#" },
-      { id: 3, label: "On TV", href: "#" },
-      { id: 4, label: "Airing Today", href: "#" },
-    ],
-  },
-  {
-    id: 3,
-    label: "People",
-    href: "#",
-    nestedLinks: [{ id: 1, label: "Popular People", href: "#" }],
-  },
-];
-
-const secondaryNavlinkData = [
-  { id: 1, label: "Contribution Bible", href: "#" },
-  { id: 2, label: "Discussions", href: "#" },
-  { id: 3, label: "Leaderboard", href: "#" },
-  { id: 4, label: "API", href: "#" },
-  { id: 5, label: "Support", href: "#" },
-  { id: 6, label: "About", href: "#" },
-];
+import { primaryNavlinkData, secondaryNavlinkData } from "../../constants/constants";
+import NestedLink from "./NestedLink/NestedLink";
 
 const MobileNavbar = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -88,7 +50,7 @@ const MobileNavbar = () => {
           <div className={style["wrapper"]}>
             <ul className={style["primary-navlinks"]}>
               {primaryNavlinkData.map(({ id, ...props }) => {
-                return <SidebarNavigation key={id} {...props} />;
+                return <NestedLink key={id} {...props} />;
               })}
             </ul>
             <ul className={style["secondary-navlinks"]}>
@@ -114,53 +76,6 @@ const MobileNavbar = () => {
       )}
     </section>
   );
-};
-
-function SidebarNavigation({ label, href, nestedLinks }) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const handleNestedNavigationVisibility = () => {
-    setIsVisible((previousValue) => {
-      return !previousValue;
-    });
-  };
-
-  return (
-    <li className={style["navlink-wrapper"]}>
-      <a
-        href={href}
-        className={style["navlink"]}
-        onClick={handleNestedNavigationVisibility}
-      >
-        {label}
-      </a>
-      {isVisible && (
-        <ul className={style["nested-navlinks"]}>
-          {nestedLinks.map(({ id, label, href }) => {
-            return (
-              <li key={id} className={style["nested-navlink-wrapper"]}>
-                <a href={href} className={style["nested-navlink"]}>
-                  {label}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </li>
-  );
-}
-
-SidebarNavigation.propTypes = {
-  label: PropTypes.string,
-  href: PropTypes.string,
-  nestedLinks: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      label: PropTypes.string,
-      href: PropTypes.string,
-    })
-  ),
 };
 
 export default MobileNavbar;
