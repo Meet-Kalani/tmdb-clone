@@ -11,7 +11,7 @@ const useTitle = (title) => {
   }, [title]);
 };
 
-useTitle.prototypes = {
+useTitle.propTypes = {
   title: PropTypes.string,
 };
 
