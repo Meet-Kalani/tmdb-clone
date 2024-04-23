@@ -13,7 +13,7 @@ const CastInfo = ({ id }) => {
     const fetchData = async () => {
       try {
         const temp = await fetchCastData(id);
-        setCastData(temp.slice(0,9));
+        setCastData(temp.slice(0, 9));
       } catch (err) {
         navigate("/not-found");
       }
@@ -22,22 +22,28 @@ const CastInfo = ({ id }) => {
     fetchData();
   }, [id, navigate]);
 
-  console.log(castData);
-
-  return <div className={style["cast-info"]}>
-    <h3 className={style['title']}>Top Billed Cast</h3>
-    <div className={style['cast-card-container']}>
-      {
-        castData.length > 0 && castData.map(({id,profile_path,original_name,character})=>{
-          return <CastCard key={id} profile_path={profile_path} original_name={original_name} character_name={character} /> 
-        })
-      }
+  return (
+    <div className={style["cast-info"]}>
+      <h3 className={style["title"]}>Top Billed Cast</h3>
+      <div className={style["cast-card-container"]}>
+        {castData.length > 0 &&
+          castData.map(({ id, profile_path, original_name, character }) => {
+            return (
+              <CastCard
+                key={id}
+                profile_path={profile_path}
+                original_name={original_name}
+                character_name={character}
+              />
+            );
+          })}
+      </div>
     </div>
-  </div>;
+  );
 };
 
 CastInfo.propTypes = {
-  id: PropTypes.number
-}
+  id: PropTypes.number,
+};
 
 export default CastInfo;

@@ -11,3 +11,6 @@ export const BACKDROP_BASE_URL =
 
 export const CAST_PROFILE_BASE_URL =
   "https://www.themoviedb.org/t/p/w138_and_h175_face";
+
+export const REVIEWER_PROFILE_BASE_URL =
+  "https://media.themoviedb.org/t/p/w45_and_h45_face";

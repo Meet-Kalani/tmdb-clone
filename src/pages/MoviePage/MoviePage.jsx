@@ -2,6 +2,7 @@ import style from "./movie-page.module.scss";
 import MovieInfo from "../../components/MovieInfo/MovieInfo";
 import CastInfo from "../../components/CastInfo/CastInfo";
 import StatsPanel from "../../components/StatsPanel/StatsPanel";
+import UserReview from "../../components/UserReview/UserReview";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieData } from "../../helpers/DataPullers";
@@ -42,18 +43,19 @@ const MoviePage = () => {
       </div>
       <div className={style["secondary-info"]}>
         <div className={style["wrapper"]}>
-          <CastInfo id={movieId} />
+          <CastInfo id={parseInt(movieId)} />
+          <UserReview id={parseInt(movieId)} />
         </div>
         <div>
-          {
-            Object.keys(movie).length > 0 && <StatsPanel
-            status={movie.status}
-            languages={movie.spoken_languages}
-            revenue={movie.revenue}
-            budget={movie.budget}
-            id={movieId}
-          />
-          }
+          {Object.keys(movie).length > 0 && (
+            <StatsPanel
+              status={movie.status}
+              languages={movie.spoken_languages}
+              revenue={movie.revenue}
+              budget={movie.budget}
+              id={movieId}
+            />
+          )}
         </div>
       </div>
     </div>
