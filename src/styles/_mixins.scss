@@ -1,0 +1,22 @@
+@mixin flex-column() {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center(){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin laptop() {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop(){
+  @media screen and (min-width: 1025px){
+    @content;
+  }
+}

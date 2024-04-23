@@ -1,0 +1,126 @@
+@use "../../styles" as *;
+
+.hero {
+  max-width: $maxPrimaryPageWidth;
+  color: $color-white;
+  margin: auto;
+
+  .welcome-section {
+    height: 360px;
+    background-image: url("https://image.tmdb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,00192f,00baff)/iNh3BivHyg5sQRPP1KOkzguEX0H.jpg");
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @include flex-column();
+    justify-content: center;
+    padding: 30px 40px;
+    gap: 50px;
+
+    .heading {
+      .title {
+        font-size: 48px;
+        line-height: 1;
+      }
+
+      .description {
+        font-size: 32px;
+        font-weight: $font-weight-600;
+      }
+    }
+
+    .search-form {
+      position: relative;
+      display: flex;
+
+      .search-input {
+        width: 100%;
+        font-family: "Source Sans Pro", Arial, sans-serif;
+        height: 46px;
+        line-height: 46px;
+        font-size: 17.6px;
+        color: rgba(0, 0, 0, 0.5);
+        border: 0;
+        border-radius: 30px;
+        padding: 10px 120px 10px 20px;
+
+        &:focus-within {
+          outline: none;
+        }
+
+        &::-webkit-input-placeholder{
+          font-weight: 400;
+        }
+      }
+
+      .search-btn {
+        height: 46px;
+        padding: 10px 26px;
+        border: 0;
+        background: linear-gradient(to right,
+            rgba(30, 213, 169, 1) 0%,
+            rgba(1, 180, 228, 1) 100%);
+        font-family: "Source Sans Pro", Arial, sans-serif;
+        font-weight: $font-weight-700;
+        border-radius: 30px;
+        position: absolute;
+        top: 0;
+        right: -1px;
+        color: $color-white;
+        font-size: 16px;
+        cursor: pointer;
+
+        &:hover {
+          color: rgb(3, 37, 65);
+        }
+      }
+    }
+  }
+
+  .awards-section {
+    background-image: linear-gradient(to bottom right,
+        #221d93 0%,
+        #4958ab 30%,
+        #91ced8 100%);
+    height: 191.48px;
+    padding: 30px 40px;
+    @include flex-column();
+    gap: 24px;
+
+    .view-btn {
+      color: $color-white;
+      background-color: transparent;
+      border: 2px solid #fff;
+      border-radius: 30px;
+      padding: 8px 16px;
+      transition: linear 0.1s;
+      width: fit-content;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 16px;
+      font-weight: $font-weight-600;
+      font-family: "Source Sans Pro", Arial, sans-serif;
+
+      .right-arrow {
+        background-image: url("https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-830-arrow-thin-right-white-27b356aac3227210acca2ae44fcfed8a6c0ca7adde4e867fe9793cae4ebda9d1.svg");
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+      }
+    }
+  }
+
+  @include laptop {
+    .welcome-section {
+      height: 100%;
+      min-height: 300px;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .awards-section {
+      height: 171.48px;
+      padding: 20px;
+    }
+  }
+}
