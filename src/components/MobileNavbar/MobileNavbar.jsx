@@ -1,8 +1,7 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import style from "./mobile-navbar.module.scss";
 import { Link } from "react-router-dom";
-import { primaryNavlinkData, secondaryNavlinkData } from "../../constants/constants";
+import { mobilePrimaryNavlinkData, mobileSecondaryNavlinkData } from "../../constants/constants";
 import NestedLink from "./NestedLink/NestedLink";
 
 const MobileNavbar = () => {
@@ -49,12 +48,12 @@ const MobileNavbar = () => {
         <aside className={style["sidebar"]}>
           <div className={style["wrapper"]}>
             <ul className={style["primary-navlinks"]}>
-              {primaryNavlinkData.map(({ id, ...props }) => {
+              {mobilePrimaryNavlinkData.map(({ id, ...props }) => {
                 return <NestedLink key={id} {...props} />;
               })}
             </ul>
             <ul className={style["secondary-navlinks"]}>
-              {secondaryNavlinkData.map(({ id, label, href }) => {
+              {mobileSecondaryNavlinkData.map(({ id, label, href }) => {
                 return (
                   <li key={id} className={style["navlink-wrapper"]}>
                     <a href={href} className={style["navlink"]}>

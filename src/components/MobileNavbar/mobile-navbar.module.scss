@@ -78,6 +78,7 @@
     height: calc(100vh - 64px);
     width: 90%;
     background-color: rgba(3, 37, 65, 0.9);
+    backdrop-filter: blur(20px);
 
     .wrapper {
       padding: 20px;
