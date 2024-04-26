@@ -8,8 +8,13 @@
     font-weight: $font-weight-600;
     display: flex;
     padding: 8px;
+
+    &:focus + .nested-navlinks-wrapper {
+      visibility: visible;
+    }
   }
   .nested-navlinks-wrapper {
+    visibility: hidden;
     position: absolute;
     background-color: $color-white;
     padding: 8px 0;
@@ -34,6 +39,9 @@
           color: $color-black;
           padding: 3px 64px 3px 24px;
         }
+      }
+      .popular {
+        width: max-content;
       }
     }
   }

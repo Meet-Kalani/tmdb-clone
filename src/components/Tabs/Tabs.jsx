@@ -7,18 +7,17 @@ const Tabs = ({ labels, handleTabSelection, selectedTab }) => (
       <div
         className={`${style.tab} ${selectedTab === label && style["selected-tab"]}`}
         key={crypto.randomUUID()}
-        role="button"
-        tabIndex={0}
-        onClick={handleTabSelection}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleTabSelection();
-          }
-        }}
       >
         <button
           className={`${style["tab-title"]} ${selectedTab === label && style.selected}`}
           type="button"
+          value={label}
+          onClick={handleTabSelection}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleTabSelection();
+            }
+          }}
         >
           {label}
         </button>

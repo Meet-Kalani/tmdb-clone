@@ -16,7 +16,9 @@
     padding: 4px 20px;
     white-space: nowrap;
     .tab-title {
+      cursor: pointer;
       font-size: 16px;
+      font-weight: $font-weight-600;
       color: rgb(3, 37, 65);
       text-decoration: none;
       border: none;

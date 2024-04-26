@@ -1,11 +1,10 @@
 @use "../../styles/" as *;
 
-.not-found {
+.error-page {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  align-content: flex-start;
   font-size: 16px;
   min-height: calc(100% - 386px);
 
@@ -21,7 +20,7 @@
     align-content: flex-start;
     padding: 30px 40px;
 
-    .error-wrapper {
+    .title-wrapper {
       display: flex;
       margin-bottom: 20px;
 
@@ -33,9 +32,11 @@
       }
     }
 
-    .link {
-      color: rgba(1, 180, 228, 1);
-      text-decoration: none;
+    .navlink {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      gap: 6px;
     }
   }
 }

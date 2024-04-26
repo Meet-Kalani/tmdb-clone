@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./mobile-navbar.module.scss";
-import { mobilePrimaryNavlinkData, mobileSecondaryNavlinkData } from "../../constants/constants";
+import { MOBILE_PRIMARY_NAVLINK_DATA, MOBILE_SECONDARY_NAVLINK_DATA } from "../../constants/constants";
 import NestedLink from "./NestedLink/NestedLink";
 
 const MobileNavbar = () => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
-  const handleSidebarVisibility = () => {
+  const toggleSidebarVisibility = () => {
     setIsSidebarVisible((previousValue) => !previousValue);
   };
 
@@ -19,7 +19,7 @@ const MobileNavbar = () => {
             <button
               className={style["menu-icon-wrapper"]}
               type="button"
-              onClick={handleSidebarVisibility}
+              onClick={toggleSidebarVisibility}
             >
               <img alt="menu icon" className={style["menu-icon"]} src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-600-menu-7ef6e3f4266b4b216a8ef5920da43fc8c96e1ee805a219c5628fed5bfac854d5.svg" />
             </button>
@@ -46,12 +46,12 @@ const MobileNavbar = () => {
         <aside className={style.sidebar}>
           <div className={style.wrapper}>
             <ul className={style["primary-navlinks"]}>
-              {mobilePrimaryNavlinkData.map(({
+              {MOBILE_PRIMARY_NAVLINK_DATA.map(({
                 id, label, href, nestedLinks,
               }) => <NestedLink href={href} key={id} label={label} nestedLinks={nestedLinks} />)}
             </ul>
             <ul className={style["secondary-navlinks"]}>
-              {mobileSecondaryNavlinkData.map(({ id, label, href }) => (
+              {MOBILE_SECONDARY_NAVLINK_DATA.map(({ id, label, href }) => (
                 <li className={style["navlink-wrapper"]} key={id}>
                   <a className={style.navlink} href={href}>
                     {label}

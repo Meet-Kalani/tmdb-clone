@@ -1,100 +1,70 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import SignupCTA from "../../components/SignupCTA/SignupCTA";
 import Hero from "../../components/Hero/Hero";
 import MovieCardList from "../../components/MovieCardList/MovieCardList";
 import style from "./home-page.module.scss";
-import { fetchPopularData, fetchTrendingData } from "../../helpers/DataPullers";
+import { fetchPopularData, fetchTrendingData } from "../../service/api";
+import { CONTENT_TYPE, TIME_WINDOW } from "../../constants/constants";
+import 'react-toastify/dist/ReactToastify.css';
+import notifyError from "../../utils/helpers";
 
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
+const defaultPopularTab = tabsOfPopularList[0];
+const defaultTrendingTab = tabsOfTrendingList[0];
 
 const HomePage = () => {
-  const [popularIsLoading, setPopularIsLoading] = useState(true);
-  const [trendingIsLoading, setTrendingIsLoading] = useState(true);
-  const [popularSelectedTab, setPopularSelectedTab] = useState("On TV");
-  const [trendingSelectedTab, setTrendingSelectedTab] = useState("Today");
-  const [popularData, setPopularData] = useState([]);
-  const [trendingData, setTrendingData] = useState([]);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState({ popular: true, trending: true });
+  const [selectedTab, setSelectedTab] = useState({ popular: defaultPopularTab, trending: defaultTrendingTab });
+  const [data, setData] = useState({ popular: [], trending: [] });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setTrendingData(await fetchTrendingData("day"));
-        setPopularData(await fetchPopularData("tv"));
+        const [trendingResponse, popularResponse] = await Promise.all([
+          fetchTrendingData(selectedTab.trending === defaultTrendingTab ? TIME_WINDOW.DAY : TIME_WINDOW.WEEK),
+          fetchPopularData(selectedTab.popular === defaultPopularTab ? CONTENT_TYPE.TV : CONTENT_TYPE.MOVIE),
+        ]);
+        setData({ trending: trendingResponse, popular: popularResponse });
       }
       catch (err) {
-        navigate("/not-found");
+        notifyError(err, style.toast);
       }
       finally {
-        setPopularIsLoading(false);
-        setTrendingIsLoading(false);
+        setIsLoading({ popular: false, trending: false });
       }
     };
 
     fetchData();
-  }, [navigate]);
+  }, [selectedTab]);
 
-  const handlePopularTabSelection = async (event) => {
-    setPopularIsLoading(true);
-    const currentTab = event.target.textContent;
-    setPopularSelectedTab(currentTab);
-    try {
-      if (currentTab === "On TV") {
-        setPopularData(await fetchPopularData("tv"));
-      }
-      else {
-        setPopularData(await fetchPopularData("movie"));
-      }
-    }
-    catch (err) {
-      navigate("/not-found");
-    }
-    finally {
-      setPopularIsLoading(false);
-    }
-  };
-
-  const handleTrendingTabSelection = async (event) => {
-    setTrendingIsLoading(true);
-    const currentTab = event.target.textContent;
-    setTrendingSelectedTab(currentTab);
-    try {
-      if (currentTab === "Today") {
-        setTrendingData(await fetchTrendingData("day"));
-      }
-      else {
-        setTrendingData(await fetchTrendingData("week"));
-      }
-    }
-    catch (err) {
-      navigate("/not-found");
-    }
-    finally {
-      setTrendingIsLoading(false);
-    }
+  const handleTabSelection = async (event, type) => {
+    setIsLoading((prevState) => ({ ...prevState, [type]: true }));
+    const currentTab = event.target.value;
+    setSelectedTab((prevState) => ({ ...prevState, [type]: currentTab }));
   };
 
   return (
     <>
+      <ToastContainer />
       <Hero />
       <div className={style.wrapper}>
         <MovieCardList
-          data={trendingData}
-          handleTabSelection={handleTrendingTabSelection}
-          isLoading={trendingIsLoading}
+          data={data.trending}
+          handleTabSelection={(event) => handleTabSelection(event, 'trending')}
+          isLoading={isLoading.trending}
           label="Trending"
-          selectedTab={trendingSelectedTab}
+          selectedTab={selectedTab.trending}
           tabs={tabsOfTrendingList}
         />
       </div>
       <MovieCardList
-        data={popularData}
-        handleTabSelection={handlePopularTabSelection}
-        isLoading={popularIsLoading}
+        data={data.popular}
+        handleTabSelection={(event) => handleTabSelection(event, 'popular')}
+        isLoading={isLoading.popular}
         label="What's Popular"
-        selectedTab={popularSelectedTab}
+        selectedTab={selectedTab.popular}
         tabs={tabsOfPopularList}
       />
       <SignupCTA />

@@ -5,7 +5,7 @@ import style from "./nested-link.module.scss";
 const NestedLink = ({ label, href, nestedLinks }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleNestedNavigationVisibility = () => {
+  const toggleNestedNavigationVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
   };
 
@@ -14,7 +14,7 @@ const NestedLink = ({ label, href, nestedLinks }) => {
       <a
         className={style.navlink}
         href={href}
-        onClick={handleNestedNavigationVisibility}
+        onClick={toggleNestedNavigationVisibility}
       >
         {label}
       </a>

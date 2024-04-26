@@ -2,7 +2,7 @@ export const BASE_URL = "https://api.themoviedb.org/3";
 
 export const IMAGE_BASE_URL = "https://media.themoviedb.org/t/p/w220_and_h330_face";
 
-export const mobilePrimaryNavlinkData = [
+export const MOBILE_PRIMARY_NAVLINK_DATA = [
   {
     id: 1,
     label: "Movies",
@@ -33,7 +33,7 @@ export const mobilePrimaryNavlinkData = [
   },
 ];
 
-export const mobileSecondaryNavlinkData = [
+export const MOBILE_SECONDARY_NAVLINK_DATA = [
   { id: 1, label: "Contribution Bible", href: "#" },
   { id: 2, label: "Discussions", href: "#" },
   { id: 3, label: "Leaderboard", href: "#" },
@@ -42,7 +42,7 @@ export const mobileSecondaryNavlinkData = [
   { id: 6, label: "About", href: "#" },
 ];
 
-export const desktopPrimaryNavlinkData = [
+export const DESKTOP_PRIMARY_NAVLINK_DATA = [
   {
     id: 1,
     label: "Movies",
@@ -84,8 +84,18 @@ export const desktopPrimaryNavlinkData = [
   },
 ];
 
-export const desktopCTANavlinkData = [
+export const DESKTOP_CTA_NAVLINK_DATA = [
   { id: 2, label: "EN", href: "#" },
   { id: 3, label: "Login", href: "#" },
   { id: 4, label: "Join TMDB", href: "#" },
 ];
+
+export const CONTENT_TYPE = {
+  TV: "tv",
+  MOVIE: "movie",
+};
+
+export const TIME_WINDOW = {
+  DAY: 'day',
+  WEEK: "week",
+};
