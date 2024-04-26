@@ -26,12 +26,12 @@ const HomePage = () => {
         setPopularData(await fetchPopularData("tv"));
       } catch (err) {
         console.error(err);
-        navigate('/not-found');
+        navigate("/not-found");
       } finally {
         setPopularIsLoading(false);
         setTrendingIsLoading(false);
       }
-    }
+    };
 
     fetchData();
   }, [navigate]);
@@ -48,7 +48,7 @@ const HomePage = () => {
       }
     } catch (err) {
       console.error(err);
-      navigate('/not-found');
+      navigate("/not-found");
     } finally {
       setPopularIsLoading(false);
     }
@@ -66,13 +66,11 @@ const HomePage = () => {
       }
     } catch (err) {
       console.error(err);
-      navigate('/not-found');
+      navigate("/not-found");
     } finally {
       setTrendingIsLoading(false);
     }
   };
-
-  console.log(popularData)
   return (
     <>
       <Hero />

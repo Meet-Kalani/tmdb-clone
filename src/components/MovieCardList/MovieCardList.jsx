@@ -33,6 +33,7 @@ const MovieCardList = ({ tabs, data, handleTabSelection, selectedTab, label, isL
               return (
                 <MovieCard
                   key={id}
+                  selectedTab={selectedTab}
                   id={id}
                   original_title={original_title || name}
                   release_date={release_date || first_air_date}

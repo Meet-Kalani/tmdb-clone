@@ -44,13 +44,23 @@ export const fetchMovieData = async (movieId) => {
   }
 };
 
-export const fetchWatchProviders = async (movieId) => {
+export const fetchTVData = async (movieId) => {
+  try {
+    const res = await axios.get(`${BASE_URL}/tv/${movieId}`, defaultHeaders);
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching movie data:", error);
+    throw error;
+  }
+};
+
+export const fetchWatchProviders = async (movieId, contentType) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/movie/${movieId}/watch/providers`,
+      `${BASE_URL}/${contentType}/${movieId}/watch/providers`,
       defaultHeaders,
     );
-    return res.data.results.US;
+    return res.data.results;
   } catch (error) {
     console.error("Error fetching watch providers data:", error);
     throw error;
@@ -70,10 +80,10 @@ export const fetchYoutubeVideo = async (id) => {
   }
 };
 
-export const fetchCastData = async (id) => {
+export const fetchCastData = async (id, contentType) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/movie/${id}/credits`,
+      `${BASE_URL}/${contentType}/${id}/credits`,
       defaultHeaders,
     );
     return res.data.cast;
@@ -83,23 +93,23 @@ export const fetchCastData = async (id) => {
   }
 };
 
-export const fetchKeywordsData = async (id) => {
+export const fetchKeywordsData = async (id, contentType) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/movie/${id}/keywords`,
+      `${BASE_URL}/${contentType}/${id}/keywords`,
       defaultHeaders,
     );
-    return res.data.keywords;
+    return res.data;
   } catch (error) {
     console.error("Error fetching keywords data:", error);
     throw error;
   }
 };
 
-export const fetchUserReviews = async (id) => {
+export const fetchUserReviews = async (id, contentType) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/movie/${id}/reviews`,
+      `${BASE_URL}/${contentType}/${id}/reviews`,
       defaultHeaders,
     );
     return res.data;
@@ -109,10 +119,10 @@ export const fetchUserReviews = async (id) => {
   }
 };
 
-export const fetchRecommendations = async (id) => {
+export const fetchRecommendations = async (id, contentType) => {
   try {
     const res = await axios.get(
-      `${BASE_URL}/movie/${id}/recommendations`,
+      `${BASE_URL}/${contentType}/${id}/recommendations`,
       defaultHeaders,
     );
     return res.data.results;

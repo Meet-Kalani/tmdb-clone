@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import CastCard from "../CastCard/CastCard";
 import PropTypes from "prop-types";
 
-const CastInfo = ({ id }) => {
+const CastInfo = ({ id ,contentType}) => {
   const [castData, setCastData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const temp = await fetchCastData(id);
+        const temp = await fetchCastData(id,contentType);
         setCastData(temp.slice(0, 9));
       } catch (err) {
         navigate("/not-found");
@@ -20,7 +20,7 @@ const CastInfo = ({ id }) => {
     };
 
     fetchData();
-  }, [id, navigate]);
+  }, [id, navigate,contentType]);
 
   return (
     <div className={style["cast-info"]}>
@@ -44,6 +44,7 @@ const CastInfo = ({ id }) => {
 
 CastInfo.propTypes = {
   id: PropTypes.number,
+  contentType:PropTypes.string
 };
 
 export default CastInfo;

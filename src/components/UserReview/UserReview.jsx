@@ -3,36 +3,39 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { fetchUserReviews } from "../../helpers/DataPullers";
 import { REVIEWER_PROFILE_BASE_URL } from "../../constants/constants";
-import { formatDate } from "../../helpers/Formatters";
 import PropTypes from "prop-types";
 
-const UserReview = ({ id }) => {
+const formatDate = (inputDate) =>
+  new Date(inputDate).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+const UserReview = ({ id, contentType }) => {
   const [userReview, setUserReview] = useState({});
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setUserReview(await fetchUserReviews(id));
+        setUserReview(await fetchUserReviews(id,contentType));
       } catch (err) {
         console.error(err);
         navigate("/not-found");
       }
     };
     fetchData();
-  }, [id, navigate]);
-  const image_url =
-    Object.keys(userReview).length > 0 &&
-    `${REVIEWER_PROFILE_BASE_URL}${userReview.results[0].author_details.avatar_path}`;
-  const rating =
-    Object.keys(userReview).length > 0 &&
-    userReview.results[0].author_details.rating * 10;
-  const author =
-    Object.keys(userReview).length > 0 && userReview.results[0].author;
-  const created_at =
-    Object.keys(userReview).length > 0 &&
-    formatDate(userReview.results[0].created_at);
-  const review =
-    Object.keys(userReview).length > 0 && userReview.results[0].content;
+  }, [id, navigate,contentType]);
+
+  if (Object.keys(userReview).length === 0 || userReview.total_results === 0) {
+    return;
+  }
+  const image_url = `${REVIEWER_PROFILE_BASE_URL}${userReview.results[0].author_details.avatar_path}`;
+  const rating = userReview.results[0].author_details.rating * 10;
+  const author = userReview.results[0].author;
+  const created_at = formatDate(userReview.results[0].created_at);
+  const review = userReview.results[0].content;
 
   return (
     <div className={style["user-review"]}>
@@ -47,7 +50,10 @@ const UserReview = ({ id }) => {
       </div>
       <div className={style["review-body"]}>
         <div className={style["review-author"]}>
-          <img src={image_url} className={style["profile-image"]} />
+          <img
+            src={image_url ? image_url : undefined}
+            className={style["profile-image"]}
+          />
           <div className={style["author-details"]}>
             <h3 className={style["author-name"]}>A review by {author}</h3>
             <div className={style["rating-details"]}>
@@ -74,6 +80,7 @@ const UserReview = ({ id }) => {
 
 UserReview.propTypes = {
   id: PropTypes.number,
+  contentType: PropTypes.string,
 };
 
 export default UserReview;

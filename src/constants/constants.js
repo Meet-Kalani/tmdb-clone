@@ -17,3 +17,8 @@ export const REVIEWER_PROFILE_BASE_URL =
 
 export const RECOMMENDATION_BASE_URL =
   "https://media.themoviedb.org/t/p/w250_and_h141_face";
+
+export const NETWORKS_LOGO_BASE_URL = "https://image.tmdb.org/t/p/h30";
+
+export const CURRENT_SEASON_POSTER_BASE_URL =
+  "https://www.themoviedb.org/t/p/w130_and_h195_bestv2";

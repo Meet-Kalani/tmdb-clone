@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import style from "./stats-panel.module.scss";
+import Keywords from "./Keywords/Keywords";
 import PropTypes from "prop-types";
-import { fetchKeywordsData } from "../../helpers/DataPullers";
-import { Link, useNavigate } from "react-router-dom";
+import { NETWORKS_LOGO_BASE_URL } from "../../constants/constants";
 
 function formatCurrency(number) {
   return (
@@ -13,7 +12,16 @@ function formatCurrency(number) {
     })
   );
 }
-const StatsPanel = ({ id, status, languages, budget, revenue }) => {
+const StatsPanel = ({
+  id,
+  status,
+  spoken_languages,
+  budget,
+  type,
+  networks,
+  revenue,
+  contentType,
+}) => {
   const formattedBudget = formatCurrency(budget);
   const formattedRevenue = formatCurrency(revenue);
 
@@ -23,66 +31,51 @@ const StatsPanel = ({ id, status, languages, budget, revenue }) => {
         <span className={style["label"]}>Status</span>
         <span>{status}</span>
       </div>
+      {contentType === "tv" && (
+        <>
+          <div className={style["wrapper"]}>
+            <span className={style["label"]}>Networks</span>
+            <img src={`${NETWORKS_LOGO_BASE_URL}${networks[0].logo_path}`} />
+          </div>
+          <div className={style["wrapper"]}>
+            <span className={style["label"]}>Type</span>
+            <span>{type}</span>
+          </div>
+        </>
+      )}
       <div className={style["wrapper"]}>
         <span className={style["label"]}>Original Language</span>
-        <span>{languages[0].english_name}</span>
+        <span>{spoken_languages[0].english_name}</span>
       </div>
-      <div className={style["wrapper"]}>
-        <span className={style["label"]}>Budget</span>
-        <span>{formattedBudget}</span>
-      </div>
-      <div className={style["wrapper"]}>
-        <span className={style["label"]}>Revenue</span>
-        <span>{formattedRevenue}</span>
-      </div>
-      <div className={style["keywords-container"]}>
-        <span className={style["label"]}>Keywords</span>
-        <Keywords id={id} />
-      </div>
+      {contentType === "movie" && (
+        <>
+          <div className={style["wrapper"]}>
+            <span className={style["label"]}>Budget</span>
+            <span>{formattedBudget}</span>
+          </div>
+          <div className={style["wrapper"]}>
+            <span className={style["label"]}>Revenue</span>
+            <span>{formattedRevenue}</span>
+          </div>
+        </>
+      )}
+
+      <Keywords id={id} contentType={contentType} />
     </div>
   );
-};
-
-const Keywords = ({ id }) => {
-  const [keywords, setKeywords] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setKeywords(await fetchKeywordsData(id));
-      } catch (err) {
-        console.error(err);
-        navigate("/not-found");
-      }
-    };
-
-    fetchData();
-  }, [id, navigate]);
-
-  return (
-    <div className={style["keywords-wrapper"]}>
-      {keywords.map(({ id, name }) => {
-        return (
-          <Link key={id} to="/" className={style["keyword"]}>
-            {name}
-          </Link>
-        );
-      })}
-    </div>
-  );
-};
-
-Keywords.propTypes = {
-  id: PropTypes.number,
 };
 
 StatsPanel.propTypes = {
   id: PropTypes.number,
+  contentType: PropTypes.string,
+  type:PropTypes.string,
+  networks:PropTypes.arrayOf(PropTypes.shape({
+    logo_path: PropTypes.string
+  })),
   status: PropTypes.string,
   budget: PropTypes.number,
   revenue: PropTypes.number,
-  languages: PropTypes.arrayOf(
+  spoken_languages: PropTypes.arrayOf(
     PropTypes.shape({
       english_name: PropTypes.string,
       iso_639_1: PropTypes.string,

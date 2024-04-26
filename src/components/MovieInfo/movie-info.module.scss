@@ -45,6 +45,9 @@
         }
       }
     }
+    @include laptop {
+      width: fit-content;
+    }
   }
 
   .content {
@@ -55,17 +58,28 @@
       .name {
         font-size: 35.2px;
         display: inline;
+        @include laptop {
+          font-size: 22.45px;
+        }
       }
       .release-year {
         font-size: 35.2px;
         opacity: 0.8;
+        @include laptop{
+          font-size: 17.96px;
+        }
+      }
+      @include laptop{
+        text-align: center;
       }
     }
 
-    .info-container{
-
-      .divider{
+    .info-container {
+      .divider {
         padding: 0 8px;
+      }
+      @include laptop{
+        text-align: center;
       }
     }
 
@@ -122,6 +136,22 @@
         margin: 10px 0 8px 0;
       }
     }
+
+    .creator-container{
+      margin-top: 30px;
+      .creator-name{
+        font-weight: $font-weight-700;
+        display: block;
+      }
+      .creator-label{
+        font-size: 14.4px;
+      }
+    }
+  }
+
+  @include laptop {
+    flex-direction: column;
+    padding: 20px;
   }
 }
 
@@ -135,7 +165,7 @@
   @include flex-center();
 
   .play-trailer {
-    width: 1179px;
+    width: 1180px;
     .header {
       background-color: $color-black;
       border-radius: 4px 4px 0 0;
@@ -156,6 +186,24 @@
         cursor: pointer;
         font-size: 20px;
       }
+    }
+
+    .content{
+      width: 1180px;
+      height: 662px;
+
+      .yt-iframe{
+        width: 100%;
+        height: 100%;
+      }
+
+      @include laptop{
+        width: 100%;
+      }
+    }
+
+    @include laptop{
+      width: 90%;
     }
   }
 }

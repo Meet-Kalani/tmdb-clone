@@ -13,6 +13,10 @@
     .review-title {
       font-size: 22.4px;
       font-weight: $font-weight-600;
+
+      @include laptop{
+        font-size: 19.2px;
+      }
     }
     .review-count-container {
       font-size: 17.6px;
@@ -29,6 +33,13 @@
       .review-count {
         opacity: 0.6;
       }
+      @include laptop{
+        font-size: 16px;
+      }
+    }
+
+    @include laptop{
+      justify-content: space-between;
     }
   }
 
@@ -76,6 +87,7 @@
             }
 
             .rating-value {
+              font-size: 14.4px;
               .percentage-sign {
                 font-size: 10.4px;
                 position: relative;
@@ -106,5 +118,8 @@
       line-clamp: 5;
       -webkit-line-clamp: 5;
     }
+  }
+  @include laptop{
+    padding: 20px;
   }
 }

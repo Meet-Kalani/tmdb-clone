@@ -7,6 +7,10 @@
     font-size: 22.4px;
     margin-bottom: 20px;
     font-weight: $font-weight-600;
+    @include laptop{
+      padding: 0 20px;
+      font-size: 19.2px;
+    }
   }
 
   .cast-card-container {
@@ -39,5 +43,12 @@
       will-change: opacity;
       pointer-events: none;
     }
+    @include laptop{
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  @include laptop{
+    padding: 20px 0;
   }
 }

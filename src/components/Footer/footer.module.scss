@@ -10,7 +10,7 @@
   font-size: $font-size-16;
 
   @include laptop {
-    padding: $padding-40 0;
+    padding: 40px 0 0;
   }
 
   .footer-navbar {
@@ -21,7 +21,7 @@
 
     @include laptop {
       flex-direction: column;
-      padding: 0 $padding-20;
+      padding: 0 $padding-20 40px;
     }
 
     .logo-container {

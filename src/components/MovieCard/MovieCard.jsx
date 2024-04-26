@@ -10,11 +10,16 @@ const MovieCard = ({
   release_date,
   poster_path,
   vote_average,
+  selectedTab,
 }) => {
   const navigate = useNavigate();
 
   const handleCardOpener = () => {
-    navigate(`/movie/${id}`);
+    if (selectedTab === "On TV") {
+      navigate(`/tv/${id}`);
+    } else {
+      navigate(`/movie/${id}`);
+    }
   };
 
   const convertDate = (date, month = "short") => {
@@ -56,6 +61,7 @@ MovieCard.propTypes = {
   release_date: PropTypes.string,
   poster_path: PropTypes.string,
   vote_average: PropTypes.number,
+  selectedTab: PropTypes.string,
 };
 
 export default MovieCard;

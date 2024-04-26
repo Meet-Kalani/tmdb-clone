@@ -13,8 +13,6 @@ import Rating from "../Rating/Rating";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 
-// implement trailer fix user score fix rating color also there is diff color accordingl
-// fix rating background circle color
 const MovieInfo = ({
   id,
   original_title,
@@ -25,6 +23,8 @@ const MovieInfo = ({
   genres,
   runtime,
   vote_average,
+  creator,
+  contentType,
   tagline,
 }) => {
   const [watchProvider, setWatchProvider] = useState({});
@@ -34,14 +34,35 @@ const MovieInfo = ({
 
   useEffect(() => {
     try {
-      fetchWatchProviders(id).then((res) => setWatchProvider({ US: res }));
+      fetchWatchProviders(id,contentType).then((res) => {
+        if (res) {
+          setWatchProvider(res);
+        }
+      });
     } catch (err) {
       navigate("/not-found");
     }
-  }, [id, navigate]);
-  console.log(watchProvider)
-  const watchProviderLogo = "s";
-  // Object.keys(watchProvider).length > 0 && watchProvider.US.buy[0].logo_path;
+  }, [id, navigate,contentType]);
+
+  function getLogoPath(provider) {
+    if (provider && provider.length > 0 && provider[0].logo_path) {
+      return provider[0].logo_path;
+    }
+    return "/seGSXajazLMCKGB5hnRCidtjay1.jpg";
+  }
+
+  const watchProviderSlug =
+    watchProvider && watchProvider.IN
+      ? watchProvider.IN.flatrate
+        ? getLogoPath(watchProvider.IN.flatrate)
+        : watchProvider.IN.buy
+          ? getLogoPath(watchProvider.IN.buy)
+          : watchProvider.IN.ads
+            ? getLogoPath(watchProvider.IN.ads)
+            : watchProvider.IN.free
+              ? getLogoPath(watchProvider.IN.free)
+              : "/seGSXajazLMCKGB5hnRCidtjay1.jpg"
+      : "/seGSXajazLMCKGB5hnRCidtjay1.jpg";
   const dateParts = release_date.split("-");
   const formattedReleaseDate = `${dateParts[1]}/${dateParts[2]}/${dateParts[0]}`;
   const formattedRuntime = `${Math.floor(runtime / 60)}h ${runtime % 60}m`;
@@ -49,6 +70,12 @@ const MovieInfo = ({
 
   const handlePlayTrailer = async () => {
     setIsIframeVisible((previousValue) => !previousValue);
+    if (!isIframeVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "initial";
+    }
+
     setYoutubeId(await fetchYoutubeVideo(id));
   };
   return (
@@ -59,45 +86,55 @@ const MovieInfo = ({
             src={`${IMAGE_BASE_URL}${poster_path}`}
             className={style["poster"]}
           />
-          <div className={style["watch-provider-container"]}>
-            <img
-              className={style["watch-provider-logo"]}
-              src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderLogo}`}
-            />
-            <div className={style["watch-provider-link-wrapper"]}>
-              <span className={style["label"]}>Now Streaming</span>
-              <a href="#" className={style["watch-provider-link"]}>
-                Watch Now
-              </a>
+          {watchProvider && watchProviderSlug && (
+            <div className={style["watch-provider-container"]}>
+              <img
+                className={style["watch-provider-logo"]}
+                src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderSlug}`}
+              />
+              <div className={style["watch-provider-link-wrapper"]}>
+                <span className={style["label"]}>Now Streaming</span>
+                <a href="#" className={style["watch-provider-link"]}>
+                  Watch Now
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className={style["content"]}>
           <div className={style["name-container"]}>
-            <h2 className={style["name"]}>{original_title}</h2>
+            <h2 className={style["name"]}>{original_title}</h2>{" "}
             <span
               className={style["release-year"]}
             >{`(${release_date.slice(0, 4)})`}</span>
           </div>
           <div className={style["info-container"]}>
-            <span className={style["release-date"]}>
-              {formattedReleaseDate}
-            </span>
-            {origin_country.map((country, index) => {
-              return <span key={index}>{` (${country})`}</span>;
-            })}
-            <span className={style['divider']}>•</span>
+            {contentType === 'movie' && (
+              <>
+                <span className={style["release-date"]}>
+                  {formattedReleaseDate}
+                </span>
+                {origin_country.map((country, index) => {
+                  return <span key={index}>{` (${country})`}</span>;
+                })}
+                <span className={style["divider"]}>•</span>
+              </>
+            )}
             <span className={style["genre"]}>
-              {genres.map(({ name },index) => {
-                if(index == 0){
+              {genres.map(({ name }, index) => {
+                if (index == 0) {
                   return `${name}`;
                 } else {
                   return `, ${name}`;
                 }
               })}
             </span>
-            <span className={style['divider']}>•</span>
-            <span className={style["genre"]}>{formattedRuntime}</span>
+            {contentType === 'movie' && (
+              <>
+                <span className={style["divider"]}>•</span>
+                <span className={style["genre"]}>{formattedRuntime}</span>
+              </>
+            )}
           </div>
           <div className={style["wrapper"]}>
             <div className={style["rating-container"]}>
@@ -106,21 +143,29 @@ const MovieInfo = ({
                 User <br /> Score
               </span>
             </div>
-            <div
-              className={style["play-link-container"]}
-              onClick={handlePlayTrailer}
-            >
-              <span className={style["play-icon"]}></span>
-              <a href="#" className={style["play-link"]}>
-                Play Trailer
-              </a>
-            </div>
+            {contentType === 'movie' && (
+              <div
+                className={style["play-link-container"]}
+                onClick={handlePlayTrailer}
+              >
+                <span className={style["play-icon"]}></span>
+                <a href="#" className={style["play-link"]}>
+                  Play Trailer
+                </a>
+              </div>
+            )}
           </div>
           <div className={style["overview-container"]}>
-            <span className={style["tagline"]}>{tagline}</span>
+            {contentType === 'movie' && <span className={style["tagline"]}>{tagline}</span>}
             <span className={style["overview-title"]}>Overview</span>
             <p className={style["overview"]}>{overview}</p>
           </div>
+          {contentType === 'tv' && creator && (
+            <div className={style["creator-container"]}>
+              <span className={style["creator-name"]}>{creator}</span>
+              <span className={style["creator-label"]}>Creator</span>
+            </div>
+          )}
         </div>
       </div>
       {isIframeVisible && (
@@ -145,8 +190,7 @@ const PlayTrailer = ({ handlePlayTrailer, youtubeId }) => {
         </div>
         <div className={style["content"]}>
           <iframe
-            width={1179}
-            height={662}
+            className={style["yt-iframe"]}
             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&hl=en&modestbranding=1&fs=1&autohide=1`}
             allowFullScreen
             frameBorder={0}
@@ -170,7 +214,9 @@ MovieInfo.propTypes = {
   ),
   runtime: PropTypes.number,
   vote_average: PropTypes.number,
+  creator: PropTypes.string,
   tagline: PropTypes.string,
+  contentType:PropTypes.string
 };
 
 export default MovieInfo;
