@@ -1,9 +1,7 @@
 import style from "./spacer.module.scss";
 
-const Spacer = () => {
-  return (
-    <div className={style['spacer']}></div>
-  )
-}
+const Spacer = () => (
+  <div className={style.spacer} />
+);
 
-export default Spacer
+export default Spacer;

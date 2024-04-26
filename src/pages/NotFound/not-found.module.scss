@@ -1,39 +1,39 @@
 @use "../../styles/" as *;
 
 .not-found {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  font-size: 16px;
+
+  .wrapper {
+    max-width: 1400px;
     width: 100%;
-    display: flex;
-    justify-content: center;
+    @include flex-column();
     align-items: flex-start;
     align-content: flex-start;
-    font-size: 16px;
+    padding: 30px 40px;
 
-    .wrapper {
-        max-width: 1400px;
-        width: 100%;
-        @include flex-column();
-        align-items: flex-start;
-        align-content: flex-start;
-        padding: 30px 40px;
+    .error-wrapper {
+      display: flex;
+      margin-bottom: 20px;
 
-        .error-wrapper {
-            display: flex;
-            margin-bottom: 20px;
-
-            .title {
-                padding: 0;
-                margin: 0;
-                line-height: 1;
-                display: flex;
-                align-content: center;
-                font-size: 24px;
-                font-weight: 600;
-            }
-        }
-
-        .link {
-            color: rgba(1, 180, 228, 1);
-            text-decoration: none;
-        }
+      .title {
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+        display: flex;
+        align-content: center;
+        font-size: 24px;
+        font-weight: 600;
+      }
     }
+
+    .link {
+      color: rgba(1, 180, 228, 1);
+      text-decoration: none;
+    }
+  }
 }

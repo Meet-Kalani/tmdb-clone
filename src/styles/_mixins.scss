@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-@mixin flex-center(){
+@mixin flex-center() {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,8 +15,8 @@
   }
 }
 
-@mixin desktop(){
-  @media screen and (min-width: 1025px){
+@mixin desktop() {
+  @media screen and (min-width: 1025px) {
     @content;
   }
 }

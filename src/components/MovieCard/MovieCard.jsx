@@ -1,15 +1,15 @@
-import Rating from "../Rating/Rating";
 import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
+import Rating from "../Rating/Rating";
 import style from "./movie-card.module.scss";
-import { useNavigate } from "react-router-dom";
 import { IMAGE_BASE_URL } from "../../constants/constants";
 
 const MovieCard = ({
   id,
-  original_title,
-  release_date,
-  poster_path,
-  vote_average,
+  original_title: originalTitle,
+  release_date: releaseDate,
+  poster_path: posterPath,
+  vote_average: voteAverage,
 }) => {
   const navigate = useNavigate();
 
@@ -17,32 +17,41 @@ const MovieCard = ({
     navigate(`/movie/${id}`);
   };
 
-  const convertDate = (date, month = "short") => {
-    return new Date(date).toLocaleString("en-US", {
-      day: "numeric",
-      month: month,
-      year: "numeric",
-    });
-  };
+  const convertDate = (date, month = "short") => new Date(date).toLocaleString("en-US", {
+    day: "numeric",
+    month,
+    year: "numeric",
+  });
 
   return (
-    <div className={style["wrapper"]} onClick={handleCardOpener}>
-      <div className={style["card"]}>
+    <div
+      className={style.wrapper}
+      role="button"
+      tabIndex={0}
+      onClick={handleCardOpener}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          handleCardOpener();
+        }
+      }}
+    >
+      <div className={style.card}>
         <div className={style["card-header"]}>
           <img
+            alt="poster of the movie"
             className={style["card-image"]}
-            src={`${IMAGE_BASE_URL}${poster_path}`}
+            src={`${IMAGE_BASE_URL}${posterPath}`}
           />
         </div>
         <div className={style["card-content"]}>
           <div className={style["rating-container"]}>
-            <Rating rating={Math.round(vote_average * 10)} size={38} />
+            <Rating rating={Math.round(voteAverage * 10)} size={38} />
           </div>
-          <a href="#" className={style["movie-name"]}>
-            {original_title}
-          </a>
+          <Link className={style["movie-name"]} to="/">
+            {originalTitle}
+          </Link>
           <span className={style["movie-launch-date"]}>
-            {convertDate(release_date)}
+            {convertDate(releaseDate)}
           </span>
         </div>
       </div>
@@ -51,11 +60,11 @@ const MovieCard = ({
 };
 
 MovieCard.propTypes = {
-  id: PropTypes.number,
-  original_title: PropTypes.string,
-  release_date: PropTypes.string,
-  poster_path: PropTypes.string,
-  vote_average: PropTypes.number,
+  id: PropTypes.number.isRequired,
+  original_title: PropTypes.string.isRequired,
+  release_date: PropTypes.string.isRequired,
+  poster_path: PropTypes.string.isRequired,
+  vote_average: PropTypes.number.isRequired,
 };
 
 export default MovieCard;

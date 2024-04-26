@@ -8,28 +8,18 @@ const defaultHeaders = {
   },
 };
 
-export const fetchTrendingData = async (time_window) => {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/trending/movie/${time_window}`,
-      defaultHeaders,
-    );
-    return res.data.results;
-  } catch (error) {
-    console.error("Error fetching trending data:", error);
-    throw error;
-  }
+export const fetchTrendingData = async (timeWindow) => {
+  const res = await axios.get(
+    `${BASE_URL}/trending/movie/${timeWindow}`,
+    defaultHeaders,
+  );
+  return res.data.results;
 };
 
 export const fetchPopularData = async (category) => {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/${category}/popular`,
-      defaultHeaders,
-    );
-    return res.data.results;
-  } catch (error) {
-    console.error("Error fetching popular data:", error);
-    throw error;
-  }
+  const res = await axios.get(
+    `${BASE_URL}/${category}/popular`,
+    defaultHeaders,
+  );
+  return res.data.results;
 };

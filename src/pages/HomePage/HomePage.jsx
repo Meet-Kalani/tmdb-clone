@@ -1,12 +1,13 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SignupCTA from "../../components/SignupCTA/SignupCTA";
 import Hero from "../../components/Hero/Hero";
 import MovieCardList from "../../components/MovieCardList/MovieCardList";
-import { useEffect, useState } from "react";
 import style from "./home-page.module.scss";
 import { fetchPopularData, fetchTrendingData } from "../../helpers/DataPullers";
+
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
-import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [popularIsLoading, setPopularIsLoading] = useState(true);
@@ -22,10 +23,11 @@ const HomePage = () => {
       try {
         setTrendingData(await fetchTrendingData("day"));
         setPopularData(await fetchPopularData("tv"));
-      } catch (err) {
-        console.error(err);
+      }
+      catch (err) {
         navigate("/not-found");
-      } finally {
+      }
+      finally {
         setPopularIsLoading(false);
         setTrendingIsLoading(false);
       }
@@ -41,13 +43,15 @@ const HomePage = () => {
     try {
       if (currentTab === "On TV") {
         setPopularData(await fetchPopularData("tv"));
-      } else {
+      }
+      else {
         setPopularData(await fetchPopularData("movie"));
       }
-    } catch (err) {
-      console.error(err);
+    }
+    catch (err) {
       navigate("/not-found");
-    } finally {
+    }
+    finally {
       setPopularIsLoading(false);
     }
   };
@@ -59,13 +63,15 @@ const HomePage = () => {
     try {
       if (currentTab === "Today") {
         setTrendingData(await fetchTrendingData("day"));
-      } else {
+      }
+      else {
         setTrendingData(await fetchTrendingData("week"));
       }
-    } catch (err) {
-      console.error(err);
+    }
+    catch (err) {
       navigate("/not-found");
-    } finally {
+    }
+    finally {
       setTrendingIsLoading(false);
     }
   };
@@ -73,23 +79,23 @@ const HomePage = () => {
   return (
     <>
       <Hero />
-      <div className={style["wrapper"]}>
+      <div className={style.wrapper}>
         <MovieCardList
-          tabs={tabsOfTrendingList}
           data={trendingData}
-          selectedTab={trendingSelectedTab}
           handleTabSelection={handleTrendingTabSelection}
-          label="Trending"
           isLoading={trendingIsLoading}
+          label="Trending"
+          selectedTab={trendingSelectedTab}
+          tabs={tabsOfTrendingList}
         />
       </div>
       <MovieCardList
-        tabs={tabsOfPopularList}
         data={popularData}
-        selectedTab={popularSelectedTab}
         handleTabSelection={handlePopularTabSelection}
-        label="What's Popular"
         isLoading={popularIsLoading}
+        label="What's Popular"
+        selectedTab={popularSelectedTab}
+        tabs={tabsOfPopularList}
       />
       <SignupCTA />
     </>

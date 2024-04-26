@@ -47,7 +47,7 @@
           outline: none;
         }
 
-        &::-webkit-input-placeholder{
+        &::-webkit-input-placeholder {
           font-weight: 400;
         }
       }
@@ -56,9 +56,11 @@
         height: 46px;
         padding: 10px 26px;
         border: 0;
-        background: linear-gradient(to right,
-            rgba(30, 213, 169, 1) 0%,
-            rgba(1, 180, 228, 1) 100%);
+        background: linear-gradient(
+          to right,
+          rgba(30, 213, 169, 1) 0%,
+          rgba(1, 180, 228, 1) 100%
+        );
         font-family: "Source Sans Pro", Arial, sans-serif;
         font-weight: $font-weight-700;
         border-radius: 30px;
@@ -77,10 +79,12 @@
   }
 
   .awards-section {
-    background-image: linear-gradient(to bottom right,
-        #221d93 0%,
-        #4958ab 30%,
-        #91ced8 100%);
+    background-image: linear-gradient(
+      to bottom right,
+      #221d93 0%,
+      #4958ab 30%,
+      #91ced8 100%
+    );
     height: 191.48px;
     padding: 30px 40px;
     @include flex-column();

@@ -1,7 +1,6 @@
 export const BASE_URL = "https://api.themoviedb.org/3";
 
-export const IMAGE_BASE_URL =
-  "https://media.themoviedb.org/t/p/w220_and_h330_face";
+export const IMAGE_BASE_URL = "https://media.themoviedb.org/t/p/w220_and_h330_face";
 
 export const mobilePrimaryNavlinkData = [
   {
@@ -86,27 +85,7 @@ export const desktopPrimaryNavlinkData = [
 ];
 
 export const desktopCTANavlinkData = [
-  // {
-  //   id: 1,
-  //   label: (
-  //     <img
-  //       src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-371-plus-white-0bac34f16124808a12ea863b4d9cc6e599dee7c0a80658cfe9ead26939e64517.svg"
-  //       width={22}
-  //     />
-  //   ),
-  //   href: "#",
-  // },
   { id: 2, label: "EN", href: "#" },
   { id: 3, label: "Login", href: "#" },
   { id: 4, label: "Join TMDB", href: "#" },
-  // {
-  //   id: 5,
-  //   label: (
-  //     <img
-  //       src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-28-search-blue-177462d06db81ff2a02aa022c1c0be5ba4200d7bd3f51091ed9298980e3a26a1.svg"
-  //       width={29}
-  //     />
-  //   ),
-  //   href: "#",
-  // },
 ];

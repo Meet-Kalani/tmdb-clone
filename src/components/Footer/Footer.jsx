@@ -44,30 +44,28 @@ const data = [
   },
 ];
 
-const Footer = () => {
-  return (
-    <footer className={style["footer"]}>
-      <nav className={style["footer-navbar"]}>
-        <div className={style["logo-container"]}>
-          <img
-            className={style["logo"]}
-            src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
-            alt="tmdb logo"
-          />
-          <AnchorButton
-            className={style["join-community-btn"]}
-            hyperlink={"https://www.themoviedb.org/signup"}
-          >
-            join the community
-          </AnchorButton>
-        </div>
-        {data.map(({ id, label, hyperlinks }) => (
-          <Navlinks key={id} label={label} data={hyperlinks} />
-        ))}
-      </nav>
-      <div className={style["build-info"]}>Build 3cd194b (7025)</div>
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer className={style.footer}>
+    <nav className={style["footer-navbar"]}>
+      <div className={style["logo-container"]}>
+        <img
+          alt="tmdb logo"
+          className={style.logo}
+          src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
+        />
+        <AnchorButton
+          className={style["join-community-btn"]}
+          hyperlink="https://www.themoviedb.org/signup"
+        >
+          join the community
+        </AnchorButton>
+      </div>
+      {data.map(({ id, label, hyperlinks }) => (
+        <Navlinks data={hyperlinks} key={id} label={label} />
+      ))}
+    </nav>
+    <div className={style["build-info"]}>Build 3cd194b (7025)</div>
+  </footer>
+);
 
 export default Footer;
