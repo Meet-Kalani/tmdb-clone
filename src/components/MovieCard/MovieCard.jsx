@@ -10,11 +10,17 @@ const MovieCard = ({
   release_date: releaseDate,
   poster_path: posterPath,
   vote_average: voteAverage,
+  selectedTab,
 }) => {
   const navigate = useNavigate();
 
   const handleCardOpener = () => {
-    navigate(`/movie/${id}`);
+    if (selectedTab === "On TV") {
+      navigate(`/tv/${id}`);
+    }
+    else {
+      navigate(`/movie/${id}`);
+    }
   };
 
   const convertDate = (date, month = "short") => new Date(date).toLocaleString("en-US", {
@@ -62,7 +68,8 @@ const MovieCard = ({
 MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
   original_title: PropTypes.string.isRequired,
-  release_date: PropTypes.string.isRequired,
+  release_date: PropTypes.string,
+  selectedTab: PropTypes.string.isRequired,
   poster_path: PropTypes.string.isRequired,
   vote_average: PropTypes.number.isRequired,
 };

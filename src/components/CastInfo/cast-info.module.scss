@@ -1,0 +1,54 @@
+@use "../../styles" as *;
+
+.cast-info {
+  position: relative;
+  padding-bottom: 30px;
+  .title {
+    font-size: 22.4px;
+    margin-bottom: 20px;
+    font-weight: $font-weight-600;
+    @include laptop {
+      padding: 0 20px;
+      font-size: 19.2px;
+    }
+  }
+
+  .cast-card-container {
+    display: flex;
+    overflow-x: scroll;
+    gap: 14px;
+    padding-bottom: 20px;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+      background-color: #dbdbdb;
+      border-radius: 10px;
+    }
+
+    &::after {
+      content: "";
+      width: 60px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0,
+        #fff 100%
+      );
+      will-change: opacity;
+      pointer-events: none;
+    }
+    @include laptop {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  @include laptop {
+    padding: 20px 0;
+  }
+}

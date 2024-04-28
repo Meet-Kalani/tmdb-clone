@@ -1,0 +1,39 @@
+@use "../../styles" as *;
+
+.toast {
+  font-size: 16px;
+}
+
+.movie-page {
+  .primary-info {
+    background-size: "cover";
+    background-repeat: "no-repeat";
+    background-position: "left calc((50vw - 170px) - 340px) top";
+  }
+
+  .movie-info-wrapper {
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+  }
+
+  .secondary-info {
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+    display: flex;
+    padding: 30px 40px;
+
+    .wrapper {
+      max-width: 1052px;
+      padding-right: 30px;
+
+      @include laptop {
+        padding-right: 0;
+      }
+    }
+
+    @include laptop {
+      flex-direction: column;
+      padding: 0;
+    }
+  }
+}

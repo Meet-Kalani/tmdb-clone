@@ -1,0 +1,21 @@
+@use "../../styles" as *;
+
+.stats-panel {
+  max-width: 300px;
+
+  .wrapper {
+    font-size: 16px;
+
+    .label {
+      font-weight: $font-weight-600;
+      display: block;
+    }
+
+    margin-bottom: 20px;
+  }
+
+  @include laptop {
+    max-width: 100%;
+    padding: 20px;
+  }
+}

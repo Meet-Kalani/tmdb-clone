@@ -1,0 +1,83 @@
+@use "../../styles" as *;
+
+.current-season {
+  display: flex;
+  border-top: 1px solid #d7d7d7;
+  font-size: 16px;
+  display: block;
+  padding: 30px 0;
+  .header {
+    padding-bottom: 20px;
+    .title {
+      font-size: 22.4px;
+      font-weight: $font-weight-600;
+
+      @include laptop {
+        font-size: 19.2px;
+      }
+    }
+  }
+  .content {
+    display: flex;
+    border: 1px solid rgb(227, 227, 227);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    .poster-container {
+      @include laptop {
+        display: none;
+      }
+    }
+
+    .current-season-body {
+      padding: 20px;
+      @include flex-column();
+      justify-content: center;
+
+      .current-season-title {
+        font-size: 24px;
+        font-weight: $font-weight-600;
+      }
+      .info-container {
+        display: flex;
+        .rating-container {
+          margin-right: 8px;
+          width: fit-content;
+          background-color: rgb(3, 37, 65);
+          padding: 0 8px 1px 6px;
+          font-weight: 600;
+          color: $color-white;
+          @include flex-center();
+          gap: 2px;
+          border: 1px solid rgb(3, 37, 65);
+          border-radius: 6px;
+
+          .star-icon {
+            background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-49-star-67a24f6d4324aa644c594653e762b1c0de2b3e1ce0852171cfa49cc2650de374.svg);
+            filter: invert(1);
+            height: 14.4px;
+            width: 14.4px;
+          }
+
+          .rating-value {
+            font-size: 14.4px;
+            .percentage-sign {
+              font-size: 10.4px;
+              position: relative;
+              bottom: 3px;
+            }
+          }
+        }
+      }
+
+      .overview {
+        margin-top: 20px;
+        line-height: 22.4px;
+      }
+    }
+  }
+
+  @include laptop {
+    padding: 20px;
+  }
+}

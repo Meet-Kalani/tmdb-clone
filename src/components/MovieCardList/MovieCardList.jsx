@@ -42,6 +42,7 @@ const MovieCardList = ({
               original_title={originalTitle || name}
               poster_path={posterPath}
               release_date={firstAIRDate || releaseDate}
+              selectedTab={selectedTab}
               vote_average={voteAverage}
             />
           ),
