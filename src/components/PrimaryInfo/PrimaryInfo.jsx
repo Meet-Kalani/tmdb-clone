@@ -1,0 +1,264 @@
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { Link } from "@mui/material";
+import style from "./primary-info.module.scss";
+import {
+  IMAGE_BASE_URL,
+  WATCH_PROVIDER_LOGO_BASE_URL,
+} from "../../constants/constants";
+import {
+  fetchWatchProviders,
+  fetchYoutubeVideo,
+} from "../../service/api";
+import Rating from "../Rating/Rating";
+import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
+
+const PrimaryInfo = ({
+  notifyError,
+  id,
+  originalTitle,
+  overview,
+  posterPath,
+  originCountry,
+  releaseDate,
+  isLoading,
+  genres,
+  runTime,
+  voteAverage,
+  creator,
+  contentType,
+  tagLine,
+}) => {
+  const [watchProvider, setWatchProvider] = useState({});
+  const [isIframeVisible, setIsIframeVisible] = useState(false);
+  const [youtubeId, setYoutubeId] = useState(null);
+
+  useEffect(() => {
+    try {
+      fetchWatchProviders(id, contentType).then((res) => {
+        if (res) {
+          setWatchProvider(res);
+        }
+      });
+    }
+    catch (err) {
+      notifyError(err, style.toast);
+    }
+  }, [id, contentType, notifyError]);
+
+  if (isLoading) {
+    return <SkeletonLoader />;
+  }
+
+  function getLogoPath(provider) {
+    if (provider && provider.length > 0 && provider[0].logo_path) {
+      return provider[0].logo_path;
+    }
+    return "/seGSXajazLMCKGB5hnRCidtjay1.jpg";
+  }
+
+  const watchProviderSlug = watchProvider && watchProvider.IN
+    ? watchProvider.IN.flatrate
+      ? getLogoPath(watchProvider.IN.flatrate)
+      : watchProvider.IN.buy
+        ? getLogoPath(watchProvider.IN.buy)
+        : watchProvider.IN.ads
+          ? getLogoPath(watchProvider.IN.ads)
+          : watchProvider.IN.free
+            ? getLogoPath(watchProvider.IN.free)
+            : "/seGSXajazLMCKGB5hnRCidtjay1.jpg"
+    : "/seGSXajazLMCKGB5hnRCidtjay1.jpg";
+
+  const [year, month, day] = releaseDate.split("-");
+  const formattedReleaseDate = `${month}/${day}/${year}`;
+  const formattedRuntime = `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
+  const rating = Math.floor(voteAverage * 10);
+
+  const handlePlayTrailer = async () => {
+    setIsIframeVisible((previousValue) => !previousValue);
+    if (!isIframeVisible) {
+      document.body.style.overflow = "hidden";
+    }
+    else {
+      document.body.style.overflow = "initial";
+    }
+
+    setYoutubeId(await fetchYoutubeVideo(id));
+  };
+
+  return (
+    <>
+      <div className={style["movie-info"]}>
+        <div className={style["poster-container"]}>
+          <img
+            alt="Movie poster"
+            className={style.poster}
+            src={`${IMAGE_BASE_URL}${posterPath}`}
+            onError={(event) => {
+              event.target.src = "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not+Found!";
+            }}
+          />
+          {watchProvider && watchProviderSlug ? (
+            <div className={style["watch-provider-container"]}>
+              <img
+                alt="logo of the watch provider"
+                className={style["watch-provider-logo"]}
+                src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderSlug}`}
+              />
+              <div className={style["watch-provider-link-wrapper"]}>
+                <span className={style.label}>Now Streaming</span>
+                <Link className={style["watch-provider-link"]} to="/">
+                  Watch Now
+                </Link>
+              </div>
+            </div>
+          ) : null}
+        </div>
+        <div className={style.content}>
+          <div className={style["name-container"]}>
+            <h2 className={style.name}>{originalTitle}</h2>
+            {" "}
+            <span
+              className={style["release-year"]}
+            >
+              {`(${releaseDate.slice(0, 4)})`}
+            </span>
+          </div>
+          <div className={style["info-container"]}>
+            {contentType === 'movie' && (
+            <>
+              <span className={style["release-date"]}>
+                {formattedReleaseDate}
+              </span>
+              {originCountry.map((country) => <span key={crypto.randomUUID()}>{` (${country})`}</span>)}
+              <span className={style.divider}>•</span>
+            </>
+            )}
+            <span className={style.genre}>
+              {genres.map(({ name }, index) => {
+                if (index === 0) {
+                  return `${name}`;
+                }
+                return `, ${name}`;
+              })}
+            </span>
+            {contentType === 'movie' && (
+            <>
+              <span className={style.divider}>•</span>
+              <span className={style.genre}>{formattedRuntime}</span>
+            </>
+            )}
+          </div>
+          <div className={style.wrapper}>
+            <div className={style["rating-container"]}>
+              <Rating rating={rating} size={68} />
+              <span className={style["rating-title"]}>
+                User
+                {' '}
+                <br />
+                {' '}
+                Score
+              </span>
+            </div>
+            {contentType === 'movie' && (
+            <div
+              className={style["play-link-container"]}
+              role="button"
+              tabIndex={0}
+              onClick={handlePlayTrailer}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  handlePlayTrailer();
+                }
+              }}
+            >
+              <span className={style["play-icon"]} />
+              <button className={style["play-link"]} type="button">
+                Play Trailer
+              </button>
+            </div>
+            )}
+          </div>
+          <div className={style["overview-container"]}>
+            {contentType === 'movie' && <span className={style.tagline}>{tagLine}</span>}
+            <span className={style["overview-title"]}>Overview</span>
+            <p className={style.overview}>{overview}</p>
+          </div>
+          {contentType === 'tv' && creator ? (
+            <div className={style["creator-container"]}>
+              <span className={style["creator-name"]}>{creator}</span>
+              <span className={style["creator-label"]}>Creator</span>
+            </div>
+          ) : null}
+        </div>
+      </div>
+      )
+      {isIframeVisible ? (
+        <PlayTrailer
+          handlePlayTrailer={handlePlayTrailer}
+          youtubeId={youtubeId}
+        />
+      ) : null}
+    </>
+  );
+};
+
+const PlayTrailer = ({ handlePlayTrailer, youtubeId }) => createPortal(
+  <div className={style.backdrop}>
+    <div className={style["play-trailer"]}>
+      <div className={style.header}>
+        <span className={style.title}>Play Trailer</span>
+        <span
+          className={style["close-btn"]}
+          role="button"
+          tabIndex={0}
+          onClick={handlePlayTrailer}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              handlePlayTrailer();
+            }
+          }}
+        >
+          x
+        </span>
+      </div>
+      <div className={style.content}>
+        <iframe
+          className={style["yt-iframe"]}
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&hl=en&modestbranding=1&fs=1&autohide=1`}
+          title="Movie Trailer"
+          allowFullScreen
+        />
+      </div>
+    </div>
+  </div>,
+  document.getElementById("portal"),
+);
+
+PrimaryInfo.propTypes = {
+  id: PropTypes.string.isRequired,
+  notifyError: PropTypes.func.isRequired,
+  originalTitle: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
+  posterPath: PropTypes.string,
+  originCountry: PropTypes.arrayOf(PropTypes.string).isRequired,
+  releaseDate: PropTypes.string.isRequired,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({ id: PropTypes.number, name: PropTypes.string }),
+  ).isRequired,
+  runTime: PropTypes.number,
+  voteAverage: PropTypes.number.isRequired,
+  creator: PropTypes.string,
+  tagLine: PropTypes.string.isRequired,
+  contentType: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+};
+
+PrimaryInfo.defaultProps = {
+  creator: undefined,
+  posterPath: "https://placehold.jp/16/ccc/ffffff/300x450.png?text=Not+Found!",
+  runTime: undefined,
+};
+
+export default PrimaryInfo;

@@ -1,0 +1,39 @@
+@use "../../../styles" as *;
+
+.card {
+  width: 150px;
+
+  .card-header {
+    height: 225px;
+
+    .card-image {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .card-content {
+    padding: 26px 10px 0 10px;
+    font-size: 16px;
+    position: relative;
+
+    .rating-container {
+      position: absolute;
+      top: -19px;
+      left: 10px;
+      border-radius: 50%;
+    }
+
+    .movie-name {
+      font-weight: $font-weight-700;
+      text-decoration: none;
+      color: $color-black;
+    }
+
+    .movie-launch-date {
+      display: block;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}

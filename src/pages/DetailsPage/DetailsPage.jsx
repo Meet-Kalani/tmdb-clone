@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import notifyError from "../../utils/helpers";
+import { notifyError } from "../../utils/helpers";
 import style from "./details-page.module.scss";
-import MovieInfo from "../../components/MovieInfo/MovieInfo";
+import PrimaryInfo from "../../components/PrimaryInfo/PrimaryInfo";
 import CastInfo from "../../components/CastInfo/CastInfo";
 import StatsPanel from "../../components/StatsPanel/StatsPanel";
 import UserReview from "../../components/UserReview/UserReview";
@@ -12,6 +12,13 @@ import CurrentSeason from "../../components/CurrentSeason/CurrentSeason";
 import Recommendation from "../../components/Recommendation/Recommendation";
 import { fetchMovieData, fetchTVData } from "../../service/api";
 import { BACKDROP_BASE_URL } from "../../constants/constants";
+import SkeletonLoader from "../../components/StatsPanel/SkeletonLoader/SkeletonLoader";
+
+// WAS WORKING ON SKELETONLOADER OF CURRENTSEASON
+
+// remove isrequired from primaryinfro component
+
+// check of tv serices card opener
 
 const DetailsPage = () => {
   const { movieId } = useParams();
@@ -21,6 +28,7 @@ const DetailsPage = () => {
   const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
   const navigate = useNavigate();
   const isContentLoaded = Object.keys(details).length > 0;
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +38,9 @@ const DetailsPage = () => {
       }
       catch (err) {
         notifyError(err, style.toast);
+      }
+      finally {
+        setIsLoading(false);
       }
     };
     fetchData();
@@ -48,12 +59,13 @@ const DetailsPage = () => {
       <div className={style["movie-page"]}>
         <div className={style["primary-info"]} style={backdropStyle}>
           <div className={style["movie-info-wrapper"]}>
-            {isContentLoaded ? isTVSeries ? (
-              <MovieInfo
+            {isTVSeries ? (
+              <PrimaryInfo
                 contentType={contentType}
                 creator={creatorName}
                 genres={details.genres}
                 id={movieId}
+                isLoading={isLoading}
                 notifyError={notifyError}
                 originalTitle={details.name}
                 originCountry={details.origin_country}
@@ -65,10 +77,11 @@ const DetailsPage = () => {
                 voteAverage={details.vote_average}
               />
             ) : (
-              <MovieInfo
+              <PrimaryInfo
                 contentType={contentType}
                 genres={details.genres}
                 id={movieId}
+                isLoading={isLoading}
                 notifyError={notifyError}
                 originalTitle={details.original_title}
                 originCountry={details.origin_country}
@@ -79,17 +92,17 @@ const DetailsPage = () => {
                 tagLine={details.tagline}
                 voteAverage={details.vote_average}
               />
-            ) : null}
+            )}
           </div>
         </div>
         <div className={style["secondary-info"]}>
           <div className={style.wrapper}>
-            {isContentLoaded ? (
-              <CastInfo contentType={contentType} id={parsedMovieId} notifyError={notifyError} />) : undefined}
+            <CastInfo contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
             {(isContentLoaded && contentType === 'tv') ? (
               <CurrentSeason
                 airDate={details.seasons.at(-1).air_date}
                 episodeCount={details.seasons.at(-1).episode_count}
+                isLoading={isLoading}
                 name={details.seasons.at(-1).name}
                 overview={details.seasons.at(-1).overview}
                 posterPath={details.seasons.at(-1).poster_path}
@@ -97,15 +110,13 @@ const DetailsPage = () => {
               />
             ) : undefined}
             {isContentLoaded ? (
-              <>
-                <UserReview contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
-                <Recommendation contentType={contentType} id={parsedMovieId} isTVSeries={isTVSeries} notifyError={notifyError} />
-              </>
+              <UserReview contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
             ) : undefined}
+            <Recommendation contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
           </div>
           <div>
-            {isContentLoaded
-              ? (
+            {isLoading ? <SkeletonLoader contentType={contentType} />
+              : (
                 <StatsPanel
                   budget={details.budget}
                   contentType={contentType}
@@ -117,8 +128,7 @@ const DetailsPage = () => {
                   status={details.status}
                   type={details.type}
                 />
-              )
-              : undefined}
+              )}
           </div>
         </div>
       </div>

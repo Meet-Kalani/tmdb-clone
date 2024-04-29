@@ -1,0 +1,31 @@
+@use "../../../styles" as *;
+
+.cast-card {
+  width: 140px;
+  border: 1px solid rgb(227, 227, 227);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 258px;
+
+  .profile-wrapper {
+    width: 138px;
+    background-color: #ccc;
+    height: 175px;
+    border-radius: 8px 8px 0 0;
+    .profile-img {
+      border-radius: 8px 8px 0 0;
+    }
+  }
+
+  .cast-content {
+    padding: 10px;
+    .original-name {
+      font-size: 16px;
+      display: block;
+      font-weight: $font-weight-700;
+    }
+    .character-name {
+      font-size: 14.4px;
+    }
+  }
+}

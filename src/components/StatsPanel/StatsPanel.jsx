@@ -2,16 +2,8 @@ import PropTypes from "prop-types";
 import style from "./stats-panel.module.scss";
 import Keywords from "./Keywords/Keywords";
 import { NETWORKS_LOGO_BASE_URL } from "../../constants/constants";
+import { formatCurrency } from "../../utils/helpers";
 
-function formatCurrency(number) {
-  return (
-    `$${
-      Number(number).toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}`
-  );
-}
 const StatsPanel = ({
   id,
   status,
@@ -32,23 +24,29 @@ const StatsPanel = ({
         <span className={style.label}>Status</span>
         <span>{status}</span>
       </div>
-      {contentType === "tv" && (
+      {contentType === "tv" ? (
         <>
           <div className={style.wrapper}>
             <span className={style.label}>Networks</span>
-            <img alt="Network Logo" src={`${NETWORKS_LOGO_BASE_URL}${networks[0].logo_path}`} />
+            <img
+              alt="Network Logo"
+              src={`${NETWORKS_LOGO_BASE_URL}${networks[0].logo_path}`}
+              onError={(e) => {
+                e.target.src = "https://placehold.jp/16/ccc/ffffff/30x30.png?text=!";
+              }}
+            />
           </div>
           <div className={style.wrapper}>
             <span className={style.label}>Type</span>
             <span>{type}</span>
           </div>
         </>
-      )}
+      ) : undefined}
       <div className={style.wrapper}>
         <span className={style.label}>Original Language</span>
         <span>{spokenLanguages[0]?.english_name}</span>
       </div>
-      {contentType === "movie" && (
+      {contentType === "movie" ? (
         <>
           <div className={style.wrapper}>
             <span className={style.label}>Budget</span>
@@ -59,7 +57,7 @@ const StatsPanel = ({
             <span>{formattedRevenue}</span>
           </div>
         </>
-      )}
+      ) : undefined}
 
       <Keywords contentType={contentType} id={id} notifyError={notifyError} />
     </div>

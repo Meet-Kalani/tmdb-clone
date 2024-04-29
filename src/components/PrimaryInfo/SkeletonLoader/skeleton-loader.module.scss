@@ -1,0 +1,156 @@
+@use "../../../styles" as *;
+
+.movie-info {
+  padding: 30px 40px;
+  display: flex;
+  gap: 40px;
+  font-size: 16px;
+  height: 570px;
+  color: $color-white;
+
+  .poster-container {
+    border-radius: 8px;
+    height: 510px;
+    background-color: #032541;
+
+    .poster {
+      border-radius: 8px 8px 0 0;
+      width: 300px;
+      height: 450px;
+      background-color: #ccc;
+      opacity: 0.8;
+      @include flex-center();
+      color: $color-black;
+      font-size: 24px;
+    }
+
+    .watch-provider-container {
+      height: 60px;
+      color: $color-white;
+      @include flex-center();
+      gap: 12px;
+
+      .watch-provider-logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 4px;
+        background-color: #ccc;
+        opacity: 0.8;
+        @include flex-center();
+      }
+
+      .watch-provider-link-wrapper {
+        align-items: center;
+        align-content: center;
+
+        .label {
+          opacity: 0.8;
+          display: block;
+          line-height: 16px;
+        }
+
+        .watch-provider-link {
+          text-decoration: none;
+          color: $color-white;
+          font-weight: $font-weight-600;
+          line-height: 16px;
+        }
+      }
+    }
+
+    @include laptop {
+      width: fit-content;
+    }
+  }
+
+  .content {
+    @include flex-column();
+    justify-content: center;
+
+    .name-container {
+      .name {
+        font-size: 35.2px;
+        display: inline;
+
+        @include laptop {
+          font-size: 22.45px;
+        }
+      }
+
+      .release-year {
+        font-size: 35.2px;
+        opacity: 0.8;
+
+        @include laptop {
+          font-size: 17.96px;
+        }
+      }
+
+      @include laptop {
+        text-align: center;
+      }
+    }
+
+    .info-container {
+      .divider {
+        padding: 0 8px;
+      }
+
+      @include laptop {
+        text-align: center;
+      }
+    }
+
+    .wrapper {
+      margin: 20px 0;
+      display: flex;
+      gap: 20px;
+
+      .rating-container {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 24px;
+
+        .rating-title {
+          font-weight: $font-weight-700;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .overview-container {
+      .tagline {
+        opacity: 0.7;
+        font-style: italic;
+        font-size: 17.6px;
+      }
+
+      .overview-title {
+        display: block;
+        font-size: 20.8px;
+        font-weight: 600;
+        margin: 10px 0 8px 0;
+      }
+    }
+
+    .creator-container {
+      margin-top: 30px;
+
+      .creator-name {
+        font-weight: $font-weight-700;
+        display: block;
+      }
+
+      .creator-label {
+        font-size: 14.4px;
+      }
+    }
+  }
+
+  @include laptop {
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+  }
+}

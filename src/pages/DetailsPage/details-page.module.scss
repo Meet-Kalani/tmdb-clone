@@ -16,6 +16,11 @@ $maxPrimaryPageWidth: 1400px;
   .movie-info-wrapper {
     max-width: $maxPrimaryPageWidth;
     margin: auto;
+    height: 570px;
+
+    @include laptop {
+      height: 100%;
+    }
   }
 
   .secondary-info {
