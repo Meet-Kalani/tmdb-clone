@@ -128,7 +128,11 @@
         }
 
         .play-link {
-          text-decoration: none;
+          background-color: transparent;
+          border: none;
+          font-size: 16px;
+          font-family: "Source Sans Pro", Arial, sans-serif;
+          cursor: pointer;
           color: $color-white;
           font-weight: $font-weight-600;
         }
@@ -213,6 +217,7 @@
       .yt-iframe {
         width: 100%;
         height: 100%;
+        border: none;
       }
 
       @include laptop {

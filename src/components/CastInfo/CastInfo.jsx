@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import style from "./cast-info.module.scss";
 import { fetchCastData } from "../../service/api";
@@ -7,7 +6,6 @@ import CastCard from "../CastCard/CastCard";
 
 const CastInfo = ({ id, contentType, notifyError }) => {
   const [castData, setCastData] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,13 +27,13 @@ const CastInfo = ({ id, contentType, notifyError }) => {
       <div className={style["cast-card-container"]}>
         {castData.length > 0
           && castData.map(({
-            id, profile_path, original_name, character,
+            id: castId, profile_path: profilePath, original_name: originalName, character,
           }) => (
             <CastCard
-              character_name={character}
-              key={id}
-              original_name={original_name}
-              profile_path={profile_path}
+              characterName={character}
+              key={castId}
+              originalName={originalName}
+              profilePath={profilePath}
             />
           ))}
       </div>
@@ -44,8 +42,8 @@ const CastInfo = ({ id, contentType, notifyError }) => {
 };
 
 CastInfo.propTypes = {
-  id: PropTypes.number,
-  contentType: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  contentType: PropTypes.string.isRequired,
   notifyError: PropTypes.func.isRequired,
 };
 

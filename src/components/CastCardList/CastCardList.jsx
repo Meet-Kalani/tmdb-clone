@@ -1,11 +1,7 @@
 import style from "./cast-card-list.module.scss";
 
-const CastCardList = () => {
-  return (
-    <div className={style['cast-card-list']}>
-        
-    </div>
-  )
-}
+const CastCardList = () => (
+  <div className={style['cast-card-list']} />
+);
 
-export default CastCardList
+export default CastCardList;

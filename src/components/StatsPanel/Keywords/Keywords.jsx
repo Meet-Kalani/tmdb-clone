@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { fetchKeywordsData } from "../../../service/api";
 import style from "./keywords.module.scss";
 
-const Keywords = ({ id, contentType }) => {
+const Keywords = ({ id, contentType, notifyError }) => {
   const [keywords, setKeywords] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,13 +13,12 @@ const Keywords = ({ id, contentType }) => {
         setKeywords(await fetchKeywordsData(id, contentType));
       }
       catch (err) {
-        console.error(err);
-        navigate("/not-found");
+        notifyError(err, style.toast);
       }
     };
 
     fetchData();
-  }, [id, navigate, contentType]);
+  }, [id, notifyError, contentType]);
 
   const isVisible = contentType === "movie"
     ? keywords && keywords.keywords && keywords.keywords.length > 0
@@ -32,13 +30,13 @@ const Keywords = ({ id, contentType }) => {
         <span className={style.label}>Keywords</span>
         <div className={style["keywords-wrapper"]}>
           {contentType === "movie"
-            ? keywords.keywords.map(({ id, name }) => (
-              <Link className={style.keyword} key={id} to="/">
+            ? keywords.keywords.map(({ id: keywordId, name }) => (
+              <Link className={style.keyword} key={keywordId} to="/">
                 {name}
               </Link>
             ))
-            : keywords.results.map(({ id, name }) => (
-              <Link className={style.keyword} key={id} to="/">
+            : keywords.results.map(({ id: keywordId, name }) => (
+              <Link className={style.keyword} key={keywordId} to="/">
                 {name}
               </Link>
             ))}
@@ -49,8 +47,9 @@ const Keywords = ({ id, contentType }) => {
 };
 
 Keywords.propTypes = {
-  id: PropTypes.number,
-  contentType: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  contentType: PropTypes.string.isRequired,
+  notifyError: PropTypes.func.isRequired,
 };
 
 export default Keywords;

@@ -17,8 +17,11 @@ const CurrentSeason = ({
     <div className={style.content}>
       <div className={style["poster-container"]}>
         <img
+          alt="Current Season's Poster"
           src={`${CURRENT_SEASON_POSTER_BASE_URL}${posterPath}`}
-          onError={(e) => (e.target.src = "https://placehold.jp/16/ccc/ffffff/130x195.png?text=Not Found!")}
+          onError={(e) => {
+            e.target.src = "https://placehold.jp/16/ccc/ffffff/130x195.png?text=Not Found!";
+          }}
         />
       </div>
       <div className={style["current-season-body"]}>
@@ -46,8 +49,8 @@ const CurrentSeason = ({
 
 CurrentSeason.propTypes = {
   name: PropTypes.string.isRequired,
-  episodeCount: PropTypes.number,
-  airDate: PropTypes.string,
+  episodeCount: PropTypes.number.isRequired,
+  airDate: PropTypes.string.isRequired,
   overview: PropTypes.string.isRequired,
   posterPath: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,

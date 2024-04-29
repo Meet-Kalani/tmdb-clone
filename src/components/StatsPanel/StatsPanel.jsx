@@ -21,6 +21,7 @@ const StatsPanel = ({
   networks,
   revenue,
   contentType,
+  notifyError,
 }) => {
   const formattedBudget = formatCurrency(budget);
   const formattedRevenue = formatCurrency(revenue);
@@ -35,7 +36,7 @@ const StatsPanel = ({
         <>
           <div className={style.wrapper}>
             <span className={style.label}>Networks</span>
-            <img src={`${NETWORKS_LOGO_BASE_URL}${networks[0].logo_path}`} />
+            <img alt="Network Logo" src={`${NETWORKS_LOGO_BASE_URL}${networks[0].logo_path}`} />
           </div>
           <div className={style.wrapper}>
             <span className={style.label}>Type</span>
@@ -45,7 +46,7 @@ const StatsPanel = ({
       )}
       <div className={style.wrapper}>
         <span className={style.label}>Original Language</span>
-        <span>{spokenLanguages[0].english_name}</span>
+        <span>{spokenLanguages[0]?.english_name}</span>
       </div>
       {contentType === "movie" && (
         <>
@@ -60,7 +61,7 @@ const StatsPanel = ({
         </>
       )}
 
-      <Keywords contentType={contentType} id={id} />
+      <Keywords contentType={contentType} id={id} notifyError={notifyError} />
     </div>
   );
 };
@@ -81,7 +82,16 @@ StatsPanel.propTypes = {
       iso_639_1: PropTypes.string,
       name: PropTypes.string,
     }),
-  ).isRequired,
+  ),
+  notifyError: PropTypes.func.isRequired,
+};
+
+StatsPanel.defaultProps = {
+  budget: undefined,
+  revenue: undefined,
+  type: undefined,
+  networks: [{ logo_path: "https://placehold.jp/16/ccc/ffffff/30x30.png?text=?" }],
+  spokenLanguages: [{ english_name: undefined, iso_639_1: undefined, name: undefined }],
 };
 
 export default StatsPanel;

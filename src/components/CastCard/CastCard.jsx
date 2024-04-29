@@ -1,30 +1,32 @@
+import PropTypes from "prop-types";
 import style from "./cast-card.module.scss";
 import { CAST_PROFILE_BASE_URL } from "../../constants/constants";
-import PropTypes from "prop-types";
 
-const CastCard = ({ profile_path, original_name, character_name }) => {
-  return (
-    <div className={style["cast-card"]}>
-      <img
-        src={`${CAST_PROFILE_BASE_URL}${profile_path}`}
-        className={style["profile-img"]}
-        onError={(e) =>
-          (e.target.src =
-            "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not Found!")
-        }
-      />
-      <div className={style["cast-content"]}>
-        <span className={style["original-name"]}>{original_name}</span>
-        <span className={style["character-name"]}>{character_name}</span>
-      </div>
+const CastCard = ({ profilePath, originalName, characterName }) => (
+  <div className={style["cast-card"]}>
+    <img
+      alt="Movie Cast"
+      className={style["profile-img"]}
+      src={`${CAST_PROFILE_BASE_URL}${profilePath}`}
+      onError={(e) => {
+        e.target.src = "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not Found!";
+      }}
+    />
+    <div className={style["cast-content"]}>
+      <span className={style["original-name"]}>{originalName}</span>
+      <span className={style["character-name"]}>{characterName}</span>
     </div>
-  );
-};
+  </div>
+);
 
 CastCard.propTypes = {
-  profile_path: PropTypes.string,
-  original_name: PropTypes.string,
-  character_name: PropTypes.string,
+  profilePath: PropTypes.string,
+  originalName: PropTypes.string.isRequired,
+  characterName: PropTypes.string.isRequired,
+};
+
+CastCard.defaultProps = {
+  profilePath: "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not Found!",
 };
 
 export default CastCard;

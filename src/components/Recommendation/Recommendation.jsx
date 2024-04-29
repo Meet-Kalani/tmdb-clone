@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import style from "./recommendation.module.scss";
@@ -11,11 +10,13 @@ function formatDate(inputDate) {
     const formattedDate = `${parts[1]}/${parts[2]}/${parts[0]}`;
     return formattedDate;
   }
+  return null;
 }
 
-const Recommendation = ({ id, contentType, notifyError }) => {
+const Recommendation = ({
+  id, contentType, notifyError, isTVSeries,
+}) => {
   const [recommendations, setRecommendations] = useState([]);
-  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,7 +27,7 @@ const Recommendation = ({ id, contentType, notifyError }) => {
       }
     };
     fetchData();
-  }, [id, navigate, contentType]);
+  }, [id, notifyError, contentType]);
 
   return (
     recommendations.length > 0
@@ -38,15 +39,16 @@ const Recommendation = ({ id, contentType, notifyError }) => {
           <div className={style["recommendation-body"]}>
             {recommendations.map(
               ({
-                id, poster_path, original_title, original_name, vote_average, release_date, first_air_date,
+                id: recommendationId, poster_path: posterPath, original_title: originalTitle, original_name: originalName, vote_average: voteAverage, release_date: releaseDate, first_air_date: firstAIRDate,
               }) => (
                 <RecommendationCard
-                  id={id}
-                  key={id}
-                  original_title={original_title || original_name}
-                  poster_path={poster_path}
-                  release_date={formatDate(release_date || first_air_date)}
-                  vote_average={Math.floor(vote_average * 10)}
+                  id={recommendationId}
+                  isTVSeries={isTVSeries}
+                  key={recommendationId}
+                  originalTitle={originalTitle || originalName}
+                  posterPath={posterPath}
+                  releaseDate={formatDate(releaseDate || firstAIRDate)}
+                  voteAverage={Math.floor(voteAverage * 10)}
                 />
               ),
             )}
@@ -57,9 +59,10 @@ const Recommendation = ({ id, contentType, notifyError }) => {
 };
 
 Recommendation.propTypes = {
-  id: PropTypes.number,
-  contentType: PropTypes.string,
+  id: PropTypes.number.isRequired,
+  contentType: PropTypes.string.isRequired,
   notifyError: PropTypes.func.isRequired,
+  isTVSeries: PropTypes.bool.isRequired,
 };
 
 export default Recommendation;

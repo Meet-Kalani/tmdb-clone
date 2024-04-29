@@ -74,4 +74,8 @@ MovieCard.propTypes = {
   vote_average: PropTypes.number.isRequired,
 };
 
+MovieCard.defaultProps = {
+  release_date: undefined,
+};
+
 export default MovieCard;

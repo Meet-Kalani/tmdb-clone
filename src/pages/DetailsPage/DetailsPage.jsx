@@ -54,7 +54,6 @@ const DetailsPage = () => {
                 creator={creatorName}
                 genres={details.genres}
                 id={movieId}
-                movie={details}
                 notifyError={notifyError}
                 originalTitle={details.name}
                 originCountry={details.origin_country}
@@ -100,7 +99,7 @@ const DetailsPage = () => {
             {isContentLoaded ? (
               <>
                 <UserReview contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
-                <Recommendation contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
+                <Recommendation contentType={contentType} id={parsedMovieId} isTVSeries={isTVSeries} notifyError={notifyError} />
               </>
             ) : undefined}
           </div>
@@ -112,6 +111,7 @@ const DetailsPage = () => {
                   contentType={contentType}
                   id={parsedMovieId}
                   networks={details.networks}
+                  notifyError={notifyError}
                   revenue={details.revenue}
                   spokenLanguages={details.spoken_languages}
                   status={details.status}

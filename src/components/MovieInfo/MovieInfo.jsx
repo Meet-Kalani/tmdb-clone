@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { Link } from "@mui/material";
 import style from "./movie-info.module.scss";
 import {
   IMAGE_BASE_URL,
@@ -83,20 +84,25 @@ const MovieInfo = ({
       <div className={style["movie-info"]}>
         <div className={style["poster-container"]}>
           <img
+            alt="Movie poster"
             className={style.poster}
             src={`${IMAGE_BASE_URL}${posterPath}`}
+            onError={(event) => {
+              event.target.src = "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not Found!";
+            }}
           />
           {watchProvider && watchProviderSlug ? (
             <div className={style["watch-provider-container"]}>
               <img
+                alt="logo of the watch provider"
                 className={style["watch-provider-logo"]}
                 src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderSlug}`}
               />
               <div className={style["watch-provider-link-wrapper"]}>
                 <span className={style.label}>Now Streaming</span>
-                <a className={style["watch-provider-link"]} href="#">
+                <Link className={style["watch-provider-link"]} to="/">
                   Watch Now
-                </a>
+                </Link>
               </div>
             </div>
           ) : null}
@@ -117,14 +123,13 @@ const MovieInfo = ({
                 <span className={style["release-date"]}>
                   {formattedReleaseDate}
                 </span>
-                {/* {console.log(originCountry)} */}
-                {originCountry.map((country, index) => <span key={index}>{` (${country})`}</span>)}
+                {originCountry.map((country) => <span key={crypto.randomUUID()}>{` (${country})`}</span>)}
                 <span className={style.divider}>•</span>
               </>
             )}
             <span className={style.genre}>
               {genres.map(({ name }, index) => {
-                if (index == 0) {
+                if (index === 0) {
                   return `${name}`;
                 }
                 return `, ${name}`;
@@ -151,12 +156,19 @@ const MovieInfo = ({
             {contentType === 'movie' && (
               <div
                 className={style["play-link-container"]}
+                role="button"
+                tabIndex={0}
                 onClick={handlePlayTrailer}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    handlePlayTrailer();
+                  }
+                }}
               >
                 <span className={style["play-icon"]} />
-                <a className={style["play-link"]} href="#">
+                <button className={style["play-link"]} type="button">
                   Play Trailer
-                </a>
+                </button>
               </div>
             )}
           </div>
@@ -188,15 +200,25 @@ const PlayTrailer = ({ handlePlayTrailer, youtubeId }) => createPortal(
     <div className={style["play-trailer"]}>
       <div className={style.header}>
         <span className={style.title}>Play Trailer</span>
-        <span className={style["close-btn"]} onClick={handlePlayTrailer}>
+        <span
+          className={style["close-btn"]}
+          role="button"
+          tabIndex={0}
+          onClick={handlePlayTrailer}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              handlePlayTrailer();
+            }
+          }}
+        >
           x
         </span>
       </div>
       <div className={style.content}>
         <iframe
           className={style["yt-iframe"]}
-          frameBorder={0}
           src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&hl=en&modestbranding=1&fs=1&autohide=1`}
+          title="Movie Trailer"
           allowFullScreen
         />
       </div>
@@ -208,19 +230,25 @@ const PlayTrailer = ({ handlePlayTrailer, youtubeId }) => createPortal(
 MovieInfo.propTypes = {
   id: PropTypes.string.isRequired,
   notifyError: PropTypes.func.isRequired,
-  originalTitle: PropTypes.string,
-  overview: PropTypes.string,
+  originalTitle: PropTypes.string.isRequired,
+  overview: PropTypes.string.isRequired,
   posterPath: PropTypes.string,
-  originCountry: PropTypes.arrayOf(PropTypes.string),
-  releaseDate: PropTypes.string,
+  originCountry: PropTypes.arrayOf(PropTypes.string).isRequired,
+  releaseDate: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.number, name: PropTypes.string }),
-  ),
+  ).isRequired,
   runTime: PropTypes.number,
-  voteAverage: PropTypes.number,
+  voteAverage: PropTypes.number.isRequired,
   creator: PropTypes.string,
-  tagLine: PropTypes.string,
+  tagLine: PropTypes.string.isRequired,
   contentType: PropTypes.string.isRequired,
+};
+
+MovieInfo.defaultProps = {
+  creator: undefined,
+  posterPath: "https://placehold.jp/16/ccc/ffffff/300x450.png?text=Not Found!",
+  runTime: undefined,
 };
 
 export default MovieInfo;
