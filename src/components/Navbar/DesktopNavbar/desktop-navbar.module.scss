@@ -4,7 +4,8 @@
   position: fixed;
   z-index: 2;
   width: 100%;
-  @include laptop {
+
+  @include tablet {
     display: none;
   }
 
@@ -21,7 +22,7 @@
       max-width: $maxPrimaryPageWidth;
       padding: 0 40px;
 
-      @include laptop {
+      @include tablet {
         display: none;
       }
 

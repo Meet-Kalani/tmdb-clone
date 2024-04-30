@@ -23,7 +23,7 @@
       height: 450px;
     }
 
-    @include laptop {
+    @include tablet {
       width: fit-content;
     }
   }
@@ -37,7 +37,7 @@
         font-size: 35.2px;
         display: inline;
 
-        @include laptop {
+        @include tablet {
           font-size: 22.45px;
         }
       }
@@ -46,12 +46,12 @@
         font-size: 35.2px;
         opacity: 0.8;
 
-        @include laptop {
+        @include tablet {
           font-size: 17.96px;
         }
       }
 
-      @include laptop {
+      @include tablet {
         text-align: center;
       }
     }
@@ -61,7 +61,7 @@
         padding: 0 8px;
       }
 
-      @include laptop {
+      @include tablet {
         text-align: center;
       }
     }
@@ -113,7 +113,7 @@
     }
   }
 
-  @include laptop {
+  @include tablet {
     flex-direction: column;
     padding: 20px;
     height: 100%;

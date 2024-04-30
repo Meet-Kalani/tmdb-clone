@@ -18,7 +18,7 @@ $maxPrimaryPageWidth: 1400px;
     margin: auto;
     height: 570px;
 
-    @include laptop {
+    @include tablet {
       height: 100%;
     }
   }
@@ -38,8 +38,11 @@ $maxPrimaryPageWidth: 1400px;
       }
     }
 
-    @include laptop {
+    @include big-screen {
       flex-direction: column;
+    }
+
+    @include laptop {
       padding: 0;
     }
   }

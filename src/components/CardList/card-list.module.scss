@@ -12,7 +12,7 @@
     align-items: center;
     gap: 20px;
 
-    @include laptop() {
+    @include tablet() {
       padding: 0 20px;
       flex-direction: column;
       align-items: flex-start;
@@ -102,7 +102,7 @@
       }
     }
 
-    @include laptop {
+    @include tablet {
       padding: 20px;
     }
   }

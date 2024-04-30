@@ -21,6 +21,7 @@
     .poster-border {
       border-radius: 8px;
     }
+
     .watch-provider-container {
       margin-top: -4px;
       height: 60px;
@@ -56,7 +57,7 @@
       }
     }
 
-    @include laptop {
+    @include tablet {
       width: fit-content;
     }
   }
@@ -70,7 +71,7 @@
         font-size: 35.2px;
         display: inline;
 
-        @include laptop {
+        @include tablet {
           font-size: 22.45px;
         }
       }
@@ -79,12 +80,12 @@
         font-size: 35.2px;
         opacity: 0.8;
 
-        @include laptop {
+        @include tablet {
           font-size: 17.96px;
         }
       }
 
-      @include laptop {
+      @include tablet {
         text-align: center;
       }
     }
@@ -94,13 +95,14 @@
         padding: 0 8px;
       }
 
-      @include laptop {
+      @include tablet {
         text-align: center;
       }
     }
 
     .rating-wrapper {
       margin-top: 24px;
+
       .rating-container {
         display: flex;
         align-items: center;
@@ -207,7 +209,7 @@
     }
   }
 
-  @include laptop {
+  @include tablet {
     flex-direction: column;
     padding: 20px;
   }
@@ -259,12 +261,12 @@
         border: none;
       }
 
-      @include laptop {
+      @include tablet {
         width: 100%;
       }
     }
 
-    @include laptop {
+    @include tablet {
       width: 90%;
     }
   }

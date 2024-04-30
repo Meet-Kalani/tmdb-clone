@@ -114,7 +114,7 @@
     }
   }
 
-  @include laptop {
+  @include tablet {
     .welcome-section {
       height: 100%;
       min-height: 300px;

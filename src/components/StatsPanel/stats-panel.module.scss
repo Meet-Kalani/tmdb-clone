@@ -51,4 +51,8 @@
     max-width: 100%;
     padding: 20px;
   }
+
+  @include big-screen {
+    padding-top: 20px;
+  }
 }

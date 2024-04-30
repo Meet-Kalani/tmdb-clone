@@ -5,17 +5,20 @@
   font-size: 16px;
   display: block;
   padding: 30px 0;
+
   .header {
     padding-bottom: 20px;
+
     .title {
       font-size: 22.4px;
       font-weight: $font-weight-600;
 
-      @include laptop {
+      @include tablet {
         font-size: 19.2px;
       }
     }
   }
+
   .content {
     display: flex;
     border: 1px solid rgb(227, 227, 227);
@@ -32,7 +35,8 @@
         color: $color-black;
         background-color: $color-placeholder;
       }
-      @include laptop {
+
+      @include tablet {
         display: none;
       }
     }
@@ -46,8 +50,10 @@
         font-size: 24px;
         font-weight: $font-weight-600;
       }
+
       .info-container {
         display: flex;
+
         .rating-container {
           margin-right: 8px;
           width: fit-content;
@@ -69,6 +75,7 @@
 
           .rating-value {
             font-size: 14.4px;
+
             .percentage-sign {
               font-size: 10.4px;
               position: relative;
@@ -84,12 +91,12 @@
       }
     }
 
-    @include laptop {
+    @include tablet {
       height: 100%;
     }
   }
 
-  @include laptop {
+  @include tablet {
     padding: 20px;
   }
 }

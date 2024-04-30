@@ -13,7 +13,7 @@
   .signup_cta-wrapper {
     padding: 30px 40px;
 
-    @include laptop {
+    @include tablet {
       padding: 30px 20px;
     }
 
@@ -31,7 +31,7 @@
       display: flex;
       gap: 40px;
 
-      @include laptop {
+      @include tablet {
         flex-direction: column;
         gap: 30px;
       }
@@ -42,7 +42,7 @@
         @include flex-column();
         gap: 20px;
 
-        @include laptop {
+        @include tablet {
           width: 100%;
         }
 
