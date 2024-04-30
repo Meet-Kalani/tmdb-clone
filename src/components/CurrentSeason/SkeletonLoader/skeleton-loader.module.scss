@@ -30,7 +30,7 @@
         width: 130px;
         @include flex-center();
         color: $color-black;
-        background-color: #ccc;
+        background-color: $color-placeholder;
       }
       @include laptop {
         display: none;

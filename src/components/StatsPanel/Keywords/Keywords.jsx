@@ -8,21 +8,20 @@ const Keywords = ({ id, contentType, notifyError }) => {
   const [keywords, setKeywords] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        setKeywords(await fetchKeywordsData(id, contentType));
+        const res = await fetchKeywordsData(id, contentType);
+        setKeywords(res);
       }
       catch (err) {
         notifyError(err, style.toast);
       }
-    };
-
-    fetchData();
-  }, [id, notifyError, contentType]);
+    })();
+  }, [id, contentType, notifyError]);
 
   const isVisible = contentType === "movie"
-    ? keywords && keywords.keywords && keywords.keywords.length > 0
-    : keywords && keywords.results && keywords.results.length > 0;
+    ? keywords?.keywords?.length > 0
+    : keywords?.results?.length > 0;
 
   return (
     isVisible && (

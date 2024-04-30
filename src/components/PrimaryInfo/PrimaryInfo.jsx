@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { Link } from "@mui/material";
 import style from "./primary-info.module.scss";
 import {
-  IMAGE_BASE_URL,
+  POSTER_URL,
   WATCH_PROVIDER_LOGO_BASE_URL,
 } from "../../constants/constants";
 import {
@@ -35,41 +35,31 @@ const PrimaryInfo = ({
   const [youtubeId, setYoutubeId] = useState(null);
 
   useEffect(() => {
-    try {
-      fetchWatchProviders(id, contentType).then((res) => {
-        if (res) {
-          setWatchProvider(res);
-        }
-      });
-    }
-    catch (err) {
-      notifyError(err, style.toast);
-    }
+    (async () => {
+      try {
+        const res = await fetchWatchProviders(id, contentType);
+        setWatchProvider(res);
+      }
+      catch (err) {
+        notifyError(err, style.toast);
+      }
+    })();
   }, [id, contentType, notifyError]);
 
   if (isLoading) {
     return <SkeletonLoader />;
   }
-
   function getLogoPath(provider) {
-    if (provider && provider.length > 0 && provider[0].logo_path) {
-      return provider[0].logo_path;
-    }
-    return "/seGSXajazLMCKGB5hnRCidtjay1.jpg";
+    return provider?.[0]?.logo_path;
   }
 
-  const watchProviderSlug = watchProvider && watchProvider.IN
-    ? watchProvider.IN.flatrate
-      ? getLogoPath(watchProvider.IN.flatrate)
-      : watchProvider.IN.buy
-        ? getLogoPath(watchProvider.IN.buy)
-        : watchProvider.IN.ads
-          ? getLogoPath(watchProvider.IN.ads)
-          : watchProvider.IN.free
-            ? getLogoPath(watchProvider.IN.free)
-            : "/seGSXajazLMCKGB5hnRCidtjay1.jpg"
-    : "/seGSXajazLMCKGB5hnRCidtjay1.jpg";
+  const logoPath = watchProvider?.IN?.flatrate
+                         || watchProvider?.IN?.buy
+                         || watchProvider?.IN?.ads
+                         || watchProvider?.IN?.free
+                         || undefined;
 
+  const watchProviderSlug = logoPath && getLogoPath(logoPath);
   const [year, month, day] = releaseDate.split("-");
   const formattedReleaseDate = `${month}/${day}/${year}`;
   const formattedRuntime = `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
@@ -77,14 +67,18 @@ const PrimaryInfo = ({
 
   const handlePlayTrailer = async () => {
     setIsIframeVisible((previousValue) => !previousValue);
-    if (!isIframeVisible) {
-      document.body.style.overflow = "hidden";
-    }
-    else {
-      document.body.style.overflow = "initial";
-    }
+    window.scrollTo(0, 0);
+    document.body.style.overflow = isIframeVisible ? "initial" : "hidden";
 
-    setYoutubeId(await fetchYoutubeVideo(id));
+    if (!isIframeVisible) {
+      try {
+        const res = await fetchYoutubeVideo(id);
+        setYoutubeId(res);
+      }
+      catch (err) {
+        notifyError(err, style.toast);
+      }
+    }
   };
 
   return (
@@ -93,8 +87,8 @@ const PrimaryInfo = ({
         <div className={style["poster-container"]}>
           <img
             alt="Movie poster"
-            className={style.poster}
-            src={`${IMAGE_BASE_URL}${posterPath}`}
+            className={`${style.poster} ${!watchProviderSlug && style['poster-border']}`}
+            src={`${POSTER_URL}${posterPath}`}
             onError={(event) => {
               event.target.src = "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not+Found!";
             }}
@@ -150,7 +144,7 @@ const PrimaryInfo = ({
             </>
             )}
           </div>
-          <div className={style.wrapper}>
+          <div className={style['rating-wrapper']}>
             <div className={style["rating-container"]}>
               <Rating rating={rating} size={68} />
               <span className={style["rating-title"]}>
@@ -160,6 +154,17 @@ const PrimaryInfo = ({
                 {' '}
                 Score
               </span>
+            </div>
+          </div>
+          <div className={style.wrapper}>
+            <div className={style.action}>
+              <span className={`${style['list-icon']} ${style.icon}`} />
+            </div>
+            <div className={style.action}>
+              <span className={`${style['like-icon']} ${style.icon}`} />
+            </div>
+            <div className={style.action}>
+              <span className={`${style['bookmark-icon']} ${style.icon}`} />
             </div>
             {contentType === 'movie' && (
             <div
@@ -239,18 +244,18 @@ const PlayTrailer = ({ handlePlayTrailer, youtubeId }) => createPortal(
 PrimaryInfo.propTypes = {
   id: PropTypes.string.isRequired,
   notifyError: PropTypes.func.isRequired,
-  originalTitle: PropTypes.string.isRequired,
-  overview: PropTypes.string.isRequired,
+  originalTitle: PropTypes.string,
+  overview: PropTypes.string,
   posterPath: PropTypes.string,
-  originCountry: PropTypes.arrayOf(PropTypes.string).isRequired,
-  releaseDate: PropTypes.string.isRequired,
+  originCountry: PropTypes.arrayOf(PropTypes.string),
+  releaseDate: PropTypes.string,
   genres: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.number, name: PropTypes.string }),
-  ).isRequired,
+  ),
   runTime: PropTypes.number,
-  voteAverage: PropTypes.number.isRequired,
+  voteAverage: PropTypes.number,
   creator: PropTypes.string,
-  tagLine: PropTypes.string.isRequired,
+  tagLine: PropTypes.string,
   contentType: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
@@ -259,6 +264,13 @@ PrimaryInfo.defaultProps = {
   creator: undefined,
   posterPath: "https://placehold.jp/16/ccc/ffffff/300x450.png?text=Not+Found!",
   runTime: undefined,
+  originalTitle: undefined,
+  overview: undefined,
+  originCountry: undefined,
+  releaseDate: undefined,
+  genres: undefined,
+  voteAverage: undefined,
+  tagLine: undefined,
 };
 
 export default PrimaryInfo;

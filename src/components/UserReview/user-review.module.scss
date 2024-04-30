@@ -125,7 +125,17 @@
       display: -webkit-box;
       -webkit-box-orient: vertical;
       line-clamp: 5;
+      line-height: 24px;
       -webkit-line-clamp: 5;
+    }
+  }
+
+  .message {
+    padding: 20px 0 0 20px;
+    display: inline-block;
+
+    @include laptop {
+      padding: 10px 0 0 10px;
     }
   }
 

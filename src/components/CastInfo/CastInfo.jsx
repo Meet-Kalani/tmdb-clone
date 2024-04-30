@@ -10,10 +10,10 @@ const CastInfo = ({ id, contentType, notifyError }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        const temp = await fetchCastData(id, contentType);
-        setCastData(temp.slice(0, 9));
+        const res = await fetchCastData(id, contentType);
+        setCastData(res.slice(0, 9));
       }
       catch (err) {
         notifyError(err, style.toast);
@@ -21,9 +21,7 @@ const CastInfo = ({ id, contentType, notifyError }) => {
       finally {
         setIsLoading(false);
       }
-    };
-
-    fetchData();
+    })();
   }, [id, notifyError, contentType]);
 
   return (

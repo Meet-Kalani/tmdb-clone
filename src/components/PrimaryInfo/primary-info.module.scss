@@ -3,6 +3,8 @@
 .movie-info {
   padding: 30px 40px;
   display: flex;
+  align-items: center;
+  height: 100%;
   gap: 40px;
   font-size: 16px;
   color: $color-white;
@@ -10,15 +12,19 @@
   .poster-container {
     border-radius: 8px;
     background-color: #032541;
+    font-size: 0;
 
     .poster {
       border-radius: 8px 8px 0 0;
-      width: 300px;
     }
 
+    .poster-border {
+      border-radius: 8px;
+    }
     .watch-provider-container {
       margin-top: -4px;
       height: 60px;
+      font-size: 16px;
 
       color: $color-white;
       @include flex-center();
@@ -93,11 +99,8 @@
       }
     }
 
-    .wrapper {
-      margin: 20px 0;
-      display: flex;
-      gap: 20px;
-
+    .rating-wrapper {
+      margin-top: 24px;
       .rating-container {
         display: flex;
         align-items: center;
@@ -107,6 +110,37 @@
         .rating-title {
           font-weight: $font-weight-700;
           font-size: 16px;
+        }
+      }
+    }
+
+    .wrapper {
+      margin: 16px 0 36px 0;
+      display: flex;
+      gap: 20px;
+
+      .action {
+        width: 46px;
+        height: 46px;
+        background-color: rgb(3, 37, 65);
+        border-radius: 50%;
+        @include flex-center();
+
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+
+        .list-icon {
+          background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-159-thumbnails-list-white-c260ea972eebf812289fd3c41d0d2c1dff33ecbcd62be13fba8eeaf9de173789.svg);
+        }
+
+        .like-icon {
+          background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-13-heart-white-28d2cc2d6418c5047efcfd2438bfc5d109192671263c270993c05f130cc4584e.svg);
+        }
+
+        .bookmark-icon {
+          background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-73-bookmark-white-432e98d550b7e4c80b06272c49475b0db85a60f6fae450420713004b3c9d3ffd.svg);
         }
       }
 
@@ -144,6 +178,7 @@
         opacity: 0.7;
         font-style: italic;
         font-size: 17.6px;
+        line-height: 17.6px;
       }
 
       .overview-title {
@@ -151,6 +186,10 @@
         font-size: 20.8px;
         font-weight: 600;
         margin: 10px 0 8px 0;
+      }
+
+      .overview {
+        line-height: 24px;
       }
     }
 

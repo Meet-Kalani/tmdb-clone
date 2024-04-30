@@ -5,7 +5,7 @@ import { RECOMMENDATION_BASE_URL } from "../../../constants/constants";
 
 const RecommendationCard = ({
   id,
-  posterPath,
+  backdropPath,
   originalTitle,
   voteAverage,
   releaseDate,
@@ -34,7 +34,7 @@ const RecommendationCard = ({
         <img
           alt="Recommended Movie"
           className={style["recommendation-image"]}
-          src={`${RECOMMENDATION_BASE_URL}${posterPath}`}
+          src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
           onError={(e) => {
             (e.target.src = "https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!");
           }}
@@ -72,7 +72,7 @@ const RecommendationCard = ({
 
 RecommendationCard.propTypes = {
   id: PropTypes.number.isRequired,
-  posterPath: PropTypes.string,
+  backdropPath: PropTypes.string,
   originalTitle: PropTypes.string.isRequired,
   voteAverage: PropTypes.number.isRequired,
   releaseDate: PropTypes.string,
@@ -81,7 +81,7 @@ RecommendationCard.propTypes = {
 
 RecommendationCard.defaultProps = {
   releaseDate: undefined,
-  posterPath: "https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!",
+  backdropPath: "https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!",
 };
 
 export default RecommendationCard;

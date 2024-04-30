@@ -4,18 +4,7 @@ import Rating from "../../Rating/Rating";
 const SkeletonLoader = () => (
   <div className={style["movie-info"]}>
     <div className={style["poster-container"]}>
-      <div className={style.poster}>
-        <span>Loading...</span>
-      </div>
-      <div className={style["watch-provider-container"]}>
-        <div className={style['watch-provider-logo']} />
-        <div className={style["watch-provider-link-wrapper"]}>
-          <span className={style.label}>Now Streaming</span>
-          <span className={style["watch-provider-link"]}>
-            Watch Now
-          </span>
-        </div>
-      </div>
+      <span>Loading...</span>
 
     </div>
     <div className={style.content}>

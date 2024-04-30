@@ -3,6 +3,38 @@
 .stats-panel {
   max-width: 300px;
 
+  .social-media-links {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+
+    .social-media-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    .facebook-icon {
+      background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/social/facebook-2c5718e4ece8eb3a3cc49ae97000e541c0aad50869b419b5aa579693bc0ad059.svg);
+    }
+
+    .twitter-icon {
+      background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/social/twitter-a6ff8c172b8e086f4a64578cee0a16676c1a067b47a1b1b186d58795d241a852.svg);
+    }
+
+    .instagram-icon {
+      background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/social/instagram-74e6299c864adc384258da3b3a8eb09282b7ccda4dd1dfa9a4158ba2ea8583b9.svg);
+    }
+
+    .divider {
+      background-color: #d6d6d7;
+      width: 1px;
+    }
+
+    .homepage-icon {
+      background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-351-link-5f643a86c2515cb06ea08ebc798941824f76bbcea4ed571222a81f271b30c7f3.svg);
+    }
+  }
+
   .wrapper {
     font-size: 16px;
 

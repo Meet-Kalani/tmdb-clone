@@ -10,13 +10,13 @@ const Recommendation = ({
   id, contentType, notifyError,
 }) => {
   const [recommendations, setRecommendations] = useState([]);
-  const isContentLoaded = recommendations.length > 0;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
-        setRecommendations(await fetchRecommendations(id, contentType));
+        const res = await fetchRecommendations(id, contentType);
+        setRecommendations(res);
       }
       catch (err) {
         notifyError(err, style.toast);
@@ -24,35 +24,32 @@ const Recommendation = ({
       finally {
         setIsLoading(false);
       }
-    };
-    fetchData();
+    })();
   }, [id, notifyError, contentType]);
 
   return (
-    isContentLoaded ? (
-      <div className={style.recommendation}>
-        <div className={style["recommendation-header"]}>
-          <h3 className={style.title}>Recommendations</h3>
-        </div>
-        <div className={style["recommendation-body"]}>
-          { isLoading ? [...Array(10)].map(() => <SkeletonLoader key={crypto.randomUUID()} />) : recommendations.map(
-            ({
-              id: recommendationId, poster_path: posterPath, original_title: originalTitle, original_name: originalName, vote_average: voteAverage, release_date: releaseDate, first_air_date: firstAIRDate,
-            }) => (
-              <RecommendationCard
-                contentType={contentType}
-                id={recommendationId}
-                key={recommendationId}
-                originalTitle={originalTitle || originalName}
-                posterPath={posterPath}
-                releaseDate={formatDate(releaseDate || firstAIRDate)}
-                voteAverage={Math.floor(voteAverage * 10)}
-              />
-            ),
-          )}
-        </div>
+    <div className={style.recommendation}>
+      <div className={style["recommendation-header"]}>
+        <h3 className={style.title}>Recommendations</h3>
       </div>
-    ) : undefined
+      <div className={style["recommendation-body"]}>
+        { isLoading ? [...Array(10)].map(() => <SkeletonLoader key={crypto.randomUUID()} />) : recommendations.length > 0 ? recommendations.map(
+          ({
+            id: recommendationId, backdrop_path: backdropPath, original_title: originalTitle, original_name: originalName, vote_average: voteAverage, release_date: releaseDate, first_air_date: firstAIRDate,
+          }) => (
+            <RecommendationCard
+              backdropPath={backdropPath}
+              contentType={contentType}
+              id={recommendationId}
+              key={recommendationId}
+              originalTitle={originalTitle || originalName}
+              releaseDate={formatDate(releaseDate || firstAIRDate)}
+              voteAverage={Math.floor(voteAverage * 10)}
+            />
+          ),
+        ) : <span className={style.message}>Sorry! but there is no recommendation at the time.</span>}
+      </div>
+    </div>
   );
 };
 

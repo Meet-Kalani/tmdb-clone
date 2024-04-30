@@ -47,7 +47,14 @@ export const fetchYoutubeVideo = async (id) => {
     `${BASE_URL}/movie/${id}/videos`,
     defaultHeaders,
   );
-  return res.data.results[0].key;
+  const data = res.data.results.filter((result) => {
+    if (result.type === "Trailer") {
+      return result.key;
+    }
+    return null;
+  });
+
+  return data[0].key;
 };
 
 export const fetchCastData = async (id, contentType) => {
@@ -80,4 +87,12 @@ export const fetchRecommendations = async (id, contentType) => {
     defaultHeaders,
   );
   return res.data.results;
+};
+
+export const fetchSocialMediaLinks = async (id, contentType) => {
+  const res = await axios.get(
+    `${BASE_URL}/${contentType}/${id}/external_ids`,
+    defaultHeaders,
+  );
+  return res.data;
 };

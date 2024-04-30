@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import style from "./stats-panel.module.scss";
 import Keywords from "./Keywords/Keywords";
 import { NETWORKS_LOGO_BASE_URL } from "../../constants/constants";
 import { formatCurrency } from "../../utils/helpers";
+import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
+import { fetchSocialMediaLinks } from "../../service/api";
 
 const StatsPanel = ({
   id,
@@ -13,13 +17,40 @@ const StatsPanel = ({
   networks,
   revenue,
   contentType,
+  isLoading,
+  homepage,
   notifyError,
 }) => {
+  const [socialMediaLinks, setSocialMediaLinks] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetchSocialMediaLinks(id, contentType);
+        setSocialMediaLinks(res);
+      }
+      catch (err) {
+        notifyError(err, style.toast);
+      }
+    })();
+  }, [id, notifyError, contentType]);
+
+  if (isLoading) {
+    return <SkeletonLoader contentType={contentType} />;
+  }
+
   const formattedBudget = formatCurrency(budget);
   const formattedRevenue = formatCurrency(revenue);
 
   return (
     <div className={style["stats-panel"]}>
+      <div className={style["social-media-links"]}>
+        <Link className={`${style['facebook-icon']} ${style['social-media-icon']}`} to={`https://www.facebook.com/${socialMediaLinks.facebook_id}`} />
+        <Link className={`${style['twitter-icon']} ${style['social-media-icon']}`} to={`https://www.twitter.com/${socialMediaLinks.twitter_id}`} />
+        <Link className={`${style['instagram-icon']} ${style['social-media-icon']}`} to={`https://www.instagram.com/${socialMediaLinks.instagram_id}`} />
+        <div className={style.divider} />
+        <Link className={`${style['homepage-icon']} ${style['social-media-icon']}`} to={homepage} />
+      </div>
       <div className={style.wrapper}>
         <span className={style.label}>Status</span>
         <span>{status}</span>
@@ -71,7 +102,7 @@ StatsPanel.propTypes = {
   networks: PropTypes.arrayOf(PropTypes.shape({
     logo_path: PropTypes.string,
   })),
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
   budget: PropTypes.number,
   revenue: PropTypes.number,
   spokenLanguages: PropTypes.arrayOf(
@@ -82,9 +113,13 @@ StatsPanel.propTypes = {
     }),
   ),
   notifyError: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  homepage: PropTypes.string,
 };
 
 StatsPanel.defaultProps = {
+  status: undefined,
+  homepage: undefined,
   budget: undefined,
   revenue: undefined,
   type: undefined,

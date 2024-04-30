@@ -11,51 +11,16 @@
   .poster-container {
     border-radius: 8px;
     height: 510px;
-    background-color: #032541;
+    background-color: $color-placeholder;
+    opacity: 0.8;
+    @include flex-center();
+    color: $color-black;
+    font-size: 24px;
+    width: 300px;
 
     .poster {
       border-radius: 8px 8px 0 0;
-      width: 300px;
       height: 450px;
-      background-color: #ccc;
-      opacity: 0.8;
-      @include flex-center();
-      color: $color-black;
-      font-size: 24px;
-    }
-
-    .watch-provider-container {
-      height: 60px;
-      color: $color-white;
-      @include flex-center();
-      gap: 12px;
-
-      .watch-provider-logo {
-        width: 36px;
-        height: 36px;
-        border-radius: 4px;
-        background-color: #ccc;
-        opacity: 0.8;
-        @include flex-center();
-      }
-
-      .watch-provider-link-wrapper {
-        align-items: center;
-        align-content: center;
-
-        .label {
-          opacity: 0.8;
-          display: block;
-          line-height: 16px;
-        }
-
-        .watch-provider-link {
-          text-decoration: none;
-          color: $color-white;
-          font-weight: $font-weight-600;
-          line-height: 16px;
-        }
-      }
     }
 
     @include laptop {

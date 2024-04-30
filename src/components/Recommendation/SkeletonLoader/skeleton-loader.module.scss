@@ -10,7 +10,7 @@
       cursor: pointer;
       width: 250px;
       height: 141px;
-      background-color: #ccc;
+      background-color: $color-placeholder;
       color: $color-black;
       @include flex-center();
     }

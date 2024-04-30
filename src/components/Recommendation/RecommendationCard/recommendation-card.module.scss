@@ -8,6 +8,8 @@
     .recommendation-image {
       border-radius: 8px;
       cursor: pointer;
+      min-height: 141px;
+      min-width: 250px;
 
       &:hover + .hidden-container {
         visibility: visible;
