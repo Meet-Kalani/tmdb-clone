@@ -74,35 +74,6 @@
           .navlink {
             padding: 0;
           }
-
-          .navlink-wrapper {
-            position: relative;
-
-            .hidden-container {
-              padding: 12.8px;
-              width: 240px;
-              border-radius: 4px;
-              background-color: $color-white;
-              font-size: 16px;
-              left: -109px;
-              visibility: hidden;
-              position: absolute;
-              z-index: 1;
-              top: 150%;
-
-              &::before {
-                content: " ";
-                position: absolute;
-                bottom: 100%;
-                left: 50%;
-                margin-left: -5px;
-                border-width: 5px;
-                border-style: solid;
-                border-color: transparent transparent $color-white transparent;
-              }
-            }
-          }
-
           .navlink-wrapper:hover .hidden-container {
             visibility: visible;
           }

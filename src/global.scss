@@ -1,3 +1,5 @@
+@use "./styles" as *;
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +7,6 @@
 }
 
 html {
-  font-size: 10px;
   scroll-behavior: smooth;
 
   body {
@@ -14,6 +15,15 @@ html {
 
     #root {
       height: 100vh;
+    }
+
+    button {
+      font-size: 16px;
+      font-family: "Source Sans Pro", Arial, sans-serif;
+    }
+
+    input {
+      font-family: "Source Sans Pro", Arial, sans-serif;
     }
   }
 }

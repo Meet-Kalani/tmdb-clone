@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import Card from "./Card/Card";
 import Tabs from "./Tabs/Tabs";
+import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
 import style from "./card-list.module.scss";
 
 const CardList = ({
@@ -50,15 +51,6 @@ const CardList = ({
       )}
     </div>
   </section>
-);
-
-const SkeletonLoader = () => (
-  <div className={style["skeleton-loader"]}>
-    <div className={style["image-loader"]}>Loading...</div>
-    <div className={style["rating-loader-container"]}>
-      <span className={style["rating-loader"]}>NR</span>
-    </div>
-  </div>
 );
 
 CardList.propTypes = {

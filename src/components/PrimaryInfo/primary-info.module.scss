@@ -6,7 +6,6 @@
   align-items: center;
   height: 100%;
   gap: 40px;
-  font-size: 16px;
   color: $color-white;
 
   .poster-container {
@@ -153,8 +152,6 @@
         .play-link {
           background-color: transparent;
           border: none;
-          font-size: 16px;
-          font-family: "Source Sans Pro", Arial, sans-serif;
           cursor: pointer;
           color: $color-white;
           font-weight: $font-weight-600;
@@ -222,7 +219,6 @@
       align-items: center;
       padding: 16px;
       color: $color-white;
-      font-size: 16px;
 
       .title {
         font-size: 20px;
