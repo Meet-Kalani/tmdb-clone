@@ -39,7 +39,7 @@ const DetailsPage = () => {
   }, [movieId, navigate, contentType]);
 
   const backdropStyle = {
-    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${BACKDROP_BASE_URL}${data.backdrop_path})`,
+    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${encodeURI(BACKDROP_BASE_URL + data.backdrop_path)})`,
   };
 
   const documentTitle = `${data.name || data.original_title} (${data?.first_air_date?.slice(0, 4) || data?.release_date?.slice(0, 4)}) — The Movie Database (TMDB)`;

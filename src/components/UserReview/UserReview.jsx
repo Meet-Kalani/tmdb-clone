@@ -91,7 +91,7 @@ const UserReview = ({ id, contentType, notifyError }) => {
               </div>
             </div>
           </div>
-          <div className={style["review-content"]}>{review}</div>
+          <div aria-label="review content" className={style["review-content"]}>{review}</div>
         </div>
       ) : <span className={style.message}>Sorry! but there is no review available at the time.</span> }
     </div>
