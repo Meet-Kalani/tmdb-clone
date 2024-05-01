@@ -17,7 +17,7 @@
     position: absolute;
     background-color: $color-white;
     padding: 8px 0;
-    border-radius: 4px;
+    border-radius: $border-radius-4;
 
     .nested-navlinks {
       list-style: none;

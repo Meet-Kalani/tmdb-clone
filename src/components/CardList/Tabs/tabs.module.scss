@@ -3,7 +3,7 @@
 .tabs {
   width: fit-content;
   border-radius: 30px;
-  border: 1px solid rgba(3, 37, 65, 1);
+  border: $border-blue;
   @include flex-center();
 
   .tab {

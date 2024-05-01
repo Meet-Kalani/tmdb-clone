@@ -20,8 +20,8 @@
 
   .content {
     display: flex;
-    border: 1px solid rgb(227, 227, 227);
-    border-radius: 8px;
+    border: $border-grey;
+    border-radius: $border-radius-8;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
     .poster-container {
@@ -55,8 +55,8 @@
           color: $color-white;
           @include flex-center();
           gap: 2px;
-          border: 1px solid rgb(3, 37, 65);
-          border-radius: 6px;
+          border: $border-blue;
+          border-radius: $border-radius-6;
 
           .star-icon {
             background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-49-star-67a24f6d4324aa644c594653e762b1c0de2b3e1ce0852171cfa49cc2650de374.svg);

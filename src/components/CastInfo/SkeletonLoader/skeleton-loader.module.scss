@@ -1,8 +1,8 @@
 @use "../../../styles" as *;
 
 .cast-card {
-  border: 1px solid rgb(227, 227, 227);
-  border-radius: 8px;
+  border: $border-grey;
+  border-radius: $border-radius-8;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 140px;
   height: 258px;

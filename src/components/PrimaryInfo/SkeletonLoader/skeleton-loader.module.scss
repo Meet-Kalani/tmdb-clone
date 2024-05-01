@@ -8,7 +8,7 @@
   color: $color-white;
 
   .poster-container {
-    border-radius: 8px;
+    border-radius: $border-radius-8;
     height: 510px;
     background-color: $color-placeholder;
     opacity: 0.8;
