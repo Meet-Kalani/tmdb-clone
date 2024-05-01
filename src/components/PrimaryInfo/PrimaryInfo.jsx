@@ -18,17 +18,11 @@ const PrimaryInfo = ({
   notifyError,
   id,
   originalTitle,
-  overview,
-  posterPath,
-  originCountry,
   releaseDate,
   isLoading,
-  genres,
-  runTime,
-  voteAverage,
   creator,
   contentType,
-  tagLine,
+  data,
 }) => {
   const [watchProvider, setWatchProvider] = useState({});
   const [isIframeVisible, setIsIframeVisible] = useState(false);
@@ -46,9 +40,14 @@ const PrimaryInfo = ({
     })();
   }, [id, contentType, notifyError]);
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <SkeletonLoader />;
   }
+
+  const {
+    overview, poster_path: posterPath, origin_country: originCountry, genres, runtime: runTime, vote_average: voteAverage, tagline: tagLine,
+  } = data;
+
   function getLogoPath(provider) {
     return provider?.[0]?.logo_path;
   }
@@ -64,6 +63,7 @@ const PrimaryInfo = ({
   const formattedReleaseDate = `${month}/${day}/${year}`;
   const formattedRuntime = `${Math.floor(runTime / 60)}h ${runTime % 60}m`;
   const rating = Math.floor(voteAverage * 10);
+  const releaseYear = releaseDate.slice(0, 4);
 
   const handlePlayTrailer = async () => {
     setIsIframeVisible((previousValue) => !previousValue);
@@ -116,7 +116,7 @@ const PrimaryInfo = ({
             <span
               className={style["release-year"]}
             >
-              {`(${releaseDate.slice(0, 4)})`}
+              {`(${releaseYear})`}
             </span>
           </div>
           <div className={style["info-container"]}>
@@ -245,32 +245,36 @@ PrimaryInfo.propTypes = {
   id: PropTypes.string.isRequired,
   notifyError: PropTypes.func.isRequired,
   originalTitle: PropTypes.string,
-  overview: PropTypes.string,
-  posterPath: PropTypes.string,
-  originCountry: PropTypes.arrayOf(PropTypes.string),
   releaseDate: PropTypes.string,
-  genres: PropTypes.arrayOf(
-    PropTypes.shape({ id: PropTypes.number, name: PropTypes.string }),
-  ),
-  runTime: PropTypes.number,
-  voteAverage: PropTypes.number,
+  data: PropTypes.shape({
+    overview: PropTypes.string,
+    tagline: PropTypes.string,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.number, name: PropTypes.string }),
+    ),
+    runtime: PropTypes.number,
+    vote_average: PropTypes.number,
+    poster_path: PropTypes.string,
+    origin_country: PropTypes.arrayOf(PropTypes.string),
+  }),
   creator: PropTypes.string,
-  tagLine: PropTypes.string,
   contentType: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
 PrimaryInfo.defaultProps = {
   creator: undefined,
-  posterPath: "https://placehold.jp/16/ccc/ffffff/300x450.png?text=Not+Found!",
-  runTime: undefined,
   originalTitle: undefined,
-  overview: undefined,
-  originCountry: undefined,
   releaseDate: undefined,
-  genres: undefined,
-  voteAverage: undefined,
-  tagLine: undefined,
+  data: {
+    poster_path: "https://placehold.jp/16/ccc/ffffff/300x450.png?text=Not+Found!",
+    run_time: undefined,
+    overview: undefined,
+    origin_country: undefined,
+    genres: undefined,
+    vote_average: undefined,
+    tagline: undefined,
+  },
 };
 
 export default PrimaryInfo;

@@ -12,17 +12,12 @@ import CurrentSeason from "../../components/CurrentSeason/CurrentSeason";
 import Recommendation from "../../components/Recommendation/Recommendation";
 import { fetchMovieData, fetchTVData } from "../../service/api";
 import { BACKDROP_BASE_URL } from "../../constants/constants";
-import SkeletonLoader from "../../components/CurrentSeason/SkeletonLoader/SkeletonLoader";
 import useTitle from "../../hooks/useTitle";
-
-// IMPLEMENT CUSTOM HOOK
-// date time library use it bitch
-// pass entrier props rather than invidually
 
 const DetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const [details, setDetails] = useState({});
+  const [data, setData] = useState({});
   const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +27,7 @@ const DetailsPage = () => {
     (async () => {
       try {
         const res = contentType === 'tv' ? await fetchTVData(movieId) : await fetchMovieData(movieId);
-        setDetails(res);
+        setData(res);
       }
       catch (err) {
         notifyError(err, style.toast);
@@ -44,13 +39,13 @@ const DetailsPage = () => {
   }, [movieId, navigate, contentType]);
 
   const backdropStyle = {
-    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${BACKDROP_BASE_URL}${details.backdrop_path})`,
+    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${BACKDROP_BASE_URL}${data.backdrop_path})`,
   };
 
-  const documentTitle = `${details.name || details.original_title} (${details?.first_air_date?.slice(0, 4) || details?.release_date?.slice(0, 4)}) — The Movie Database (TMDB)`;
+  const documentTitle = `${data.name || data.original_title} (${data?.first_air_date?.slice(0, 4) || data?.release_date?.slice(0, 4)}) — The Movie Database (TMDB)`;
   useTitle(documentTitle);
 
-  const creatorName = details?.created_by?.[0]?.name ?? undefined;
+  const creatorName = data?.created_by?.[0]?.name ?? undefined;
   const parsedMovieId = parseInt(movieId, 10);
 
   return (
@@ -63,34 +58,22 @@ const DetailsPage = () => {
               <PrimaryInfo
                 contentType={contentType}
                 creator={creatorName}
-                genres={details.genres}
+                data={data}
                 id={movieId}
                 isLoading={isLoading}
                 notifyError={notifyError}
-                originalTitle={details.name}
-                originCountry={details.origin_country}
-                overview={details.overview}
-                posterPath={details.poster_path}
-                releaseDate={details.first_air_date}
-                runTime={details.runtime}
-                tagLine={details.tagline}
-                voteAverage={details.vote_average}
+                originalTitle={data.name}
+                releaseDate={data.first_air_date}
               />
             ) : (
               <PrimaryInfo
                 contentType={contentType}
-                genres={details.genres}
+                data={data}
                 id={movieId}
                 isLoading={isLoading}
                 notifyError={notifyError}
-                originalTitle={details.original_title}
-                originCountry={details.origin_country}
-                overview={details.overview}
-                posterPath={details.poster_path}
-                releaseDate={details.release_date}
-                runTime={details.runtime}
-                tagLine={details.tagline}
-                voteAverage={details.vote_average}
+                originalTitle={data.original_title}
+                releaseDate={data.release_date}
               />
             )}
           </div>
@@ -98,36 +81,24 @@ const DetailsPage = () => {
         <div className={style["secondary-info"]}>
           <div className={style.wrapper}>
             <CastInfo contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
-            {(contentType === 'tv') ? (
-              isLoading ? <SkeletonLoader />
-                : (
-                  <CurrentSeason
-                    airDate={details.seasons.at(-1).air_date}
-                    episodeCount={details.seasons.at(-1).episode_count}
-                    isLoading={isLoading}
-                    name={details.seasons.at(-1).name}
-                    overview={details.seasons.at(-1).overview}
-                    posterPath={details.seasons.at(-1).poster_path}
-                    rating={Math.floor(details.seasons.at(-1).vote_average * 10)}
-                  />
-                )
-            ) : undefined}
+            {(contentType === 'tv')
+              ? (
+                <CurrentSeason
+                  data={data}
+                  isLoading={isLoading}
+                />
+              )
+              : undefined}
             <UserReview contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
             <Recommendation contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
           </div>
           <div>
             <StatsPanel
-              budget={details.budget}
               contentType={contentType}
-              homepage={details.homepage}
+              data={data}
               id={parsedMovieId}
               isLoading={isLoading}
-              networks={details.networks}
               notifyError={notifyError}
-              revenue={details.revenue}
-              spokenLanguages={details.spoken_languages}
-              status={details.status}
-              type={details.type}
             />
           </div>
         </div>

@@ -41,6 +41,7 @@ const UserReview = ({ id, contentType, notifyError }) => {
   const { author } = hasContent && userReview.results[randomIndex];
   const createdAt = hasContent && formatDate(userReview.results[randomIndex].created_at);
   const review = hasContent && userReview.results[randomIndex].content;
+  const totalResults = hasContent ? userReview.total_results : undefined;
 
   return (
     <div className={style["user-review"]}>
@@ -50,7 +51,7 @@ const UserReview = ({ id, contentType, notifyError }) => {
           Reviews
           {" "}
           <span className={style["review-count"]}>
-            {hasContent ? userReview.total_results : undefined}
+            {totalResults}
           </span>
         </span>
       </div>

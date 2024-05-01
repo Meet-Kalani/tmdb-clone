@@ -10,16 +10,10 @@ import { fetchSocialMediaLinks } from "../../service/api";
 
 const StatsPanel = ({
   id,
-  status,
-  spokenLanguages,
-  budget,
-  type,
-  networks,
-  revenue,
   contentType,
   isLoading,
-  homepage,
   notifyError,
+  data,
 }) => {
   const [socialMediaLinks, setSocialMediaLinks] = useState({});
 
@@ -38,6 +32,10 @@ const StatsPanel = ({
   if (isLoading) {
     return <SkeletonLoader contentType={contentType} />;
   }
+
+  const {
+    budget, homepage, networks, revenue, status, type, spoken_languages: spokenLanguages,
+  } = data;
 
   const formattedBudget = formatCurrency(budget);
   const formattedRevenue = formatCurrency(revenue);
@@ -98,33 +96,37 @@ const StatsPanel = ({
 StatsPanel.propTypes = {
   id: PropTypes.number.isRequired,
   contentType: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  networks: PropTypes.arrayOf(PropTypes.shape({
-    logo_path: PropTypes.string,
-  })),
-  status: PropTypes.string,
-  budget: PropTypes.number,
-  revenue: PropTypes.number,
-  spokenLanguages: PropTypes.arrayOf(
-    PropTypes.shape({
-      english_name: PropTypes.string,
-      iso_639_1: PropTypes.string,
-      name: PropTypes.string,
-    }),
-  ),
+  data: PropTypes.shape({
+    type: PropTypes.string,
+    networks: PropTypes.arrayOf(PropTypes.shape({
+      logo_path: PropTypes.string,
+    })),
+    status: PropTypes.string,
+    budget: PropTypes.number,
+    revenue: PropTypes.number,
+    spoken_languages: PropTypes.arrayOf(
+      PropTypes.shape({
+        english_name: PropTypes.string,
+        iso_639_1: PropTypes.string,
+        name: PropTypes.string,
+      }),
+    ),
+    homepage: PropTypes.string,
+  }),
   notifyError: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  homepage: PropTypes.string,
 };
 
 StatsPanel.defaultProps = {
-  status: undefined,
-  homepage: undefined,
-  budget: undefined,
-  revenue: undefined,
-  type: undefined,
-  networks: [{ logo_path: "https://placehold.jp/16/ccc/ffffff/30x30.png?text=?" }],
-  spokenLanguages: [{ english_name: undefined, iso_639_1: undefined, name: undefined }],
+  data: {
+    status: undefined,
+    homepage: undefined,
+    budget: undefined,
+    revenue: undefined,
+    type: undefined,
+    networks: [{ logo_path: "https://placehold.jp/16/ccc/ffffff/30x30.png?text=?" }],
+    spoken_languages: [{ english_name: undefined, iso_639_1: undefined, name: undefined }],
+  },
 };
 
 export default StatsPanel;
