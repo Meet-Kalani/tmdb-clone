@@ -198,7 +198,6 @@ const PrimaryInfo = ({
           ) : null}
         </div>
       </div>
-      )
       {isIframeVisible ? (
         <PlayTrailer
           handlePlayTrailer={handlePlayTrailer}

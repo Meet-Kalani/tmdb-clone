@@ -21,7 +21,7 @@
       .image-loader {
         width: 150px;
         height: 225px;
-        background-color: rgb(197, 191, 191);
+        background-color: $color-placeholder;
         border-radius: $border-radius-8;
         @include flex-center();
       }

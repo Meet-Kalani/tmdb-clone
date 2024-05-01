@@ -10,7 +10,7 @@
 
   .poster-container {
     border-radius: $border-radius-8;
-    background-color: #032541;
+    background-color: $color-primary;
     font-size: 0;
 
     .poster {
@@ -123,7 +123,7 @@
       .action {
         width: 46px;
         height: 46px;
-        background-color: rgb(3, 37, 65);
+        background-color: $color-primary;
         border-radius: $border-radius-round;
         @include flex-center();
 

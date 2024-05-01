@@ -33,7 +33,7 @@
     }
 
     &::-webkit-scrollbar-thumb:horizontal {
-      background-color: #dbdbdb;
+      background-color: $color-scrollbar;
       border-radius: $border-radius-10;
     }
 

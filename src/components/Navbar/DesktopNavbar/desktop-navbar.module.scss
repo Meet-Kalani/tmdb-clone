@@ -10,7 +10,7 @@
   }
 
   .header {
-    background-color: rgb(3, 37, 65);
+    background-color: $color-primary;
     height: 64px;
     @include flex-center();
 
