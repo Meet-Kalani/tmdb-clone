@@ -36,8 +36,8 @@ const MobileNavbar = () => {
           </div>
           <div className={style.wrapper}>
             <div className={style["action-icon-wrapper"]}>
-              <Link className={style["user-icon"]} to="/" />
-              <Link className={style["search-icon"]} to="/" />
+              <img alt="user icon" className={style["user-icon"]} src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-7de7dfcae838579a18f4eebc5b8847230d154718e481c5cd01c477cfcbc85993.svg" />
+              <img alt="search icon" className={style["search-icon"]} src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-28-search-blue-177462d06db81ff2a02aa022c1c0be5ba4200d7bd3f51091ed9298980e3a26a1.svg" />
             </div>
           </div>
         </nav>
