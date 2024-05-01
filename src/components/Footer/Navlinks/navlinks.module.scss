@@ -1,0 +1,27 @@
+@use "../../../styles" as *;
+
+.footer-navlinks {
+  @include flex-column();
+
+  .footer-navlinks-title {
+    color: $color-white;
+    white-space: nowrap;
+    text-transform: uppercase;
+    line-height: 28px;
+    font-size: 20.16px;
+  }
+
+  .list {
+    list-style: none;
+
+    .navlink-wrapper {
+      line-height: 24px;
+
+      .navlink {
+        color: $color-white;
+        text-decoration: none;
+        font-size: 17.28px;
+      }
+    }
+  }
+}

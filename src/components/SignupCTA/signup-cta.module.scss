@@ -1,0 +1,81 @@
+@use "../../styles" as *;
+
+.signup_cta {
+  // prettier-ignore
+  background-image: url(https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter\(duotone,190235,ad47dd\)/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: $color-white;
+  max-width: $maxPrimaryPageWidth;
+  margin: auto;
+
+  .signup_cta-wrapper {
+    padding: 30px 40px;
+
+    @include laptop {
+      padding: 30px 20px;
+    }
+
+    .signup_cta-header {
+      display: flex;
+      align-content: center;
+
+      .signup_cta-title {
+        font-size: 32px;
+      }
+    }
+
+    .signup_cta-content {
+      padding: 20px 0;
+      display: flex;
+      gap: 40px;
+
+      @include laptop {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .signup_cta-info {
+        width: 65%;
+        margin-right: 40px;
+        @include flex-column();
+        gap: 20px;
+
+        @include laptop {
+          width: 100%;
+        }
+
+        .signup_cta-description {
+          font-size: 19.2px;
+
+          .signup_cta-emphasized {
+            opacity: 0.7;
+          }
+        }
+
+        .signup_cta-btn {
+          text-decoration: none;
+          background-color: rgb(128, 91, 231);
+          color: $color-white;
+          font-weight: $font-weight-600;
+          font-size: 17.28px;
+          width: fit-content;
+        }
+      }
+
+      .signup_cta-benefits {
+        width: auto;
+
+        .signup_cta-list {
+          margin-left: 20px;
+
+          .signup_cta-benefit {
+            opacity: 0.8;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}

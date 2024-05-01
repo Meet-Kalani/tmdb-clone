@@ -1,0 +1,40 @@
+@use "../../../styles" as *;
+
+.navlink-wrapper {
+  margin-bottom: 10px;
+  display: inline-block;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .navlink {
+    font-size: 20.8px;
+    text-decoration: none;
+    font-weight: 600;
+    color: $color-white;
+  }
+
+  .nested-navlinks {
+    margin: 10px 0 20px 0;
+    list-style: none;
+
+    .nested-navlink-wrapper {
+      padding-bottom: 10px;
+
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+
+      .nested-navlink {
+        text-decoration: none;
+        color: $color-white;
+        font-size: 16px;
+      }
+    }
+  }
+
+  &:last-of-type .nested-navlinks {
+    margin-bottom: 0;
+  }
+}

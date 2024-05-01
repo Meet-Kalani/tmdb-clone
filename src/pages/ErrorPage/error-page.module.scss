@@ -1,0 +1,42 @@
+@use "../../styles/" as *;
+
+.error-page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 16px;
+  min-height: calc(100% - 386px);
+
+  @include laptop {
+    min-height: calc(100% - 833px);
+  }
+
+  .wrapper {
+    max-width: 1400px;
+    width: 100%;
+    @include flex-column();
+    align-items: flex-start;
+    align-content: flex-start;
+    padding: 30px 40px;
+
+    .title-wrapper {
+      display: flex;
+      margin-bottom: 20px;
+
+      .title {
+        line-height: 1;
+        display: flex;
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
+
+    .navlink {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      gap: 6px;
+    }
+  }
+}
