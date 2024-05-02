@@ -96,3 +96,11 @@ export const fetchSocialMediaLinks = async (id, contentType) => {
   );
   return res.data;
 };
+
+export const fetchCategoriesContent = async (category, contentType, pageNumber) => {
+  const res = await axios.get(
+    `${BASE_URL}/${contentType}/${category}?page=${pageNumber}`,
+    defaultHeaders,
+  );
+  return res.data;
+};

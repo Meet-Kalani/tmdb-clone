@@ -1,0 +1,6 @@
+@use "../../styles" as *;
+
+.filters {
+  @include flex-column();
+  gap: 12px;
+}
