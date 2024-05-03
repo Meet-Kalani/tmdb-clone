@@ -1,56 +1,13 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from 'react-infinite-scroller';
+import { useState } from "react";
 import style from "./category-list.module.scss";
-import { fetchCategoriesContent } from "../../service/api";
-import { notifyError } from "../../utils/helpers";
 import CategoryCard from "./CategoryCard/CategoryCard";
 
-const CategoryList = ({ contentType, category }) => {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [pageNumber, setPageNumber] = useState(2);
+const CategoryList = ({
+  contentType, isLoading, fetchData, data,
+}) => {
   const [hasMore, setHasMore] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchCategoriesContent(category, contentType, 1);
-        setData(res);
-      }
-      catch (err) {
-        notifyError(err);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [category, contentType]);
-
-  const fetchData = async () => {
-    try {
-      const res = await fetchCategoriesContent(category, contentType, pageNumber);
-      setData((previousValue) => {
-        // removing duplicates from api response
-        const results = [...previousValue.results, ...res.results].filter((obj, index, self) => index === self.findIndex((t) => (
-          t.id === obj.id
-        )));
-
-        return {
-          page: res.page,
-          results,
-          total_pages: res.total_pages,
-          total_results: res.total_results,
-        };
-      });
-    }
-    catch (err) {
-      notifyError(err);
-    }
-    finally {
-      setPageNumber((previousValue) => previousValue + 1);
-    }
-  };
 
   if (isLoading) {
     return (<span>Loading...</span>);
@@ -75,7 +32,6 @@ const CategoryList = ({ contentType, category }) => {
             posterPath={posterPath}
             releaseDate={releaseDate || firstAIRDate}
             voteAverage={Math.floor(voteAverage * 10)}
-            ss
           />
         )) : null}
       </InfiniteScroll>
@@ -94,7 +50,33 @@ const CategoryList = ({ contentType, category }) => {
 
 CategoryList.propTypes = {
   contentType: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  fetchData: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    results: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      original_name: PropTypes.string,
+      original_title: PropTypes.string,
+      poster_path: PropTypes.string,
+      release_date: PropTypes.string,
+      first_air_date: PropTypes.string,
+      vote_average: PropTypes.number,
+    })),
+  }),
+};
+
+CategoryList.defaultProps = {
+  data: {
+    results: {
+      id: undefined,
+      original_name: undefined,
+      original_title: undefined,
+      poster_path: undefined,
+      release_date: undefined,
+      first_air_date: undefined,
+      vote_average: undefined,
+    },
+  },
 };
 
 export default CategoryList;

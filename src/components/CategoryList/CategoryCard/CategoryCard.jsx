@@ -46,6 +46,7 @@ const CategoryCard = ({
         <img
           alt="poster of the movie"
           className={style["card-image"]}
+          loading="lazy"
           src={`${IMAGE_BASE_URL}${posterPath}`}
         />
       </div>
