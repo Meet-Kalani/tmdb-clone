@@ -2,9 +2,10 @@
 
 .filters {
   @include flex-column();
+  gap: 12px;
   .search-btn {
     height: 44px;
-    margin-top: 20px;
+    margin-top: 8px;
     color: $color-white;
     border-radius: 20px;
     border: none;

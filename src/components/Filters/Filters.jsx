@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import style from "./filters.module.scss";
 import SortFilter from "./SortFilter/SortFilter";
-// import WatchFilter from "./WatchFilter/WatchFilter";
+import WatchFilter from "./WatchFilter/WatchFilter";
 
 const Filters = ({ selectedSort, selectSort }) => (
   <div className={style.filters}>
     <SortFilter selectedSort={selectedSort} selectSort={selectSort} />
-    {/* <WatchFilter /> */}
+    <WatchFilter />
     <button className={style['search-btn']} type="button">Search</button>
   </div>
 );
