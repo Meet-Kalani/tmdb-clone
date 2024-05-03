@@ -104,3 +104,11 @@ export const fetchCategoriesContent = async (category, contentType, pageNumber) 
   );
   return res.data;
 };
+
+export const fetchSortedContent = async (contentType, sort, pageNumber) => {
+  const res = await axios.get(
+    `${BASE_URL}/discover/${contentType}?page=${pageNumber}&sort_by=${sort}`,
+    defaultHeaders,
+  );
+  return res.data;
+};

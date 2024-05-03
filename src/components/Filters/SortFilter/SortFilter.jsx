@@ -1,17 +1,13 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import style from "./sort-filter.module.scss";
 import { SORT_OPTIONS } from "../../../utils/sortOptions";
 
-const Filter = () => {
+const SortFilter = ({ selectedSort, selectSort }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedSort, setSelectedSort] = useState('popularity_descending');
 
   const toggleVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
-  };
-
-  const handleSortSelection = (event) => {
-    setSelectedSort(event.target.value);
   };
 
   return (
@@ -47,7 +43,9 @@ const Filter = () => {
               id="sort_by"
               name="sort_by"
               value={selectedSort}
-              onChange={handleSortSelection}
+              onChange={(event) => {
+                selectSort(event.target.value);
+              }}
             >
               {
                 SORT_OPTIONS.map(({ id, label, value }) => (
@@ -68,4 +66,9 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+SortFilter.propTypes = {
+  selectedSort: PropTypes.string.isRequired,
+  selectSort: PropTypes.func.isRequired,
+};
+
+export default SortFilter;
