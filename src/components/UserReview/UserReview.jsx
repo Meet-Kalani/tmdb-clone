@@ -61,6 +61,7 @@ const UserReview = ({ id, contentType, notifyError }) => {
             <img
               alt="Content Reviewer"
               className={style["profile-image"]}
+              loading="lazy"
               src={imageURL || undefined}
               onError={(event) => {
                 event.target.src = "https://placehold.jp/16/ccc/ffffff/45x45.png?text=?";

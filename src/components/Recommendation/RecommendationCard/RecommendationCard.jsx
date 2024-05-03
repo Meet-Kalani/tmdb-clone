@@ -34,6 +34,7 @@ const RecommendationCard = ({
         <img
           alt="Recommended Movie"
           className={style["recommendation-image"]}
+          loading="lazy"
           src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
           onError={(e) => {
             (e.target.src = "https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!");

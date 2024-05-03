@@ -8,6 +8,7 @@ const CastCard = ({ profilePath, originalName, characterName }) => (
       <img
         alt="Movie Cast"
         className={style["profile-img"]}
+        loading="lazy"
         src={`${CAST_PROFILE_BASE_URL}${profilePath}`}
         onError={(e) => {
           e.target.src = "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not+Found!";

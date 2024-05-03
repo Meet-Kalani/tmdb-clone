@@ -26,6 +26,7 @@ const CurrentSeason = ({
         <div className={style["poster-container"]}>
           <img
             alt="Current Season's Poster"
+            loading="lazy"
             src={`${CURRENT_SEASON_POSTER_BASE_URL}${posterPath}`}
             onError={(e) => {
               e.target.src = "https://placehold.jp/16/ccc/ffffff/130x195.png?text=Not+Found!";
