@@ -1,19 +1,25 @@
-import PropTypes from "prop-types";
+import { useContext } from "react";
 import style from "./filters.module.scss";
 import SortFilter from "./SortFilter/SortFilter";
 import WatchFilter from "./WatchFilter/WatchFilter";
+import SelectedFilterContext from "../../pages/CategoriesPage/context";
 
-const Filters = ({ selectedSort, selectSort }) => (
-  <div className={style.filters}>
-    <SortFilter selectedSort={selectedSort} selectSort={selectSort} />
-    <WatchFilter />
-    <button className={style['search-btn']} type="button">Search</button>
-  </div>
-);
+const Filters = () => {
+  const { fetchData } = useContext(SelectedFilterContext);
 
-Filters.propTypes = {
-  selectedSort: PropTypes.string.isRequired,
-  selectSort: PropTypes.func.isRequired,
+  return (
+    <div className={style.filters}>
+      <SortFilter />
+      <WatchFilter />
+      <button
+        className={style['search-btn']}
+        type="button"
+        onClick={() => fetchData(true)}
+      >
+        Search
+      </button>
+    </div>
+  );
 };
 
 export default Filters;

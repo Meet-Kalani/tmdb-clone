@@ -1,10 +1,11 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useContext, useState } from "react";
 import style from "./sort-filter.module.scss";
 import { SORT_OPTIONS } from "../../../utils/sortOptions";
+import SelectedFilterContext from "../../../pages/CategoriesPage/context";
 
-const SortFilter = ({ selectedSort, selectSort }) => {
+const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { selectedSort, selectSort } = useContext(SelectedFilterContext);
 
   const toggleVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
@@ -64,11 +65,6 @@ const SortFilter = ({ selectedSort, selectSort }) => {
       ) : null}
     </div>
   );
-};
-
-SortFilter.propTypes = {
-  selectedSort: PropTypes.string.isRequired,
-  selectSort: PropTypes.func.isRequired,
 };
 
 export default SortFilter;

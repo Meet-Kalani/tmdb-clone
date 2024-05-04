@@ -48,6 +48,9 @@ const CategoryCard = ({
           className={style["card-image"]}
           loading="lazy"
           src={`${IMAGE_BASE_URL}${posterPath}`}
+          onError={(event) => {
+            event.target.src = "https://placehold.jp/16/ccc/ffffff/186x279.png?text=Not+Found!";
+          }}
         />
       </div>
       <div className={style["card-content"]}>

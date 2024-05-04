@@ -105,9 +105,17 @@ export const fetchCategoriesContent = async (category, contentType, pageNumber) 
   return res.data;
 };
 
-export const fetchSortedContent = async (contentType, sort, pageNumber) => {
+export const fetchOTTPlatforms = async (contentType, region) => {
   const res = await axios.get(
-    `${BASE_URL}/discover/${contentType}?page=${pageNumber}&sort_by=${sort}`,
+    `${BASE_URL}/watch/providers/${contentType}?watch_region=${region}`,
+    defaultHeaders,
+  );
+  return res.data.results;
+};
+
+export const fetchFilteredContent = async (contentType, url) => {
+  const res = await axios.get(
+    `${BASE_URL}/discover/${contentType}?${url}`,
     defaultHeaders,
   );
   return res.data;

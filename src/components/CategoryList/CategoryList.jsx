@@ -1,14 +1,11 @@
 import PropTypes from "prop-types";
 import InfiniteScroll from 'react-infinite-scroller';
-import { useState } from "react";
 import style from "./category-list.module.scss";
 import CategoryCard from "./CategoryCard/CategoryCard";
 
 const CategoryList = ({
-  contentType, isLoading, fetchData, data,
+  contentType, isLoading, fetchData, data, isScrollable, toggleScrolling,
 }) => {
-  const [hasMore, setHasMore] = useState(false);
-
   if (isLoading) {
     return (<span>Loading...</span>);
   }
@@ -17,8 +14,8 @@ const CategoryList = ({
     <div className={style.wrapper}>
       <InfiniteScroll
         className={style['category-list']}
-        hasMore={hasMore}
-        loadMore={fetchData}
+        hasMore={isScrollable}
+        loadMore={() => fetchData(false)}
       >
         {data ? data.results.map(({
           id, release_date: releaseDate, first_air_date: firstAIRDate, original_name: originalName, original_title: originalTitle, poster_path: posterPath, vote_average: voteAverage,
@@ -38,9 +35,7 @@ const CategoryList = ({
       <button
         className={style['load-btn']}
         type="button"
-        onClick={() => {
-          setHasMore(true);
-        }}
+        onClick={toggleScrolling}
       >
         Load More
       </button>
@@ -63,6 +58,8 @@ CategoryList.propTypes = {
       vote_average: PropTypes.number,
     })),
   }),
+  isScrollable: PropTypes.bool.isRequired,
+  toggleScrolling: PropTypes.func.isRequired,
 };
 
 CategoryList.defaultProps = {
