@@ -17,6 +17,36 @@ import SelectedFilterContext from "./context";
 
 const defaultSelectedSort = 'popularity.desc';
 
+function buildFilterQueryURL(
+  OTTRegion,
+  pageNumber,
+  watchProvidersParam,
+  sort,
+  availabilityParam,
+  genreParam,
+  certificationParam,
+  language,
+  userScore,
+  minimumUserVotes,
+  runtime,
+) {
+  const params = [];
+
+  if (OTTRegion) params.push(`watch_region=${OTTRegion}`);
+  if (pageNumber) params.push(`page=${pageNumber}`);
+  if (watchProvidersParam) params.push(`with_watch_providers=${watchProvidersParam}`);
+  if (sort) params.push(`sort_by=${sort}`);
+  if (availabilityParam) params.push(`with_watch_monetization_types=${availabilityParam}`);
+  if (genreParam) params.push(`with_genres=${genreParam}`);
+  if (certificationParam) params.push(`certification=${certificationParam}`);
+  if (language) params.push(`with_original_language=${language}`);
+  if (userScore[0] !== undefined && userScore[1] !== undefined) params.push(`vote_average.gte=${userScore[0]}&vote_average.lte=${userScore[1]}`);
+  if (minimumUserVotes[0] !== undefined && minimumUserVotes[1] !== undefined) params.push(`vote_count.gte=${minimumUserVotes[0]}&vote_count.lte=${minimumUserVotes[1]}`);
+  if (runtime[0] !== undefined && runtime[1] !== undefined) params.push(`with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`);
+
+  return params.join('&');
+}
+
 const CategoriesPage = () => {
   const { category } = useParams();
   const location = useLocation();
@@ -29,10 +59,10 @@ const CategoriesPage = () => {
     sort: defaultSelectedSort,
     OTTRegion: 'IN',
     watchProviders: new Set(),
-    availabilities: new Set(AVAILABILITIES.map(({ id }) => id)),
+    availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
     genres: new Set(),
     certifications: new Set(),
-    language: "xx",
+    language: "en",
     userScore: [0, 10],
     minimumUserVotes: [0, 500],
     runtime: [0, 400],
@@ -61,10 +91,42 @@ const CategoriesPage = () => {
   }, [category, contentType]);
 
   const fetchData = useCallback(async (isFilterChanged) => {
-    try {
-      const selectedWatchProvidersArray = Array.from(selectedFilters.watchProviders);
-      const filterQueryURL = `watch_region=${selectedFilters.OTTRegion}&page=${pageNumber}${selectedWatchProvidersArray.length > 0 ? `&with_watch_providers=${selectedWatchProvidersArray.join('|')}` : ''}&sort_by=${selectedFilters.sort}`;
+    const {
+      sort,
+      OTTRegion,
+      watchProviders,
+      availabilities,
+      genres,
+      certifications,
+      language,
+      userScore,
+      minimumUserVotes,
+      runtime,
+    } = selectedFilters;
 
+    const availabilityArray = Array.from(availabilities);
+    const availabilityParam = availabilityArray.includes("Search all availabilities?") ? undefined : availabilityArray.join('|');
+    const genreParam = Array.from(genres).join('|');
+    const certificationParam = Array.from(certifications).join('|');
+    const watchProvidersParam = Array.from(watchProviders).join('|');
+
+    const filterQueryURL = buildFilterQueryURL(
+      OTTRegion,
+      pageNumber,
+      watchProvidersParam,
+      sort,
+      availabilityParam,
+      genreParam,
+      certificationParam,
+      language,
+      userScore,
+      minimumUserVotes,
+      runtime,
+    );
+
+    console.log(filterQueryURL);
+
+    try {
       const res = await fetchFilteredContent(contentType, filterQueryURL);
       setData((previousValue) => {
         if (isFilterChanged) {
@@ -187,7 +249,7 @@ const CategoriesPage = () => {
 
   const toggleAvailabilities = (availability) => {
     setSelectedFilters((prevFilters) => {
-      const newSelectedAvailabilities = new Set(prevFilters.selectedAvailabilities);
+      const newSelectedAvailabilities = new Set(prevFilters.availabilities);
       if (newSelectedAvailabilities.has(availability)) {
         newSelectedAvailabilities.delete(availability);
       }

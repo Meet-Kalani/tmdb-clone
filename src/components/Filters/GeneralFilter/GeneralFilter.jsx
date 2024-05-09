@@ -87,27 +87,29 @@ const SortFilter = () => {
             <div>
               <label className={style.label} htmlFor="unseenmovies">
                 <input
-                  checked={checkSelectedAvailabilities(defaultAvailability.id)}
+                  checked={checkSelectedAvailabilities(defaultAvailability.label)}
                   className={style['checkbox-input']}
                   id="unseenmovies"
                   type="checkbox"
                   onChange={() => {
-                    toggleAvailabilities(defaultAvailability.id);
+                    console.log(defaultAvailability.label);
+                    console.log(availabilities);
+                    toggleAvailabilities(defaultAvailability.label);
                   }}
 
                 />
                 {defaultAvailability.label}
               </label>
               {
-                !checkSelectedAvailabilities(defaultAvailability.id) ? AVAILABILITIES.slice(1).map(({ id, label }) => (
+                !checkSelectedAvailabilities(defaultAvailability.label) ? AVAILABILITIES.slice(1).map(({ id, label }) => (
                   <label className={style.label} htmlFor="unseenmovies" key={id}>
                     <input
-                      checked={checkSelectedAvailabilities(id)}
+                      checked={checkSelectedAvailabilities(label)}
                       className={style['checkbox-input']}
                       id="unseenmovies"
                       type="checkbox"
                       onChange={() => {
-                        toggleAvailabilities(id);
+                        toggleAvailabilities(label);
                       }}
                     />
                     {label}
