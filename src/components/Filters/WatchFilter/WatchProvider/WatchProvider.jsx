@@ -7,19 +7,20 @@ import SelectedFilterContext from '../../../../pages/CategoriesPage/context';
 
 const WatchProvider = () => {
   const [watchProviders, setWatchProviders] = useState([]);
-  const { selectedOTTRegion, contentType } = useContext(SelectedFilterContext);
+  const { OTTRegion, contentType } = useContext(SelectedFilterContext);
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetchOTTPlatforms(contentType, selectedOTTRegion);
+        const res = await fetchOTTPlatforms(contentType, OTTRegion);
         setWatchProviders(res);
       }
       catch (err) {
         notifyError(err);
       }
     })();
-  }, [contentType, selectedOTTRegion]);
+  }, [contentType, OTTRegion]);
+
   return (
     <ul className={style['watch-provider']}>
       {

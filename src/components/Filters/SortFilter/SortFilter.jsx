@@ -5,7 +5,7 @@ import SelectedFilterContext from "../../../pages/CategoriesPage/context";
 
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { selectedSort, toggleSort } = useContext(SelectedFilterContext);
+  const { sort, toggleSort } = useContext(SelectedFilterContext);
 
   const toggleVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
@@ -43,7 +43,7 @@ const SortFilter = () => {
               className={style["sort-options-container"]}
               id="sort_by"
               name="sort_by"
-              value={selectedSort}
+              value={sort}
               onChange={(event) => {
                 toggleSort(event.target.value);
               }}

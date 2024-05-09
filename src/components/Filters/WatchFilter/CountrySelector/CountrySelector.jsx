@@ -4,14 +4,14 @@ import { OTT_REGIONS } from '../../../../utils/ottRegions';
 import SelectedFilterContext from '../../../../pages/CategoriesPage/context';
 
 const CountrySelector = () => {
-  const { selectedOTTRegion, toggleOTTRegion } = useContext(SelectedFilterContext);
+  const { OTTRegion, toggleOTTRegion } = useContext(SelectedFilterContext);
 
   return (
     <select
       className={style["sort-options-container"]}
       id="sort_by"
       name="sort_by"
-      value={selectedOTTRegion}
+      value={OTTRegion}
       onChange={(event) => {
         toggleOTTRegion(event.target.value);
       }}

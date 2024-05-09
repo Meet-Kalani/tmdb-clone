@@ -12,6 +12,7 @@ import {
   fetchCategoriesContent, fetchFilteredContent,
 } from "../../service/api";
 import { notifyError, removeDuplicates } from "../../utils/helpers";
+import { AVAILABILITIES } from "../../utils/availabilities";
 import SelectedFilterContext from "./context";
 
 const defaultSelectedSort = 'popularity.desc';
@@ -23,9 +24,20 @@ const CategoriesPage = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(2);
-  const [selectedSort, setSelectedSort] = useState(defaultSelectedSort);
-  const [selectedOTTRegion, setSelectedOTTRegion] = useState('IN');
-  const [selectedWatchProviders, setSelectedWatchProviders] = useState(new Set());
+
+  const [selectedFilters, setSelectedFilters] = useState({
+    sort: defaultSelectedSort,
+    OTTRegion: 'IN',
+    watchProviders: new Set(),
+    availabilities: new Set(AVAILABILITIES.map(({ id }) => id)),
+    genres: new Set(),
+    certifications: new Set(),
+    language: "xx",
+    userScore: [0, 10],
+    minimumUserVotes: [0, 500],
+    runtime: [0, 400],
+  });
+
   const [isScrollable, setIsScrollable] = useState(false);
 
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
@@ -50,8 +62,8 @@ const CategoriesPage = () => {
 
   const fetchData = useCallback(async (isFilterChanged) => {
     try {
-      const selectedWatchProvidersArray = Array.from(selectedWatchProviders);
-      const filterQueryURL = `watch_region=${selectedOTTRegion}&page=${pageNumber}${selectedWatchProvidersArray.length > 0 ? `&with_watch_providers=${selectedWatchProvidersArray.join('|')}` : ''}&sort_by=${selectedSort}`;
+      const selectedWatchProvidersArray = Array.from(selectedFilters.watchProviders);
+      const filterQueryURL = `watch_region=${selectedFilters.OTTRegion}&page=${pageNumber}${selectedWatchProvidersArray.length > 0 ? `&with_watch_providers=${selectedWatchProvidersArray.join('|')}` : ''}&sort_by=${selectedFilters.sort}`;
 
       const res = await fetchFilteredContent(contentType, filterQueryURL);
       setData((previousValue) => {
@@ -77,42 +89,133 @@ const CategoriesPage = () => {
       }
       setPageNumber((previousValue) => previousValue + 1);
     }
-  }, [contentType, pageNumber, selectedOTTRegion, selectedSort, selectedWatchProviders]);
+  }, [contentType, pageNumber, selectedFilters]);
 
   const toggleSort = (sort) => {
-    setSelectedSort(sort);
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      sort,
+    }));
   };
 
   const toggleOTTRegion = (region) => {
-    setSelectedOTTRegion(region);
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      OTTRegion: region,
+    }));
   };
 
   const toggleWatchProviders = useCallback((watchProvider) => {
-    setSelectedWatchProviders((prevSelected) => {
-      const newSelected = new Set(prevSelected);
-      if (newSelected.has(watchProvider)) {
-        newSelected.delete(watchProvider);
+    setSelectedFilters((prevState) => {
+      const newWatchProviders = new Set(prevState.watchProviders);
+      if (newWatchProviders.has(watchProvider)) {
+        newWatchProviders.delete(watchProvider);
       }
       else {
-        newSelected.add(watchProvider);
+        newWatchProviders.add(watchProvider);
       }
-      return newSelected;
+      return {
+        ...prevState,
+        watchProviders: newWatchProviders,
+      };
     });
   }, []);
-
-  const memoizedSelectedFilterValue = useMemo(() => ({
-    selectedOTTRegion,
-    contentType,
-    toggleWatchProviders,
-    fetchData,
-    selectedSort,
-    toggleOTTRegion,
-    toggleSort,
-  }), [selectedOTTRegion, contentType, selectedSort, toggleWatchProviders, fetchData]);
 
   const toggleScrolling = () => {
     setIsScrollable(true);
   };
+
+  const toggleGenres = (genre) => {
+    setSelectedFilters((prevFilters) => {
+      const newGenres = new Set(prevFilters.genres);
+      if (newGenres.has(genre)) {
+        newGenres.delete(genre);
+      }
+      else {
+        newGenres.add(genre);
+      }
+      return {
+        ...prevFilters,
+        genres: newGenres,
+      };
+    });
+  };
+
+  const toggleCertifications = (certification) => {
+    setSelectedFilters((prevFilters) => {
+      const newCertifications = new Set(prevFilters.certifications);
+      if (newCertifications.has(certification)) {
+        newCertifications.delete(certification);
+      }
+      else {
+        newCertifications.add(certification);
+      }
+      return {
+        ...prevFilters,
+        certifications: newCertifications,
+      };
+    });
+  };
+
+  const toggleLanguage = (language) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      language,
+    }));
+  };
+
+  const toggleUserScore = (e, newValue) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      userScore: newValue,
+    }));
+  };
+
+  const toggleMinimumUserVotes = (e, newValue) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      minimumUserVotes: newValue,
+    }));
+  };
+
+  const toggleRuntime = (e, newValue) => {
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      runtime: newValue,
+    }));
+  };
+
+  const toggleAvailabilities = (availability) => {
+    setSelectedFilters((prevFilters) => {
+      const newSelectedAvailabilities = new Set(prevFilters.selectedAvailabilities);
+      if (newSelectedAvailabilities.has(availability)) {
+        newSelectedAvailabilities.delete(availability);
+      }
+      else {
+        newSelectedAvailabilities.add(availability);
+      }
+      return {
+        ...prevFilters,
+        selectedAvailabilities: newSelectedAvailabilities,
+      };
+    });
+  };
+
+  const memoizedSelectedFilterValue = useMemo(() => ({
+    ...selectedFilters,
+    contentType,
+    toggleWatchProviders,
+    fetchData,
+    toggleOTTRegion,
+    toggleSort,
+    toggleAvailabilities,
+    toggleUserScore,
+    toggleMinimumUserVotes,
+    toggleRuntime,
+    toggleCertifications,
+    toggleGenres,
+    toggleLanguage,
+  }), [selectedFilters, contentType, toggleWatchProviders, fetchData]);
 
   return (
     <>

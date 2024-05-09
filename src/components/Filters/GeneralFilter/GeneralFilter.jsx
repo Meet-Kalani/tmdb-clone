@@ -17,7 +17,23 @@ import List from "./List/List";
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(true);
   const defaultAvailability = AVAILABILITIES[0];
-  const { contentType } = useContext(SelectedFilterContext);
+  const {
+    contentType,
+    availabilities,
+    certifications,
+    genres,
+    userScore,
+    minimumUserVotes,
+    runtime,
+    language,
+    toggleAvailabilities,
+    toggleUserScore,
+    toggleMinimumUserVotes,
+    toggleRuntime,
+    toggleCertifications,
+    toggleGenres,
+    toggleLanguage,
+  } = useContext(SelectedFilterContext);
   const GENRES = contentType === 'tv' ? TV_GENRES : MOVIE_GENRES;
   const CERTIFICATIONS = contentType === 'tv' ? TV_CERTIFICATIONS : MOVIE_CERTIFICATIONS;
 
@@ -25,95 +41,9 @@ const SortFilter = () => {
     setIsVisible((previousValue) => !previousValue);
   };
 
-  const [selectedFilters, setSelectedFilters] = useState({
-    availabilities: new Set(AVAILABILITIES.map(({ id }) => id)),
-    genres: new Set(),
-    certifications: new Set(),
-    language: "xx",
-    userScore: [0, 10],
-    minimumUserVotes: [0, 500],
-    runtime: [0, 400],
-  });
-
-  const toggleGenres = (genre) => {
-    setSelectedFilters((prevFilters) => {
-      const newGenres = new Set(prevFilters.genres);
-      if (newGenres.has(genre)) {
-        newGenres.delete(genre);
-      }
-      else {
-        newGenres.add(genre);
-      }
-      return {
-        ...prevFilters,
-        genres: newGenres,
-      };
-    });
-  };
-
-  const toggleCertifications = (certification) => {
-    setSelectedFilters((prevFilters) => {
-      const newCertifications = new Set(prevFilters.certifications);
-      if (newCertifications.has(certification)) {
-        newCertifications.delete(certification);
-      }
-      else {
-        newCertifications.add(certification);
-      }
-      return {
-        ...prevFilters,
-        certifications: newCertifications,
-      };
-    });
-  };
-
-  const toggleLanguage = (language) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      language,
-    }));
-  };
-
-  const handleUserScore = (e, newValue) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      userScore: newValue,
-    }));
-  };
-
-  const handleMinimumUserVotes = (e, newValue) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      minimumUserVotes: newValue,
-    }));
-  };
-
-  const handleRuntime = (e, newValue) => {
-    setSelectedFilters((prevFilters) => ({
-      ...prevFilters,
-      runtime: newValue,
-    }));
-  };
-
-  const toggleAvailabilities = (availability) => {
-    setSelectedFilters((prevFilters) => {
-      const newSelectedAvailabilities = new Set(prevFilters.selectedAvailabilities);
-      if (newSelectedAvailabilities.has(availability)) {
-        newSelectedAvailabilities.delete(availability);
-      }
-      else {
-        newSelectedAvailabilities.add(availability);
-      }
-      return {
-        ...prevFilters,
-        selectedAvailabilities: newSelectedAvailabilities,
-      };
-    });
-  };
-
-  const checkSelectedAvailabilities = (availability) => selectedFilters.availabilities.has(availability);
-  const checkSelectedCertifications = (certification) => selectedFilters.certifications.has(certification);
-  const checkSelectedGenres = (genre) => selectedFilters.genres.has(genre);
+  const checkSelectedAvailabilities = (availability) => availabilities.has(availability);
+  const checkSelectedCertifications = (certification) => certifications.has(certification);
+  const checkSelectedGenres = (genre) => genres.has(genre);
 
   return (
     <div className={style["general-filter"]}>
@@ -205,7 +135,7 @@ const SortFilter = () => {
               className={style["language-options-container"]}
               id="language"
               name="language"
-              value={selectedFilters.language}
+              value={language}
               onChange={(event) => {
                 toggleLanguage(event.target.value);
               }}
@@ -225,31 +155,31 @@ const SortFilter = () => {
             </select>
           </Filter>
           <RangeSlider
-            handleOnChange={handleUserScore}
+            handleOnChange={toggleUserScore}
             marks={USER_SCORE_MARKS}
             max={10}
             min={0}
             step={1}
             title="User Score"
-            value={selectedFilters.userScore}
+            value={userScore}
           />
           <RangeSlider
-            handleOnChange={handleMinimumUserVotes}
+            handleOnChange={toggleMinimumUserVotes}
             marks={MINIMUM_USER_VOTES_MARKS}
             max={500}
             min={0}
             step={50}
             title="Minimum User Votes"
-            value={selectedFilters.minimumUserVotes}
+            value={minimumUserVotes}
           />
           <RangeSlider
-            handleOnChange={handleRuntime}
+            handleOnChange={toggleRuntime}
             marks={RUNTIME_MARKS}
             max={400}
             min={0}
             step={15}
             title="Runtime"
-            value={selectedFilters.runtime}
+            value={runtime}
           />
         </div>
       ) : null}
