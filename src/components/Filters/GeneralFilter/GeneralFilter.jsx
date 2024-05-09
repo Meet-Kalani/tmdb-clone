@@ -15,7 +15,7 @@ import RangeSlider from "./RangeSlider/RangeSlider";
 import List from "./List/List";
 
 const SortFilter = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const defaultAvailability = AVAILABILITIES[0];
   const [selectedAvailabilities, setSelectedAvailabilities] = useState(new Set(AVAILABILITIES.map(({ id }) => id)));
   const { contentType } = useContext(SelectedFilterContext);

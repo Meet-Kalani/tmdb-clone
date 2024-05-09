@@ -18,5 +18,14 @@ $maxPrimaryPageWidth: 1400px;
   .category-body {
     display: flex;
     gap: 30px;
+
+    @include tablet {
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  @include tablet {
+    padding: 20px;
   }
 }

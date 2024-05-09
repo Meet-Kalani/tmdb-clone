@@ -2,7 +2,6 @@
 
 .category-card {
   width: 188px;
-  // margin-top: 30px;
   border-radius: $border-radius-8;
   border: $border-grey;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -39,6 +38,37 @@
     .launch-date {
       display: block;
       color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+    display: flex;
+
+    .card-header {
+      height: 141px;
+
+      .card-image {
+        height: 100%;
+        border-radius: 8px 0 0 8px;
+      }
+    }
+
+    .card-content {
+      padding: 24px 14px 14px;
+
+      .rating-container {
+        display: none;
+      }
+
+      .name {
+        font-weight: $font-weight-600;
+      }
+
+      .launch-date {
+        font-size: 14.4px;
+        color: #999;
+      }
     }
   }
 }
