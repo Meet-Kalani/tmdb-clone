@@ -79,15 +79,15 @@ const CategoriesPage = () => {
     }
   }, [contentType, pageNumber, selectedOTTRegion, selectedSort, selectedWatchProviders]);
 
-  const selectSort = (sort) => {
+  const toggleSort = (sort) => {
     setSelectedSort(sort);
   };
 
-  const selectOTTRegion = (region) => {
+  const toggleOTTRegion = (region) => {
     setSelectedOTTRegion(region);
   };
 
-  const selectWatchProviders = useCallback((watchProvider) => {
+  const toggleWatchProviders = useCallback((watchProvider) => {
     setSelectedWatchProviders((prevSelected) => {
       const newSelected = new Set(prevSelected);
       if (newSelected.has(watchProvider)) {
@@ -103,12 +103,12 @@ const CategoriesPage = () => {
   const memoizedSelectedFilterValue = useMemo(() => ({
     selectedOTTRegion,
     contentType,
-    selectWatchProviders,
+    toggleWatchProviders,
     fetchData,
     selectedSort,
-    selectOTTRegion,
-    selectSort,
-  }), [selectedOTTRegion, contentType, selectedSort, selectWatchProviders, fetchData]);
+    toggleOTTRegion,
+    toggleSort,
+  }), [selectedOTTRegion, contentType, selectedSort, toggleWatchProviders, fetchData]);
 
   const toggleScrolling = () => {
     setIsScrollable(true);

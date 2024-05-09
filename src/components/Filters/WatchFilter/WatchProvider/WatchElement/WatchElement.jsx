@@ -7,13 +7,13 @@ import SelectedFilterContext from '../../../../../pages/CategoriesPage/context';
 const WatchElement = ({ watchProvider }) => {
   const [isCheckVisible, setIsCheckVisible] = useState(false);
 
-  const { selectWatchProviders } = useContext(SelectedFilterContext);
+  const { toggleWatchProviders } = useContext(SelectedFilterContext);
   const { provider_name: providerName, logo_path: logoPath, provider_id: id } = watchProvider;
 
   const toggleWatchProvider = () => {
     setIsCheckVisible((previousValue) => !previousValue);
 
-    selectWatchProviders(id);
+    toggleWatchProviders(id);
   };
 
   return (
