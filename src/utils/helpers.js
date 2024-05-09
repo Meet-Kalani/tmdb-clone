@@ -77,3 +77,33 @@ export const removeDuplicates = (array) => {
 
   return uniqueArray;
 };
+
+export const buildFilterQueryURL = (
+  OTTRegion,
+  pageNumber,
+  watchProvidersParam,
+  sort,
+  availabilityParam,
+  genreParam,
+  certificationParam,
+  language,
+  userScore,
+  minimumUserVotes,
+  runtime,
+) => {
+  const params = [];
+
+  if (OTTRegion) params.push(`watch_region=${OTTRegion}`);
+  if (pageNumber) params.push(`page=${pageNumber}`);
+  if (watchProvidersParam) params.push(`with_watch_providers=${watchProvidersParam}`);
+  if (sort) params.push(`sort_by=${sort}`);
+  if (availabilityParam) params.push(`with_watch_monetization_types=${availabilityParam}`);
+  if (genreParam) params.push(`with_genres=${genreParam}`);
+  if (certificationParam) params.push(`certification=${certificationParam}`);
+  if (language) params.push(`with_original_language=${language}`);
+  if (userScore[0] !== undefined && userScore[1] !== undefined) params.push(`vote_average.gte=${userScore[0]}&vote_average.lte=${userScore[1]}`);
+  if (minimumUserVotes[0] !== undefined && minimumUserVotes[1] !== undefined) params.push(`vote_count.gte=${minimumUserVotes[0]}&vote_count.lte=${minimumUserVotes[1]}`);
+  if (runtime[0] !== undefined && runtime[1] !== undefined) params.push(`with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`);
+
+  return params.join('&');
+};

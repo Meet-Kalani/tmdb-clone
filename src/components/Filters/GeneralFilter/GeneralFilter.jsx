@@ -92,8 +92,6 @@ const SortFilter = () => {
                   id="unseenmovies"
                   type="checkbox"
                   onChange={() => {
-                    console.log(defaultAvailability.label);
-                    console.log(availabilities);
                     toggleAvailabilities(defaultAvailability.label);
                   }}
 

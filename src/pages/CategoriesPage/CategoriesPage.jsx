@@ -11,41 +11,11 @@ import useTitle from "../../hooks/useTitle";
 import {
   fetchCategoriesContent, fetchFilteredContent,
 } from "../../service/api";
-import { notifyError, removeDuplicates } from "../../utils/helpers";
+import { buildFilterQueryURL, notifyError, removeDuplicates } from "../../utils/helpers";
 import { AVAILABILITIES } from "../../utils/availabilities";
 import SelectedFilterContext from "./context";
 
 const defaultSelectedSort = 'popularity.desc';
-
-function buildFilterQueryURL(
-  OTTRegion,
-  pageNumber,
-  watchProvidersParam,
-  sort,
-  availabilityParam,
-  genreParam,
-  certificationParam,
-  language,
-  userScore,
-  minimumUserVotes,
-  runtime,
-) {
-  const params = [];
-
-  if (OTTRegion) params.push(`watch_region=${OTTRegion}`);
-  if (pageNumber) params.push(`page=${pageNumber}`);
-  if (watchProvidersParam) params.push(`with_watch_providers=${watchProvidersParam}`);
-  if (sort) params.push(`sort_by=${sort}`);
-  if (availabilityParam) params.push(`with_watch_monetization_types=${availabilityParam}`);
-  if (genreParam) params.push(`with_genres=${genreParam}`);
-  if (certificationParam) params.push(`certification=${certificationParam}`);
-  if (language) params.push(`with_original_language=${language}`);
-  if (userScore[0] !== undefined && userScore[1] !== undefined) params.push(`vote_average.gte=${userScore[0]}&vote_average.lte=${userScore[1]}`);
-  if (minimumUserVotes[0] !== undefined && minimumUserVotes[1] !== undefined) params.push(`vote_count.gte=${minimumUserVotes[0]}&vote_count.lte=${minimumUserVotes[1]}`);
-  if (runtime[0] !== undefined && runtime[1] !== undefined) params.push(`with_runtime.gte=${runtime[0]}&with_runtime.lte=${runtime[1]}`);
-
-  return params.join('&');
-}
 
 const CategoriesPage = () => {
   const { category } = useParams();
@@ -53,7 +23,7 @@ const CategoriesPage = () => {
   const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [pageNumber, setPageNumber] = useState(2);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const [selectedFilters, setSelectedFilters] = useState({
     sort: defaultSelectedSort,
@@ -63,9 +33,17 @@ const CategoriesPage = () => {
     genres: new Set(),
     certifications: new Set(),
     language: "en",
-    userScore: [0, 10],
-    minimumUserVotes: [0, 500],
-    runtime: [0, 400],
+    userScore: {
+      gte: 0,
+      lte: 10,
+    },
+    minimumUserVotes: {
+      gte: 0,
+    },
+    runtime: {
+      gte: 0,
+      lte: 400,
+    },
   });
 
   const [isScrollable, setIsScrollable] = useState(false);
@@ -123,8 +101,6 @@ const CategoriesPage = () => {
       minimumUserVotes,
       runtime,
     );
-
-    console.log(filterQueryURL);
 
     try {
       const res = await fetchFilteredContent(contentType, filterQueryURL);
@@ -227,23 +203,26 @@ const CategoriesPage = () => {
   };
 
   const toggleUserScore = (e, newValue) => {
+    const [gte, lte] = newValue;
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
-      userScore: newValue,
+      userScore: { gte, lte },
     }));
   };
 
   const toggleMinimumUserVotes = (e, newValue) => {
+    const [gte] = newValue;
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
-      minimumUserVotes: newValue,
+      minimumUserVotes: { gte },
     }));
   };
 
   const toggleRuntime = (e, newValue) => {
+    const [gte, lte] = newValue;
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
-      runtime: newValue,
+      runtime: { gte, lte },
     }));
   };
 

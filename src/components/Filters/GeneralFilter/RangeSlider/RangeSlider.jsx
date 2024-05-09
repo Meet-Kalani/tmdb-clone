@@ -14,9 +14,11 @@ const RangeSlider = ({
   };
 
   const valueLabelFormat = () => {
-    const [gte, lte] = value;
+    const { gte, lte } = value;
     return `Rated ${gte}-${lte}`;
   };
+
+  const valueArray = value.lte ? [value.gte, value.lte] : [value.gte];
 
   return (
     <Filter title={title}>
@@ -27,7 +29,7 @@ const RangeSlider = ({
         min={min}
         step={step}
         sx={sliderStyle}
-        value={value}
+        value={valueArray}
         valueLabelDisplay="auto"
         valueLabelFormat={valueLabelFormat}
         onChange={handleOnChange}
@@ -41,7 +43,8 @@ RangeSlider.propTypes = {
   max: PropTypes.number.isRequired,
   min: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
-  value: PropTypes.arrayOf(PropTypes.number).isRequired,
+  // eslint-disable-next-line
+  value: PropTypes.shape({ lte: PropTypes.number, gte: PropTypes.number }),
   handleOnChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
