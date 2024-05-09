@@ -17,81 +17,103 @@ import List from "./List/List";
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(true);
   const defaultAvailability = AVAILABILITIES[0];
-  const [selectedAvailabilities, setSelectedAvailabilities] = useState(new Set(AVAILABILITIES.map(({ id }) => id)));
   const { contentType } = useContext(SelectedFilterContext);
-  const genres = contentType === 'tv' ? TV_GENRES : MOVIE_GENRES;
-  const [selectedGenres, setSelectedGenres] = useState(new Set());
-  const certifications = contentType === 'tv' ? TV_CERTIFICATIONS : MOVIE_CERTIFICATIONS;
-  const [selectedCertifications, setSelectedCertifications] = useState(new Set());
-  const [selectedLanguage, setSelectedLanguage] = useState("xx");
-  const [userScore, setUserScore] = useState([0, 10]);
-  const [minimumUserVotes, setMinimumUserVotes] = useState([0, 500]);
-  const [runtime, setRuntime] = useState([0, 400]);
+  const GENRES = contentType === 'tv' ? TV_GENRES : MOVIE_GENRES;
+  const CERTIFICATIONS = contentType === 'tv' ? TV_CERTIFICATIONS : MOVIE_CERTIFICATIONS;
+
   const toggleVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
   };
 
+  const [selectedFilters, setSelectedFilters] = useState({
+    availabilities: new Set(AVAILABILITIES.map(({ id }) => id)),
+    genres: new Set(),
+    certifications: new Set(),
+    language: "xx",
+    userScore: [0, 10],
+    minimumUserVotes: [0, 500],
+    runtime: [0, 400],
+  });
+
   const toggleGenres = (genre) => {
-    setSelectedGenres((prevSelected) => {
-      const newSelected = new Set(prevSelected);
-      if (newSelected.has(genre)) {
-        newSelected.delete(genre);
+    setSelectedFilters((prevFilters) => {
+      const newGenres = new Set(prevFilters.genres);
+      if (newGenres.has(genre)) {
+        newGenres.delete(genre);
       }
       else {
-        newSelected.add(genre);
+        newGenres.add(genre);
       }
-      return newSelected;
+      return {
+        ...prevFilters,
+        genres: newGenres,
+      };
     });
   };
 
   const toggleCertifications = (certification) => {
-    setSelectedCertifications((prevSelected) => {
-      const newSelected = new Set(prevSelected);
-      if (newSelected.has(certification)) {
-        newSelected.delete(certification);
+    setSelectedFilters((prevFilters) => {
+      const newCertifications = new Set(prevFilters.certifications);
+      if (newCertifications.has(certification)) {
+        newCertifications.delete(certification);
       }
       else {
-        newSelected.add(certification);
+        newCertifications.add(certification);
       }
-      return newSelected;
+      return {
+        ...prevFilters,
+        certifications: newCertifications,
+      };
     });
   };
 
   const toggleLanguage = (language) => {
-    setSelectedLanguage(language);
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      language,
+    }));
   };
 
   const handleUserScore = (e, newValue) => {
-    const [gte, lte] = newValue;
-    setUserScore([gte, lte]);
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      userScore: newValue,
+    }));
   };
 
   const handleMinimumUserVotes = (e, newValue) => {
-    const [gte, lte] = newValue;
-    setMinimumUserVotes([gte, lte]);
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      minimumUserVotes: newValue,
+    }));
   };
 
   const handleRuntime = (e, newValue) => {
-    const [gte, lte] = newValue;
-    setRuntime([gte, lte]);
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      runtime: newValue,
+    }));
   };
 
   const toggleAvailabilities = (availability) => {
-    setSelectedAvailabilities((prevSelected) => {
-      const newSelected = new Set(prevSelected);
-      if (newSelected.has(availability)) {
-        newSelected.delete(availability);
+    setSelectedFilters((prevFilters) => {
+      const newSelectedAvailabilities = new Set(prevFilters.selectedAvailabilities);
+      if (newSelectedAvailabilities.has(availability)) {
+        newSelectedAvailabilities.delete(availability);
       }
       else {
-        newSelected.add(availability);
+        newSelectedAvailabilities.add(availability);
       }
-      return newSelected;
+      return {
+        ...prevFilters,
+        selectedAvailabilities: newSelectedAvailabilities,
+      };
     });
   };
 
-  const checkSelectedAvailabilities = (availability) => selectedAvailabilities.has(availability);
-  const checkSelectedCertifications = (certification) => selectedCertifications.has(certification);
-  const checkSelectedGenres = (genre) => selectedGenres.has(genre);
+  const checkSelectedAvailabilities = (availability) => selectedFilters.availabilities.has(availability);
+  const checkSelectedCertifications = (certification) => selectedFilters.certifications.has(certification);
+  const checkSelectedGenres = (genre) => selectedFilters.genres.has(genre);
 
   return (
     <div className={style["general-filter"]}>
@@ -176,14 +198,14 @@ const SortFilter = () => {
               </label>
             </div>
           </Filter>
-          <List checkSelection={checkSelectedGenres} items={genres} toggleSelection={toggleGenres} />
-          <List checkSelection={checkSelectedCertifications} items={certifications} toggleSelection={toggleCertifications} />
+          <List checkSelection={checkSelectedGenres} items={GENRES} toggleSelection={toggleGenres} />
+          <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} toggleSelection={toggleCertifications} />
           <Filter title="Language" tooltipMessage="Filter items based on their original language.">
             <select
               className={style["language-options-container"]}
               id="language"
               name="language"
-              value={selectedLanguage}
+              value={selectedFilters.language}
               onChange={(event) => {
                 toggleLanguage(event.target.value);
               }}
@@ -209,7 +231,7 @@ const SortFilter = () => {
             min={0}
             step={1}
             title="User Score"
-            value={userScore}
+            value={selectedFilters.userScore}
           />
           <RangeSlider
             handleOnChange={handleMinimumUserVotes}
@@ -218,7 +240,7 @@ const SortFilter = () => {
             min={0}
             step={50}
             title="Minimum User Votes"
-            value={minimumUserVotes}
+            value={selectedFilters.minimumUserVotes}
           />
           <RangeSlider
             handleOnChange={handleRuntime}
@@ -227,7 +249,7 @@ const SortFilter = () => {
             min={0}
             step={15}
             title="Runtime"
-            value={runtime}
+            value={selectedFilters.runtime}
           />
         </div>
       ) : null}
