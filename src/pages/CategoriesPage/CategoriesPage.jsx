@@ -25,7 +25,7 @@ const CategoriesPage = () => {
   const [pageNumber, setPageNumber] = useState(2);
   const [selectedSort, setSelectedSort] = useState(defaultSelectedSort);
   const [selectedOTTRegion, setSelectedOTTRegion] = useState('IN');
-  const [selectedWatchProviders, setSelectedWatchProviders] = useState([]);
+  const [selectedWatchProviders, setSelectedWatchProviders] = useState(new Set());
   const [isScrollable, setIsScrollable] = useState(false);
 
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
@@ -50,7 +50,8 @@ const CategoriesPage = () => {
 
   const fetchData = useCallback(async (isFilterChanged) => {
     try {
-      const filterQueryURL = `watch_region=${selectedOTTRegion}&page=${pageNumber}${selectedWatchProviders.length > 0 ? `&with_watch_providers=${selectedWatchProviders.join('|')}` : ''}&sort_by=${selectedSort}`;
+      const selectedWatchProvidersArray = Array.from(selectedWatchProviders);
+      const filterQueryURL = `watch_region=${selectedOTTRegion}&page=${pageNumber}${selectedWatchProvidersArray.length > 0 ? `&with_watch_providers=${selectedWatchProvidersArray.join('|')}` : ''}&sort_by=${selectedSort}`;
 
       const res = await fetchFilteredContent(contentType, filterQueryURL);
       setData((previousValue) => {
@@ -87,17 +88,17 @@ const CategoriesPage = () => {
   };
 
   const selectWatchProviders = useCallback((watchProvider) => {
-    if (selectedWatchProviders.length === 0) {
-      setSelectedWatchProviders([watchProvider]);
-    }
-    else if (selectedWatchProviders.includes(watchProvider)) {
-      const index = selectedWatchProviders.indexOf(watchProvider);
-      selectedWatchProviders.splice(index, 1);
-    }
-    else {
-      setSelectedWatchProviders((previousValue) => [...previousValue, watchProvider]);
-    }
-  }, [selectedWatchProviders]);
+    setSelectedWatchProviders((prevSelected) => {
+      const newSelected = new Set(prevSelected);
+      if (newSelected.has(watchProvider)) {
+        newSelected.delete(watchProvider);
+      }
+      else {
+        newSelected.add(watchProvider);
+      }
+      return newSelected;
+    });
+  }, []);
 
   const memoizedSelectedFilterValue = useMemo(() => ({
     selectedOTTRegion,

@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export const CATEGORY_TITLE = [
   { urlSlug: "popular", title: "Popular" },
   { urlSlug: "now_playing", title: "Now Playing" },

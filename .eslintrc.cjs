@@ -30,6 +30,7 @@ module.exports = {
   },
   plugins: ["flowtype", "react-hooks"],
   rules: {
+    "import/prefer-default-export": "off",
     quotes: "off",
     // best practices
     "class-methods-use-this": "off", // Allow class methods to not use this

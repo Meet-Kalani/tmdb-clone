@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export const OTT_REGIONS = [
   {
     iso_3166_1: 'AR',
