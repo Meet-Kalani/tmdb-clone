@@ -8,6 +8,7 @@ import {
   USER_SCORE_MARKS,
 } from '../../../utils/filterSliderDefaults';
 import { AVAILABILITIES } from "../../../utils/availabilities";
+import { RELEASE_TYPES } from "../../../utils/releaseTypes";
 import { MOVIE_CERTIFICATIONS, TV_CERTIFICATIONS } from "../../../utils/certifications";
 import { MOVIE_GENRES, TV_GENRES } from "../../../utils/genres";
 import FilterWrapper from "./FilterWrapper/FilterWrapper";
@@ -17,6 +18,7 @@ import List from "./List/List";
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(true);
+  const [isReleaseTypesVisible, setIsReleaseTypesVisible] = useState(true);
   const {
     contentType,
     availabilities,
@@ -27,11 +29,13 @@ const SortFilter = () => {
     runtime,
     language,
     releaseDate,
+    releaseTypes,
     toggleReleaseDate,
     toggleAvailabilities,
     toggleUserScore,
     toggleMinimumUserVotes,
     toggleRuntime,
+    toggleReleaseTypes,
     toggleCertifications,
     toggleGenres,
     toggleLanguage,
@@ -45,6 +49,7 @@ const SortFilter = () => {
 
   const checkSelectedAvailabilities = (availability) => availabilities.has(availability);
   const checkSelectedCertifications = (certification) => certifications.has(certification);
+  const checkSelectedReleaseTypes = (releaseType) => releaseTypes.has(releaseType);
   const checkSelectedGenres = (genre) => genres.has(genre);
 
   const userScoreTooltipFormat = (value) => {
@@ -101,21 +106,19 @@ const SortFilter = () => {
             </label>
           </FilterWrapper>
           <FilterWrapper title="Availabilities">
-            <div>
-              <label className={style.label} htmlFor="unseenmovies">
-                <input
-                  checked={isAvailabilityVisible}
-                  className={style['checkbox-input']}
-                  id="unseenmovies"
-                  type="checkbox"
-                  onChange={() => {
-                    setIsAvailabilityVisible((previousValue) => !previousValue);
-                  }}
-
-                />
-                Search all availabilities?
-              </label>
-              {
+            <label className={style.label} htmlFor="unseenmovies">
+              <input
+                checked={isAvailabilityVisible}
+                className={style['checkbox-input']}
+                id="unseenmovies"
+                type="checkbox"
+                onChange={() => {
+                  setIsAvailabilityVisible((previousValue) => !previousValue);
+                }}
+              />
+              Search all availabilities?
+            </label>
+            {
                 !isAvailabilityVisible ? AVAILABILITIES.map(({ id, label }) => (
                   <label className={style.label} htmlFor="unseenmovies" key={id}>
                     <input
@@ -131,9 +134,36 @@ const SortFilter = () => {
                   </label>
                 )) : null
               }
-            </div>
           </FilterWrapper>
           <FilterWrapper title="Release Dates">
+            <label className={style.label} htmlFor="unseenmovies">
+              <input
+                checked={isReleaseTypesVisible}
+                className={style['checkbox-input']}
+                id="unseenmovies"
+                type="checkbox"
+                onChange={() => {
+                  setIsReleaseTypesVisible((previousValue) => !previousValue);
+                }}
+              />
+              Search all releases?
+            </label>
+            {
+                !isReleaseTypesVisible ? RELEASE_TYPES.map(({ id, label }) => (
+                  <label className={style.label} htmlFor="unseenmovies" key={id}>
+                    <input
+                      checked={checkSelectedReleaseTypes(id)}
+                      className={style['checkbox-input']}
+                      id="unseenmovies"
+                      type="checkbox"
+                      onChange={() => {
+                        toggleReleaseTypes(id);
+                      }}
+                    />
+                    {label}
+                  </label>
+                )) : null
+              }
             <div className={style['dates-container']}>
               <label className={style['from-date-label']} htmlFor="from_date">
                 from

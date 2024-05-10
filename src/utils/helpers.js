@@ -88,6 +88,7 @@ export const buildFilterQueryURL = (
     OTTRegion,
     watchProviders,
     availabilities,
+    releaseTypes,
     genres,
     certifications,
     language,
@@ -99,6 +100,7 @@ export const buildFilterQueryURL = (
 
   const availabilityArray = Array.from(availabilities);
   const formattedAvailability = availabilityArray.length === Object.keys(AVAILABILITIES).length ? undefined : availabilityArray.join('|');
+  const formattedReleaseTypes = Array.from(releaseTypes).join('|');
   const genreParam = Array.from(genres).join('|');
   const formattedCertification = Array.from(certifications).join('|');
   const formattedWatchProvider = Array.from(watchProviders).join('|');
@@ -112,7 +114,9 @@ export const buildFilterQueryURL = (
   if (formattedAvailability) params.push(`with_ott_monetization_types=${formattedAvailability}`);
   if (genreParam) params.push(`with_genres=${genreParam}`);
   if (formattedCertification) params.push(`certification=${formattedCertification}`);
-  if (releaseDate.gte && releaseDate.lte) params.push(`release_date.gte=${releaseDate.gte}&release_date.lte=${releaseDate.lte}`);
+  if (formattedReleaseTypes) params.push(`with_release_type=${formattedReleaseTypes}`);
+  if (releaseDate.lte) params.push(`release_date.lte=${releaseDate.lte}`);
+  if (releaseDate.gte) params.push(`release_date.gte=${releaseDate.gte}`);
   if (language && language !== "xx") params.push(`with_original_language=${language}`);
   params.push(`vote_average.gte=${userScore.gte}&vote_average.lte=${userScore.lte}`);
   params.push(`vote_count.gte=${minimumUserVotes.gte}`);

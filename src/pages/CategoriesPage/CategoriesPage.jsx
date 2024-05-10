@@ -15,6 +15,7 @@ import {
   buildFilterQueryURL, formatReleaseDateLTE, notifyError, removeDuplicates,
 } from "../../utils/helpers";
 import { AVAILABILITIES } from "../../utils/availabilities";
+import { RELEASE_TYPES } from "../../utils/releaseTypes";
 import SelectedFilterContext from "./context";
 
 const defaultSelectedSort = 'popularity.desc';
@@ -37,6 +38,7 @@ const CategoriesPage = () => {
     genres: new Set(),
     certifications: new Set(),
     language: "xx",
+    releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
     releaseDate: {
       gte: undefined,
       lte: formatReleaseDateLTE(),
@@ -55,7 +57,6 @@ const CategoriesPage = () => {
   });
 
   const [isScrollable, setIsScrollable] = useState(false);
-
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
   const documentTitle = `${title} ${contentType === 'tv' ? 'TV Shows' : 'Movies'} — The Movie Database (TMDB)`;
   useTitle(documentTitle);
@@ -173,6 +174,22 @@ const CategoriesPage = () => {
     });
   };
 
+  const toggleReleaseTypes = (releaseType) => {
+    setSelectedFilters((prevFilters) => {
+      const newReleaseTypes = new Set(prevFilters.releaseTypes);
+      if (newReleaseTypes.has(releaseType)) {
+        newReleaseTypes.delete(releaseType);
+      }
+      else {
+        newReleaseTypes.add(releaseType);
+      }
+      return {
+        ...prevFilters,
+        releaseTypes: newReleaseTypes,
+      };
+    });
+  };
+
   const toggleCertifications = (certification) => {
     setSelectedFilters((prevFilters) => {
       const newCertifications = new Set(prevFilters.certifications);
@@ -259,6 +276,7 @@ const CategoriesPage = () => {
     fetchData,
     toggleOTTRegion,
     toggleSort,
+    toggleReleaseTypes,
     toggleAvailabilities,
     toggleReleaseDate,
     toggleUserScore,
