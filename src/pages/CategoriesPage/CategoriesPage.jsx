@@ -11,7 +11,9 @@ import useTitle from "../../hooks/useTitle";
 import {
   fetchCategoriesContent, fetchFilteredContent,
 } from "../../service/api";
-import { buildFilterQueryURL, notifyError, removeDuplicates } from "../../utils/helpers";
+import {
+  buildFilterQueryURL, formatReleaseDateLTE, notifyError, removeDuplicates,
+} from "../../utils/helpers";
 import { AVAILABILITIES } from "../../utils/availabilities";
 import SelectedFilterContext from "./context";
 
@@ -33,6 +35,10 @@ const CategoriesPage = () => {
     genres: new Set(),
     certifications: new Set(),
     language: "xx",
+    releaseDate: {
+      gte: undefined,
+      lte: formatReleaseDateLTE(),
+    },
     userScore: {
       gte: 0,
       lte: 10,
@@ -80,6 +86,7 @@ const CategoriesPage = () => {
       userScore,
       minimumUserVotes,
       runtime,
+      releaseDate,
     } = selectedFilters;
 
     const availabilityArray = Array.from(availabilities);
@@ -96,6 +103,7 @@ const CategoriesPage = () => {
       availabilityParam,
       genreParam,
       certificationParam,
+      releaseDate,
       language,
       userScore,
       minimumUserVotes,
@@ -226,6 +234,21 @@ const CategoriesPage = () => {
     }));
   };
 
+  const toggleReleaseDate = (event, type) => {
+    if (type === "gte") {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        releaseDate: { ...prevFilters.releaseDate, gte: event.target.value },
+      }));
+    }
+    else {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        releaseDate: { ...prevFilters.releaseDate, lte: event.target.value },
+      }));
+    }
+  };
+
   const toggleAvailabilities = (availability) => {
     setSelectedFilters((prevFilters) => {
       const newSelectedAvailabilities = new Set(prevFilters.availabilities);
@@ -250,6 +273,7 @@ const CategoriesPage = () => {
     toggleOTTRegion,
     toggleSort,
     toggleAvailabilities,
+    toggleReleaseDate,
     toggleUserScore,
     toggleMinimumUserVotes,
     toggleRuntime,

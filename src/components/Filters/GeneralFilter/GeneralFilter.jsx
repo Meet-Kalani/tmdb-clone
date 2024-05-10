@@ -26,6 +26,8 @@ const SortFilter = () => {
     minimumUserVotes,
     runtime,
     language,
+    releaseDate,
+    toggleReleaseDate,
     toggleAvailabilities,
     toggleUserScore,
     toggleMinimumUserVotes,
@@ -135,11 +137,31 @@ const SortFilter = () => {
             <div className={style['dates-container']}>
               <label className={style['from-date-label']} htmlFor="from_date">
                 from
-                <input className={style['from-date']} id="from_date" min="1950-01-01" name="from_date" type="date" />
+                <input
+                  className={style['from-date']}
+                  id="from_date"
+                  min="1950-01-01"
+                  name="from_date"
+                  type="date"
+                  value={releaseDate.gte}
+                  onChange={(event) => {
+                    toggleReleaseDate(event, "gte");
+                  }}
+                />
               </label>
               <label className={style['to-date-label']} htmlFor="to_date">
                 to
-                <input className={style['to-date']} id="to_date" max="2024-12-31" name="to_date" type="date" />
+                <input
+                  className={style['to-date']}
+                  id="to_date"
+                  max="2024-12-31"
+                  name="to_date"
+                  type="date"
+                  value={releaseDate.lte}
+                  onChange={(event) => {
+                    toggleReleaseDate(event, "lte");
+                  }}
+                />
               </label>
             </div>
           </FilterWrapper>

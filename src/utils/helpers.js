@@ -86,6 +86,7 @@ export const buildFilterQueryURL = (
   availability,
   genreParam,
   certification,
+  releaseDate,
   language,
   userScore,
   minimumUserVotes,
@@ -100,10 +101,18 @@ export const buildFilterQueryURL = (
   if (availability) params.push(`with_watch_monetization_types=${availability}`);
   if (genreParam) params.push(`with_genres=${genreParam}`);
   if (certification) params.push(`certification=${certification}`);
+  if (releaseDate.gte && releaseDate.lte) params.push(`release_date.gte=${releaseDate.gte}&release_date.lte=${releaseDate.lte}`);
   if (language && language !== "xx") params.push(`with_original_language=${language}`);
   params.push(`vote_average.gte=${userScore.gte}&vote_average.lte=${userScore.lte}`);
   params.push(`vote_count.gte=${minimumUserVotes.gte}`);
   params.push(`with_runtime.gte=${runtime.gte}&with_runtime.lte=${runtime.lte}`);
 
   return params.join('&');
+};
+
+export const formatReleaseDateLTE = () => {
+  const currentDate = new Date();
+  const sixMonthsFromNow = new Date(currentDate);
+  sixMonthsFromNow.setMonth(currentDate.getMonth() + 6);
+  return sixMonthsFromNow.toISOString().split('T')[0];
 };

@@ -26,9 +26,7 @@ const RangeSlider = ({
         sx={sliderStyle}
         value={valueArray}
         valueLabelDisplay="auto"
-        valueLabelFormat={
-          tooltipFormat(value)
-        }
+        valueLabelFormat={tooltipFormat(value)}
         onChange={handleOnChange}
       />
     </FilterWrapper>
@@ -36,7 +34,10 @@ const RangeSlider = ({
 };
 
 RangeSlider.propTypes = {
-  marks: PropTypes.arrayOf(PropTypes.number).isRequired,
+  marks: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.number,
+    label: PropTypes.string,
+  })).isRequired,
   max: PropTypes.number.isRequired,
   min: PropTypes.number.isRequired,
   step: PropTypes.number.isRequired,
