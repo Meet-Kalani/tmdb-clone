@@ -10,13 +10,13 @@ import {
 import { AVAILABILITIES } from "../../../utils/availabilities";
 import { MOVIE_CERTIFICATIONS, TV_CERTIFICATIONS } from "../../../utils/certifications";
 import { MOVIE_GENRES, TV_GENRES } from "../../../utils/genres";
-import Filter from "./Filter/Filter";
+import FilterWrapper from "./FilterWrapper/FilterWrapper";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import List from "./List/List";
 
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const defaultAvailability = AVAILABILITIES[0];
+  const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(true);
   const {
     contentType,
     availabilities,
@@ -45,6 +45,21 @@ const SortFilter = () => {
   const checkSelectedCertifications = (certification) => certifications.has(certification);
   const checkSelectedGenres = (genre) => genres.has(genre);
 
+  const userScoreTooltipFormat = (value) => {
+    const { gte, lte } = value;
+    return `Rated ${gte}-${lte}`;
+  };
+
+  const runtimeTooltipFormat = (value) => {
+    const { gte, lte } = value;
+    return `${gte} minutes - ${lte} minutes`;
+  };
+
+  const minimumUserVotesTooltipFormat = (value) => {
+    const { gte } = value;
+    return gte;
+  };
+
   return (
     <div className={style["general-filter"]}>
       <div
@@ -69,7 +84,7 @@ const SortFilter = () => {
       </div>
       {isVisible ? (
         <div className={style["filter-content"]}>
-          <Filter title="Show Me" tooltipMessage="Log in to filter items you've watched.">
+          <FilterWrapper title="Show Me" tooltipMessage="Log in to filter items you've watched.">
             <label className={style.label} htmlFor="all">
               <input className={style['radio-input']} id="all" type="radio" defaultChecked />
               Everything
@@ -82,24 +97,24 @@ const SortFilter = () => {
               <input className={style['radio-input']} id="unseenmovies" type="radio" disabled />
               Movies I Have Seen
             </label>
-          </Filter>
-          <Filter title="Availabilities">
+          </FilterWrapper>
+          <FilterWrapper title="Availabilities">
             <div>
               <label className={style.label} htmlFor="unseenmovies">
                 <input
-                  checked={checkSelectedAvailabilities(defaultAvailability.label)}
+                  checked={isAvailabilityVisible}
                   className={style['checkbox-input']}
                   id="unseenmovies"
                   type="checkbox"
                   onChange={() => {
-                    toggleAvailabilities(defaultAvailability.label);
+                    setIsAvailabilityVisible((previousValue) => !previousValue);
                   }}
 
                 />
-                {defaultAvailability.label}
+                Search all availabilities?
               </label>
               {
-                !checkSelectedAvailabilities(defaultAvailability.label) ? AVAILABILITIES.slice(1).map(({ id, label }) => (
+                !isAvailabilityVisible ? AVAILABILITIES.map(({ id, label }) => (
                   <label className={style.label} htmlFor="unseenmovies" key={id}>
                     <input
                       checked={checkSelectedAvailabilities(label)}
@@ -115,8 +130,8 @@ const SortFilter = () => {
                 )) : null
               }
             </div>
-          </Filter>
-          <Filter title="Release Dates">
+          </FilterWrapper>
+          <FilterWrapper title="Release Dates">
             <div className={style['dates-container']}>
               <label className={style['from-date-label']} htmlFor="from_date">
                 from
@@ -127,10 +142,10 @@ const SortFilter = () => {
                 <input className={style['to-date']} id="to_date" max="2024-12-31" name="to_date" type="date" />
               </label>
             </div>
-          </Filter>
+          </FilterWrapper>
           <List checkSelection={checkSelectedGenres} items={GENRES} toggleSelection={toggleGenres} />
           <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} toggleSelection={toggleCertifications} />
-          <Filter title="Language" tooltipMessage="Filter items based on their original language.">
+          <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">
             <select
               className={style["language-options-container"]}
               id="language"
@@ -153,7 +168,7 @@ const SortFilter = () => {
                 ))
               }
             </select>
-          </Filter>
+          </FilterWrapper>
           <RangeSlider
             handleOnChange={toggleUserScore}
             marks={USER_SCORE_MARKS}
@@ -161,6 +176,7 @@ const SortFilter = () => {
             min={0}
             step={1}
             title="User Score"
+            tooltipFormat={userScoreTooltipFormat}
             value={userScore}
           />
           <RangeSlider
@@ -170,6 +186,7 @@ const SortFilter = () => {
             min={0}
             step={50}
             title="Minimum User Votes"
+            tooltipFormat={minimumUserVotesTooltipFormat}
             value={minimumUserVotes}
           />
           <RangeSlider
@@ -179,6 +196,7 @@ const SortFilter = () => {
             min={0}
             step={15}
             title="Runtime"
+            tooltipFormat={runtimeTooltipFormat}
             value={runtime}
           />
         </div>

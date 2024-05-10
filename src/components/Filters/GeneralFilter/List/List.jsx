@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import style from "./list.module.scss";
-import Filter from "../Filter/Filter";
+import FilterWrapper from "../FilterWrapper/FilterWrapper";
 
 const List = ({ items, checkSelection, toggleSelection }) => (
-  <Filter title="Certification">
+  <FilterWrapper title="Certification">
     <ul className={style['list-container']}>
       {
       items.map(({ id, label }) => (
@@ -20,7 +20,7 @@ const List = ({ items, checkSelection, toggleSelection }) => (
       ))
     }
     </ul>
-  </Filter>
+  </FilterWrapper>
 );
 
 List.propTypes = {

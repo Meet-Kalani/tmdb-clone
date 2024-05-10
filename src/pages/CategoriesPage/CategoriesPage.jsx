@@ -32,7 +32,7 @@ const CategoriesPage = () => {
     availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
     genres: new Set(),
     certifications: new Set(),
-    language: "en",
+    language: "xx",
     userScore: {
       gte: 0,
       lte: 10,
@@ -83,7 +83,7 @@ const CategoriesPage = () => {
     } = selectedFilters;
 
     const availabilityArray = Array.from(availabilities);
-    const availabilityParam = availabilityArray.includes("Search all availabilities?") ? undefined : availabilityArray.join('|');
+    const availabilityParam = availabilityArray.length === Object.keys(AVAILABILITIES).length ? undefined : availabilityArray.join('|');
     const genreParam = Array.from(genres).join('|');
     const certificationParam = Array.from(certifications).join('|');
     const watchProvidersParam = Array.from(watchProviders).join('|');
@@ -237,7 +237,7 @@ const CategoriesPage = () => {
       }
       return {
         ...prevFilters,
-        selectedAvailabilities: newSelectedAvailabilities,
+        availabilities: newSelectedAvailabilities,
       };
     });
   };

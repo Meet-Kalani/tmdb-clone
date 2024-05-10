@@ -23,7 +23,7 @@
       align-items: center;
       .tooltip {
         visibility: hidden;
-        width: 120px;
+        width: 170px;
         background-color: $color-primary;
         color: #fff;
         text-align: center;
@@ -31,8 +31,8 @@
         padding: 5px 0;
         position: absolute;
         z-index: 1;
-        top: -74px;
-        left: -52px;
+        top: -55px;
+        left: -77px;
 
         &::after {
           content: "";
