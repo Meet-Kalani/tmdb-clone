@@ -9,7 +9,7 @@ import CategoryList from "../../components/CategoryList/CategoryList";
 import { CATEGORY_TITLE } from "../../utils/categoryTitle";
 import useTitle from "../../hooks/useTitle";
 import {
-  fetchCategoriesContent, fetchFilteredContent,
+  fetchCategoriesContent, fetchFilteredContent, fetchOTTPlatforms,
 } from "../../service/api";
 import {
   buildFilterQueryURL, formatReleaseDateLTE, notifyError, removeDuplicates,
@@ -18,6 +18,7 @@ import { AVAILABILITIES } from "../../utils/availabilities";
 import SelectedFilterContext from "./context";
 
 const defaultSelectedSort = 'popularity.desc';
+const defaultPageNumber = 1;
 
 const CategoriesPage = () => {
   const { category } = useParams();
@@ -25,7 +26,8 @@ const CategoriesPage = () => {
   const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(defaultPageNumber);
+  const [watchProvidersList, setWatchProvidersList] = useState([]);
 
   const [selectedFilters, setSelectedFilters] = useState({
     sort: defaultSelectedSort,
@@ -58,6 +60,10 @@ const CategoriesPage = () => {
   const documentTitle = `${title} ${contentType === 'tv' ? 'TV Shows' : 'Movies'} — The Movie Database (TMDB)`;
   useTitle(documentTitle);
 
+  // useEffect(() => {
+  //   setData(null);
+  // }, [location.pathname]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -70,50 +76,34 @@ const CategoriesPage = () => {
       finally {
         setIsLoading(false);
         setIsScrollable(false);
+        setPageNumber(2);
       }
     })();
   }, [category, contentType]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetchOTTPlatforms(contentType, selectedFilters.OTTRegion);
+        setWatchProvidersList(res);
+      }
+      catch (err) {
+        notifyError(err);
+      }
+    })();
+  }, [contentType, selectedFilters.OTTRegion]);
+
   const fetchData = useCallback(async (isFilterChanged) => {
-    const {
-      sort,
-      OTTRegion,
-      watchProviders,
-      availabilities,
-      genres,
-      certifications,
-      language,
-      userScore,
-      minimumUserVotes,
-      runtime,
-      releaseDate,
-    } = selectedFilters;
-
-    const availabilityArray = Array.from(availabilities);
-    const availabilityParam = availabilityArray.length === Object.keys(AVAILABILITIES).length ? undefined : availabilityArray.join('|');
-    const genreParam = Array.from(genres).join('|');
-    const certificationParam = Array.from(certifications).join('|');
-    const watchProvidersParam = Array.from(watchProviders).join('|');
-
-    const filterQueryURL = buildFilterQueryURL(
-      OTTRegion,
-      pageNumber,
-      watchProvidersParam,
-      sort,
-      availabilityParam,
-      genreParam,
-      certificationParam,
-      releaseDate,
-      language,
-      userScore,
-      minimumUserVotes,
-      runtime,
-    );
+    const newPageNumber = isFilterChanged ? defaultPageNumber : pageNumber;
+    const filterQueryURL = buildFilterQueryURL(selectedFilters, newPageNumber);
+    setPageNumber(newPageNumber);
 
     try {
       const res = await fetchFilteredContent(contentType, filterQueryURL);
       setData((previousValue) => {
         if (isFilterChanged) {
+          setPageNumber(defaultPageNumber);
+          setIsScrollable(false);
           return res;
         }
         const results = removeDuplicates([...previousValue.results, ...res.results]);
@@ -129,10 +119,6 @@ const CategoriesPage = () => {
       notifyError(err);
     }
     finally {
-      if (isFilterChanged) {
-        setPageNumber(1);
-        setIsScrollable(false);
-      }
       setPageNumber((previousValue) => previousValue + 1);
     }
   }, [contentType, pageNumber, selectedFilters]);
@@ -268,6 +254,7 @@ const CategoriesPage = () => {
   const memoizedSelectedFilterValue = useMemo(() => ({
     ...selectedFilters,
     contentType,
+    watchProvidersList,
     toggleWatchProviders,
     fetchData,
     toggleOTTRegion,
@@ -280,7 +267,7 @@ const CategoriesPage = () => {
     toggleCertifications,
     toggleGenres,
     toggleLanguage,
-  }), [selectedFilters, contentType, toggleWatchProviders, fetchData]);
+  }), [selectedFilters, contentType, toggleWatchProviders, fetchData, watchProvidersList]);
 
   return (
     <>

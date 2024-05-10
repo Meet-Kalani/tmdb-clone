@@ -15,7 +15,7 @@ import RangeSlider from "./RangeSlider/RangeSlider";
 import List from "./List/List";
 
 const SortFilter = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(true);
   const {
     contentType,
@@ -59,7 +59,7 @@ const SortFilter = () => {
 
   const minimumUserVotesTooltipFormat = (value) => {
     const { gte } = value;
-    return gte;
+    return `${gte}`;
   };
 
   return (
@@ -143,7 +143,6 @@ const SortFilter = () => {
                   min="1950-01-01"
                   name="from_date"
                   type="date"
-                  value={releaseDate.gte}
                   onChange={(event) => {
                     toggleReleaseDate(event, "gte");
                   }}
@@ -165,8 +164,8 @@ const SortFilter = () => {
               </label>
             </div>
           </FilterWrapper>
-          <List checkSelection={checkSelectedGenres} items={GENRES} toggleSelection={toggleGenres} />
-          <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} toggleSelection={toggleCertifications} />
+          <List checkSelection={checkSelectedGenres} items={GENRES} title="Genres" toggleSelection={toggleGenres} type="genre" />
+          <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} title="Certification" toggleSelection={toggleCertifications} type="certification" />
           <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">
             <select
               className={style["language-options-container"]}

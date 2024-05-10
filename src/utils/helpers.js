@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { AVAILABILITIES } from './availabilities';
 
 export const notifyError = (err, className) => {
   toast.error(err.response.data.status_message, {
@@ -79,28 +80,38 @@ export const removeDuplicates = (array) => {
 };
 
 export const buildFilterQueryURL = (
-  OTTRegion,
+  selectedFilters,
   pageNumber,
-  watchProviders,
-  sort,
-  availability,
-  genreParam,
-  certification,
-  releaseDate,
-  language,
-  userScore,
-  minimumUserVotes,
-  runtime,
 ) => {
+  const {
+    sort,
+    OTTRegion,
+    watchProviders,
+    availabilities,
+    genres,
+    certifications,
+    language,
+    userScore,
+    minimumUserVotes,
+    runtime,
+    releaseDate,
+  } = selectedFilters;
+
+  const availabilityArray = Array.from(availabilities);
+  const formattedAvailability = availabilityArray.length === Object.keys(AVAILABILITIES).length ? undefined : availabilityArray.join('|');
+  const genreParam = Array.from(genres).join('|');
+  const formattedCertification = Array.from(certifications).join('|');
+  const formattedWatchProvider = Array.from(watchProviders).join('|');
+
   const params = [];
 
   if (OTTRegion) params.push(`watch_region=${OTTRegion}`);
   if (pageNumber) params.push(`page=${pageNumber}`);
-  if (watchProviders) params.push(`with_watch_providers=${watchProviders}`);
+  if (formattedWatchProvider) params.push(`with_watch_providers=${formattedWatchProvider}`);
   if (sort) params.push(`sort_by=${sort}`);
-  if (availability) params.push(`with_watch_monetization_types=${availability}`);
+  if (formattedAvailability) params.push(`with_ott_monetization_types=${formattedAvailability}`);
   if (genreParam) params.push(`with_genres=${genreParam}`);
-  if (certification) params.push(`certification=${certification}`);
+  if (formattedCertification) params.push(`certification=${formattedCertification}`);
   if (releaseDate.gte && releaseDate.lte) params.push(`release_date.gte=${releaseDate.gte}&release_date.lte=${releaseDate.lte}`);
   if (language && language !== "xx") params.push(`with_original_language=${language}`);
   params.push(`vote_average.gte=${userScore.gte}&vote_average.lte=${userScore.lte}`);
