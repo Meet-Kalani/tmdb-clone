@@ -37,6 +37,7 @@ const CategoriesPage = () => {
     availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
     genres: new Set(),
     certifications: new Set(),
+    releaseRegion: 'IN',
     language: "xx",
     releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
     releaseDate: {
@@ -135,6 +136,13 @@ const CategoriesPage = () => {
     setSelectedFilters((prevState) => ({
       ...prevState,
       OTTRegion: region,
+    }));
+  };
+
+  const toggleReleaseRegion = (region) => {
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      releaseRegion: region,
     }));
   };
 
@@ -278,6 +286,7 @@ const CategoriesPage = () => {
     toggleSort,
     toggleReleaseTypes,
     toggleAvailabilities,
+    toggleReleaseRegion,
     toggleReleaseDate,
     toggleUserScore,
     toggleMinimumUserVotes,

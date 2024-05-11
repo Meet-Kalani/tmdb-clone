@@ -8,6 +8,7 @@ import {
   USER_SCORE_MARKS,
 } from '../../../utils/filterSliderDefaults';
 import { AVAILABILITIES } from "../../../utils/availabilities";
+import { OTT_REGIONS } from "../../../utils/ottRegions";
 import { RELEASE_TYPES } from "../../../utils/releaseTypes";
 import { MOVIE_CERTIFICATIONS, TV_CERTIFICATIONS } from "../../../utils/certifications";
 import { MOVIE_GENRES, TV_GENRES } from "../../../utils/genres";
@@ -19,6 +20,7 @@ const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(true);
   const [isReleaseTypesVisible, setIsReleaseTypesVisible] = useState(true);
+  const [isReleaseTypeCountryVisible, setIsReleaseTypeCountryVisible] = useState(true);
   const {
     contentType,
     availabilities,
@@ -29,10 +31,12 @@ const SortFilter = () => {
     runtime,
     language,
     releaseDate,
+    releaseRegion,
     releaseTypes,
     toggleReleaseDate,
     toggleAvailabilities,
     toggleUserScore,
+    toggleReleaseRegion,
     toggleMinimumUserVotes,
     toggleRuntime,
     toggleReleaseTypes,
@@ -136,64 +140,67 @@ const SortFilter = () => {
               }
           </FilterWrapper>
           <FilterWrapper title="Release Dates">
-            <label className={style.label} htmlFor="unseenmovies">
+            <label className={style.label} htmlFor="release-types">
               <input
                 checked={isReleaseTypesVisible}
                 className={style['checkbox-input']}
-                id="unseenmovies"
+                id="release-types"
                 type="checkbox"
-                onChange={() => {
-                  setIsReleaseTypesVisible((previousValue) => !previousValue);
-                }}
+                onChange={() => setIsReleaseTypesVisible((prev) => !prev)}
               />
               Search all releases?
             </label>
-            {
-                !isReleaseTypesVisible ? RELEASE_TYPES.map(({ id, label }) => (
-                  <label className={style.label} htmlFor="unseenmovies" key={id}>
-                    <input
-                      checked={checkSelectedReleaseTypes(id)}
-                      className={style['checkbox-input']}
-                      id="unseenmovies"
-                      type="checkbox"
-                      onChange={() => {
-                        toggleReleaseTypes(id);
-                      }}
-                    />
-                    {label}
-                  </label>
-                )) : null
-              }
+            {!isReleaseTypesVisible && (
+            <>
+              <label className={`${style.label} ${style['release-region-label']}`} htmlFor="release-type-region">
+                <input
+                  checked={isReleaseTypeCountryVisible}
+                  className={style['checkbox-input']}
+                  id="release-type-region"
+                  type="checkbox"
+                  onChange={() => setIsReleaseTypeCountryVisible((prev) => !prev)}
+                />
+                Search all countries?
+              </label>
+              {!isReleaseTypeCountryVisible && (
+              <select
+                className={style['region-options-container']}
+                id="region"
+                name="region"
+                value={releaseRegion}
+                onChange={(event) => toggleReleaseRegion(event.target.value)}
+              >
+                {OTT_REGIONS.map(({ iso_3166_1: id, english_name: label }) => (
+                  <option className={style['region-option']} key={id} value={id}>{label}</option>
+                ))}
+              </select>
+              )}
+            </>
+            )}
+            {!isReleaseTypesVisible && RELEASE_TYPES.map(({ id, label }) => (
+              <label className={style.label} htmlFor="release-type" key={id}>
+                <input
+                  checked={checkSelectedReleaseTypes(id)}
+                  className={style['checkbox-input']}
+                  id="release-type"
+                  type="checkbox"
+                  onChange={() => toggleReleaseTypes(id)}
+                />
+                {label}
+              </label>
+            ))}
             <div className={style['dates-container']}>
               <label className={style['from-date-label']} htmlFor="from_date">
                 from
-                <input
-                  className={style['from-date']}
-                  id="from_date"
-                  min="1950-01-01"
-                  name="from_date"
-                  type="date"
-                  onChange={(event) => {
-                    toggleReleaseDate(event, "gte");
-                  }}
-                />
+                <input className={style['from-date']} id="from_date" min="1950-01-01" name="from_date" type="date" onChange={(event) => { toggleReleaseDate(event, "gte"); }} />
               </label>
               <label className={style['to-date-label']} htmlFor="to_date">
                 to
-                <input
-                  className={style['to-date']}
-                  id="to_date"
-                  max="2024-12-31"
-                  name="to_date"
-                  type="date"
-                  value={releaseDate.lte}
-                  onChange={(event) => {
-                    toggleReleaseDate(event, "lte");
-                  }}
-                />
+                <input className={style['to-date']} id="to_date" max="2024-12-31" name="to_date" type="date" value={releaseDate.lte} onChange={(event) => { toggleReleaseDate(event, "lte"); }} />
               </label>
             </div>
           </FilterWrapper>
+
           <List checkSelection={checkSelectedGenres} items={GENRES} title="Genres" toggleSelection={toggleGenres} type="genre" />
           <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} title="Certification" toggleSelection={toggleCertifications} type="certification" />
           <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">

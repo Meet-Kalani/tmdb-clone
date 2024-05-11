@@ -87,7 +87,8 @@
       }
     }
 
-    .language-options-container {
+    .language-options-container,
+    .region-options-container {
       font-family: "Source Sans Pro", Arial, sans-serif;
       border-color: #e4e7eb;
       background-color: #e4e7eb;
@@ -100,6 +101,14 @@
       &:focus {
         outline: none;
       }
+    }
+
+    .release-region-label {
+      margin-bottom: 20px;
+    }
+
+    .region-options-container {
+      margin-bottom: 10px;
     }
   }
 
