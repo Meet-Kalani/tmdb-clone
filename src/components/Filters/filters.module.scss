@@ -1,8 +1,10 @@
 @use "../../styles" as *;
 
 .filters {
+  position: relative;
   @include flex-column();
   gap: 12px;
+
   .search-btn {
     height: 44px;
     margin-top: 8px;
@@ -17,5 +19,15 @@
     &:hover {
       background-color: rgb(2, 36, 65);
     }
+  }
+
+  .search-btn-bottom {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-radius: 0;
+    z-index: 5;
+    height: 50px;
   }
 }
