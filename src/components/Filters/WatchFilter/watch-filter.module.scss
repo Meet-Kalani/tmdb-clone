@@ -22,6 +22,24 @@
       font-weight: $font-weight-600;
     }
 
+    .wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .watch-provider-count {
+        height: 22px;
+        background-color: rgba(0, 0, 0, 0.08);
+        border-radius: $border-radius-8;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 10px;
+        font-family: "Roboto Mono", monospace;
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+
     .right-arrow {
       background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-224-chevron-right-d1f88a6c15e68190c3b47e1ee4f39fe47f4b69f4966ca7c250c2e14cfa689a04.svg);
       width: 16px;

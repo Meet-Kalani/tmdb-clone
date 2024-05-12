@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import style from "./watch-filter.module.scss";
 import CountrySelector from "./CountrySelector/CountrySelector";
 import WatchProvider from "./WatchProvider/WatchProvider";
+import SelectedFilterContext from '../../../pages/CategoriesPage/context';
 
 const WatchFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { watchProvidersList } = useContext(SelectedFilterContext);
 
   const toggleVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
   };
+
+  const watchProviderCount = watchProvidersList.length;
 
   return (
     <div className={style["watch-filter"]}>
@@ -24,13 +28,16 @@ const WatchFilter = () => {
         }}
       >
         <h2 className={style["filter-title"]}>Where To Watch</h2>
-        <span
-          className={
+        <div className={style.wrapper}>
+          <span className={style['watch-provider-count']}>{watchProviderCount}</span>
+          <span
+            className={
             !isVisible
               ? `${style["right-arrow"]}`
               : `${style["right-arrow"]} ${style["down-arrow"]}`
           }
-        />
+          />
+        </div>
       </div>
       {isVisible ? (
         <div className={style["filter-content"]}>

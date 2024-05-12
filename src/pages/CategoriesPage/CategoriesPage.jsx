@@ -62,10 +62,6 @@ const CategoriesPage = () => {
   const documentTitle = `${title} ${contentType === 'tv' ? 'TV Shows' : 'Movies'} — The Movie Database (TMDB)`;
   useTitle(documentTitle);
 
-  // useEffect(() => {
-  //   setData(null);
-  // }, [location.pathname]);
-
   useEffect(() => {
     (async () => {
       try {
