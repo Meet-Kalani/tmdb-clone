@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import style from "./recommendation.module.scss";
 import RecommendationCard from "./RecommendationCard/RecommendationCard";
 import { fetchRecommendations } from "../../service/api";
-import { formatDate } from "../../utils/helpers";
+import { formatDate } from "../../helpers/formatDate";
 import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
 
 const Recommendation = ({

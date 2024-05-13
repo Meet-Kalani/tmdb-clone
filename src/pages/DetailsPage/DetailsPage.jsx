@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { notifyError } from "../../utils/helpers";
+import { notifyError } from "../../helpers/notifyError";
 import style from "./details-page.module.scss";
 import PrimaryInfo from "../../components/PrimaryInfo/PrimaryInfo";
 import CastInfo from "../../components/CastInfo/CastInfo";

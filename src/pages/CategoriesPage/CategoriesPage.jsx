@@ -11,9 +11,10 @@ import useTitle from "../../hooks/useTitle";
 import {
   fetchCategoriesContent, fetchFilteredContent, fetchOTTPlatforms,
 } from "../../service/api";
-import {
-  buildFilterQueryURL, formatReleaseDateLTE, notifyError, removeDuplicates,
-} from "../../utils/helpers";
+import { notifyError } from "../../helpers/notifyError";
+import { removeDuplicates } from "../../helpers/removeDuplicates";
+import { getReleaseDate } from "../../helpers/getReleaseDate";
+import { buildFilterQueryURL } from "../../helpers/buildFilterQueryURL";
 import { AVAILABILITIES } from "../../utils/availabilities";
 import { RELEASE_TYPES } from "../../utils/releaseTypes";
 import SelectedFilterContext from "./context";
@@ -42,7 +43,7 @@ const CategoriesPage = () => {
     releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
     releaseDate: {
       gte: undefined,
-      lte: formatReleaseDateLTE(),
+      lte: getReleaseDate(),
     },
     userScore: {
       gte: 0,

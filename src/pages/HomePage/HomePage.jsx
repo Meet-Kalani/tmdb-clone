@@ -7,7 +7,7 @@ import style from "./home-page.module.scss";
 import { fetchPopularData, fetchTrendingData } from "../../service/api";
 import { CONTENT_TYPE, TIME_WINDOW } from "../../constants/constants";
 import 'react-toastify/dist/ReactToastify.css';
-import { notifyError } from "../../utils/helpers";
+import { notifyError } from "../../helpers/notifyError";
 
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];

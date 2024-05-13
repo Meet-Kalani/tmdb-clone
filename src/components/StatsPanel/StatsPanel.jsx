@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import style from "./stats-panel.module.scss";
 import Keywords from "./Keywords/Keywords";
 import { NETWORKS_LOGO_BASE_URL } from "../../constants/constants";
-import { formatCurrency } from "../../utils/helpers";
+import { formatCurrency } from "../../helpers/formatCurrency";
 import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
 import { fetchSocialMediaLinks } from "../../service/api";
 

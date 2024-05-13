@@ -4,12 +4,7 @@ import style from "./user-review.module.scss";
 import { fetchUserReviews } from "../../service/api";
 import { REVIEWER_PROFILE_BASE_URL } from "../../constants/constants";
 import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
-
-const formatDate = (inputDate) => new Date(inputDate).toLocaleDateString("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
+import { formatDateLong } from "../../helpers/formatDate";
 
 const UserReview = ({ id, contentType, notifyError }) => {
   const [userReview, setUserReview] = useState({});
@@ -39,7 +34,7 @@ const UserReview = ({ id, contentType, notifyError }) => {
   const imageURL = hasContent && `${REVIEWER_PROFILE_BASE_URL}${userReview.results[randomIndex].author_details.avatar_path}`;
   const rating = hasContent && userReview.results[randomIndex].author_details.rating * 10;
   const { author } = hasContent && userReview.results[randomIndex];
-  const createdAt = hasContent && formatDate(userReview.results[randomIndex].created_at);
+  const createdAt = hasContent && formatDateLong(userReview.results[randomIndex].created_at);
   const review = hasContent && userReview.results[randomIndex].content;
   const totalResults = hasContent ? userReview.total_results : undefined;
 
