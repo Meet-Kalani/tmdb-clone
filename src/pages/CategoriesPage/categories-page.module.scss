@@ -6,6 +6,7 @@ $maxPrimaryPageWidth: 1400px;
   max-width: $maxPrimaryPageWidth;
   margin: auto;
   padding: 30px 40px;
+  min-height: calc(100% - 386px);
 
   .category-header {
     margin-bottom: 20px;

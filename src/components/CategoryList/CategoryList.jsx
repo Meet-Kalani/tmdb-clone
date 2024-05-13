@@ -17,7 +17,7 @@ const CategoryList = ({
         hasMore={isScrollable}
         loadMore={() => fetchData(false)}
       >
-        {data ? data.results.map(({
+        {data.results.length ? data.results.map(({
           id, release_date: releaseDate, first_air_date: firstAIRDate, original_name: originalName, original_title: originalTitle, poster_path: posterPath, vote_average: voteAverage,
         }) => (
           <CategoryCard
@@ -30,15 +30,19 @@ const CategoryList = ({
             releaseDate={releaseDate || firstAIRDate}
             voteAverage={Math.floor(voteAverage * 10)}
           />
-        )) : null}
+        )) : <span>No items were found that match your query.</span>}
       </InfiniteScroll>
-      <button
-        className={style['load-btn']}
-        type="button"
-        onClick={toggleScrolling}
-      >
-        Load More
-      </button>
+      {
+        data.results.length ? (
+          <button
+            className={style['load-btn']}
+            type="button"
+            onClick={toggleScrolling}
+          >
+            Load More
+          </button>
+        ) : null
+      }
     </div>
   );
 };
