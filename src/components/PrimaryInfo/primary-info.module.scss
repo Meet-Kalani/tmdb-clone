@@ -11,7 +11,7 @@
   .poster-container {
     border-radius: $border-radius-8;
     background-color: $color-primary;
-    font-size: 0;
+    @include flex-column();
 
     .poster {
       border-radius: 8px 8px 0 0;
@@ -22,7 +22,6 @@
     }
 
     .watch-provider-container {
-      margin-top: -4px;
       height: 60px;
       font-size: 16px;
 
@@ -171,7 +170,7 @@
         display: block;
         font-size: 20.8px;
         font-weight: 600;
-        margin: 10px 0 8px 0;
+        margin: 10px 0 8px;
       }
 
       .overview {

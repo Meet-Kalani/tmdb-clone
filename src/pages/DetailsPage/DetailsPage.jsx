@@ -1,42 +1,28 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLoaderData, useLocation, useNavigation, useParams,
+} from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { notifyError } from "../../utils/helpers";
+import { Suspense, lazy } from "react";
 import style from "./details-page.module.scss";
 import PrimaryInfo from "../../components/PrimaryInfo/PrimaryInfo";
 import CastInfo from "../../components/CastInfo/CastInfo";
 import StatsPanel from "../../components/StatsPanel/StatsPanel";
 import UserReview from "../../components/UserReview/UserReview";
 import CurrentSeason from "../../components/CurrentSeason/CurrentSeason";
-import Recommendation from "../../components/Recommendation/Recommendation";
-import { fetchMovieData, fetchTVData } from "../../service/api";
 import { BACKDROP_BASE_URL } from "../../constants/constants";
 import useTitle from "../../hooks/useTitle";
+import Spinner from "../../components/Spinner/Spinner";
+
+const Recommendation = lazy(() => import("../../components/Recommendation/Recommendation"));
 
 const DetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const [data, setData] = useState({});
+  const navigation = useNavigation();
   const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    (async () => {
-      try {
-        const res = contentType === 'tv' ? await fetchTVData(movieId) : await fetchMovieData(movieId);
-        setData(res);
-      }
-      catch (err) {
-        notifyError(err, style.toast);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [movieId, navigate, contentType]);
+  const { data } = useLoaderData();
 
   const backdropStyle = {
     background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${encodeURI(BACKDROP_BASE_URL + data.backdrop_path)})`,
@@ -47,6 +33,10 @@ const DetailsPage = () => {
 
   const creatorName = data?.created_by?.[0]?.name ?? undefined;
   const parsedMovieId = parseInt(movieId, 10);
+
+  if (navigation.state === "loading") {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -60,8 +50,6 @@ const DetailsPage = () => {
                 creator={creatorName}
                 data={data}
                 id={movieId}
-                isLoading={isLoading}
-                notifyError={notifyError}
                 originalTitle={data.name}
                 releaseDate={data.first_air_date}
               />
@@ -70,8 +58,6 @@ const DetailsPage = () => {
                 contentType={contentType}
                 data={data}
                 id={movieId}
-                isLoading={isLoading}
-                notifyError={notifyError}
                 originalTitle={data.original_title}
                 releaseDate={data.release_date}
               />
@@ -80,25 +66,21 @@ const DetailsPage = () => {
         </div>
         <div className={style["secondary-info"]}>
           <div className={style.wrapper}>
-            <CastInfo contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
+            <CastInfo />
             {(contentType === 'tv')
               ? (
-                <CurrentSeason
-                  data={data}
-                  isLoading={isLoading}
-                />
+                <CurrentSeason />
               )
               : undefined}
-            <UserReview contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
-            <Recommendation contentType={contentType} id={parsedMovieId} notifyError={notifyError} />
+            <UserReview />
+            <Suspense fallback={<Spinner />}>
+              <Recommendation contentType={contentType} id={parsedMovieId} />
+            </Suspense>
           </div>
           <div>
             <StatsPanel
               contentType={contentType}
-              data={data}
               id={parsedMovieId}
-              isLoading={isLoading}
-              notifyError={notifyError}
             />
           </div>
         </div>

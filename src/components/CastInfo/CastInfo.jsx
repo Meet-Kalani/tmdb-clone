@@ -1,55 +1,30 @@
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useLoaderData } from "react-router-dom";
 import style from "./cast-info.module.scss";
-import { fetchCastData } from "../../service/api";
 import CastCard from "./CastCard/CastCard";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
 
-const CastInfo = ({ id, contentType, notifyError }) => {
-  const [castData, setCastData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchCastData(id, contentType);
-        setCastData(res.slice(0, 9));
-      }
-      catch (err) {
-        notifyError(err, style.toast);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [id, notifyError, contentType]);
+const CastInfo = () => {
+  const castData = useLoaderData().castData.slice(0, 9);
 
   return (
     <div className={style["cast-info"]}>
       <h3 className={style.title}>Top Billed Cast</h3>
       <div className={style["cast-card-container"]}>
         {
-            isLoading ? [...Array(9)].map(() => <SkeletonLoader key={crypto.randomUUID()} />) : castData.map(({
-              id: castId, profile_path: profilePath, original_name: originalName, character,
-            }) => (
-              <CastCard
-                characterName={character}
-                isLoading={isLoading}
-                key={castId}
-                originalName={originalName}
-                profilePath={profilePath}
-              />
-            ))
+             castData.map(({
+               id: castId, profile_path: profilePath, original_name: originalName, character, gender,
+             }) => (
+               <CastCard
+                 characterName={character}
+                 gender={gender}
+                 key={castId}
+                 originalName={originalName}
+                 profilePath={profilePath}
+               />
+             ))
           }
       </div>
     </div>
   );
-};
-
-CastInfo.propTypes = {
-  id: PropTypes.number.isRequired,
-  contentType: PropTypes.string.isRequired,
-  notifyError: PropTypes.func.isRequired,
 };
 
 export default CastInfo;

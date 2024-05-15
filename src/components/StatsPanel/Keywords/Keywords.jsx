@@ -3,42 +3,35 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { fetchKeywordsData } from "../../../service/api";
 import style from "./keywords.module.scss";
+import { notifyError } from "../../../utils/helpers";
 
-const Keywords = ({ id, contentType, notifyError }) => {
+const Keywords = ({ id, contentType }) => {
   const [keywords, setKeywords] = useState({});
 
   useEffect(() => {
     (async () => {
       try {
         const res = await fetchKeywordsData(id, contentType);
-        setKeywords(res);
+        setKeywords(res.keywords || res.results);
       }
       catch (err) {
-        notifyError(err, style.toast);
+        notifyError(err);
       }
     })();
-  }, [id, contentType, notifyError]);
+  }, [id, contentType]);
 
-  const isVisible = contentType === "movie"
-    ? keywords?.keywords?.length > 0
-    : keywords?.results?.length > 0;
+  const isVisible = keywords.length > 0;
 
   return (
     isVisible && (
       <div className={style["keywords-container"]}>
         <span className={style.label}>Keywords</span>
         <div className={style["keywords-wrapper"]}>
-          {contentType === "movie"
-            ? keywords.keywords.map(({ id: keywordId, name }) => (
-              <Link className={style.keyword} key={keywordId} to="/">
-                {name}
-              </Link>
-            ))
-            : keywords.results.map(({ id: keywordId, name }) => (
-              <Link className={style.keyword} key={keywordId} to="/">
-                {name}
-              </Link>
-            ))}
+          { keywords.map(({ id: keywordId, name }) => (
+            <Link className={style.keyword} key={keywordId} to="/">
+              {name}
+            </Link>
+          ))}
         </div>
       </div>
     )
@@ -48,7 +41,6 @@ const Keywords = ({ id, contentType, notifyError }) => {
 Keywords.propTypes = {
   id: PropTypes.number.isRequired,
   contentType: PropTypes.string.isRequired,
-  notifyError: PropTypes.func.isRequired,
 };
 
 export default Keywords;

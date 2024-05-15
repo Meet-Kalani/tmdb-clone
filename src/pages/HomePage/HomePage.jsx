@@ -29,7 +29,7 @@ const HomePage = () => {
         setData({ trending: trendingResponse, popular: popularResponse });
       }
       catch (err) {
-        notifyError(err, style.toast);
+        notifyError(err);
       }
       finally {
         setIsLoading({ popular: false, trending: false });

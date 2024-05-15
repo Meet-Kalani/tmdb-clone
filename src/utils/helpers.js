@@ -1,12 +1,11 @@
 import { toast } from 'react-toastify';
 
-export const notifyError = (err, className) => {
+export const notifyError = (err) => {
   toast.error(err.response.data.status_message, {
     toastId: err.response.data.status_code,
     autoClose: 7000,
     hideProgressBar: true,
     position: "bottom-right",
-    className,
   });
 };
 
@@ -25,3 +24,11 @@ export const formatDate = (inputDate) => {
   }
   return null;
 };
+
+export const formatDateLong = (inputDate) => new Date(inputDate).toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+export const hasTruthyValue = (obj) => Object.values(obj).some((value) => value);

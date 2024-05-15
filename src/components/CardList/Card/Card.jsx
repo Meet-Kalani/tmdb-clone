@@ -6,10 +6,10 @@ import { IMAGE_BASE_URL } from "../../../constants/constants";
 
 const Card = ({
   id,
-  original_title: originalTitle,
-  release_date: releaseDate,
-  poster_path: posterPath,
-  vote_average: voteAverage,
+  originalTitle,
+  releaseDate,
+  posterPath,
+  voteAverage,
   selectedTab,
 }) => {
   const navigate = useNavigate();
@@ -67,15 +67,15 @@ const Card = ({
 
 Card.propTypes = {
   id: PropTypes.number.isRequired,
-  original_title: PropTypes.string.isRequired,
-  release_date: PropTypes.string,
+  originalTitle: PropTypes.string.isRequired,
+  releaseDate: PropTypes.string,
   selectedTab: PropTypes.string.isRequired,
-  poster_path: PropTypes.string.isRequired,
-  vote_average: PropTypes.number.isRequired,
+  posterPath: PropTypes.string.isRequired,
+  voteAverage: PropTypes.number.isRequired,
 };
 
 Card.defaultProps = {
-  release_date: undefined,
+  releaseDate: undefined,
 };
 
 export default Card;

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import style from "./recommendation-card.module.scss";
 import { RECOMMENDATION_BASE_URL } from "../../../constants/constants";
+import Img from "../../Img/Img";
 
 const RecommendationCard = ({
   id,
@@ -13,8 +14,10 @@ const RecommendationCard = ({
 }) => {
   const navigate = useNavigate();
 
+  const getPath = () => (contentType === "tv" ? `/tv/${id}` : `/movie/${id}`);
+
   const handleCardOpener = () => {
-    const path = contentType === "tv" ? `/tv/${id}` : `/movie/${id}`;
+    const path = getPath();
     navigate(path);
   };
 
@@ -31,15 +34,11 @@ const RecommendationCard = ({
           }
         }}
       >
-        <img
+        <Img
           alt="Recommended Movie"
           className={style["recommendation-image"]}
-          loading="lazy"
+          fallbackImageURL="https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!"
           src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
-          onError={(e) => {
-            (e.target.src = "https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!");
-          }}
-
         />
         <div className={style["hidden-container"]}>
           <span className={style["calendar-icon"]} />

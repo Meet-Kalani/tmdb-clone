@@ -1,48 +1,33 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
 import style from "./primary-info.module.scss";
 import {
-  POSTER_URL,
-  WATCH_PROVIDER_LOGO_BASE_URL,
+  BOOKMARK_ICON,
+  LIKE_ICON,
+  LIST_ICON, PLAY_ICON, POSTER_URL, WATCH_PROVIDER_LOGO_BASE_URL,
 } from "../../constants/constants";
 import {
-  fetchWatchProviders,
   fetchYoutubeVideo,
 } from "../../service/api";
 import Rating from "../Rating/Rating";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
+import { notifyError } from "../../utils/helpers";
+import Img from "../Img/Img";
 
 const PrimaryInfo = ({
-  notifyError,
   id,
   originalTitle,
   releaseDate,
-  isLoading,
   creator,
   contentType,
   data,
 }) => {
-  const [watchProvider, setWatchProvider] = useState({});
   const [isIframeVisible, setIsIframeVisible] = useState(false);
   const [youtubeId, setYoutubeId] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchWatchProviders(id, contentType);
-        setWatchProvider(res);
-      }
-      catch (err) {
-        notifyError(err, style.toast);
-      }
-    })();
-  }, [id, contentType, notifyError]);
-
-  if (isLoading || !data) {
-    return <SkeletonLoader />;
-  }
+  const { watchProvider } = useLoaderData();
 
   const {
     overview, poster_path: posterPath, origin_country: originCountry, genres, runtime: runTime, vote_average: voteAverage, tagline: tagLine,
@@ -66,9 +51,12 @@ const PrimaryInfo = ({
   const releaseYear = releaseDate.slice(0, 4);
 
   const handlePlayTrailer = async () => {
-    setIsIframeVisible((previousValue) => !previousValue);
-    window.scrollTo(0, 0);
-    document.body.style.overflow = isIframeVisible ? "initial" : "hidden";
+    setIsIframeVisible((previousValue) => {
+      const newValue = !previousValue;
+      window.scrollTo(0, 0);
+      document.body.style.overflow = newValue ? "hidden" : "initial";
+      return newValue;
+    });
 
     if (!isIframeVisible) {
       try {
@@ -76,7 +64,7 @@ const PrimaryInfo = ({
         setYoutubeId(res);
       }
       catch (err) {
-        notifyError(err, style.toast);
+        notifyError(err);
       }
     }
   };
@@ -85,21 +73,18 @@ const PrimaryInfo = ({
     <>
       <div className={style["movie-info"]}>
         <div className={style["poster-container"]}>
-          <img
+          <Img
             alt="Movie poster"
             className={`${style.poster} ${!watchProviderSlug && style['poster-border']}`}
-            loading="lazy"
+            fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/138x175.png?text=Not+Found!"
             src={`${POSTER_URL}${posterPath}`}
-            onError={(event) => {
-              event.target.src = "https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not+Found!";
-            }}
           />
           {watchProvider && watchProviderSlug ? (
             <div className={style["watch-provider-container"]}>
-              <img
+              <Img
                 alt="logo of the watch provider"
                 className={style["watch-provider-logo"]}
-                loading="lazy"
+                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/36x36.png?text=!"
                 src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderSlug}`}
               />
               <div className={style["watch-provider-link-wrapper"]}>
@@ -160,13 +145,13 @@ const PrimaryInfo = ({
           </div>
           <div className={style.wrapper}>
             <div className={style.action}>
-              <img alt="list icon" className={style.icon} loading="lazy" src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-159-thumbnails-list-white-c260ea972eebf812289fd3c41d0d2c1dff33ecbcd62be13fba8eeaf9de173789.svg" />
+              <Img alt="list icon" className={style.icon} fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!" src={LIST_ICON} />
             </div>
             <div className={style.action}>
-              <img alt="like icon" className={style.icon} loading="lazy" src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-13-heart-white-28d2cc2d6418c5047efcfd2438bfc5d109192671263c270993c05f130cc4584e.svg" />
+              <Img alt="like icon" className={style.icon} fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!" src={LIKE_ICON} />
             </div>
             <div className={style.action}>
-              <img alt="bookmark icon" className={style.icon} loading="lazy" src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-73-bookmark-white-432e98d550b7e4c80b06272c49475b0db85a60f6fae450420713004b3c9d3ffd.svg" />
+              <Img alt="bookmark icon" className={style.icon} fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!" src={BOOKMARK_ICON} />
             </div>
             {contentType === 'movie' && (
             <div
@@ -180,7 +165,7 @@ const PrimaryInfo = ({
                 }
               }}
             >
-              <img alt="play icon" className={style["play-icon"]} loading="lazy" src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-175-play-806cb05551791b8dedd7f8d38fd3bd806e2d397fcfeaa00a5cc9129f0819fd07.svg" />
+              <Img alt="play icon" className={style["play-icon"]} fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/22x22.png?text=!" src={PLAY_ICON} />
               <button className={style["play-link"]} type="button">
                 Play Trailer
               </button>
@@ -206,6 +191,7 @@ const PrimaryInfo = ({
           youtubeId={youtubeId}
         />
       ) : null}
+
     </>
   );
 };
@@ -244,7 +230,6 @@ const PlayTrailer = ({ handlePlayTrailer, youtubeId }) => createPortal(
 
 PrimaryInfo.propTypes = {
   id: PropTypes.string.isRequired,
-  notifyError: PropTypes.func.isRequired,
   originalTitle: PropTypes.string,
   releaseDate: PropTypes.string,
   data: PropTypes.shape({
@@ -260,7 +245,6 @@ PrimaryInfo.propTypes = {
   }),
   creator: PropTypes.string,
   contentType: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 PrimaryInfo.defaultProps = {

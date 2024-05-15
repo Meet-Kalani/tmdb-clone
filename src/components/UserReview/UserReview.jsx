@@ -1,45 +1,20 @@
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import { useLoaderData } from "react-router-dom";
 import style from "./user-review.module.scss";
-import { fetchUserReviews } from "../../service/api";
 import { REVIEWER_PROFILE_BASE_URL } from "../../constants/constants";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
+import { formatDateLong } from "../../utils/helpers";
+import Img from "../Img/Img";
 
-const formatDate = (inputDate) => new Date(inputDate).toLocaleDateString("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
+const UserReview = () => {
+  const { userReview } = useLoaderData();
 
-const UserReview = ({ id, contentType, notifyError }) => {
-  const [userReview, setUserReview] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
   const hasContent = userReview.total_results > 0;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchUserReviews(id, contentType);
-        setUserReview(res);
-      }
-      catch (err) {
-        notifyError(err, style.toast);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [id, notifyError, contentType]);
-
-  if (isLoading) {
-    return <SkeletonLoader />;
-  }
-
   const randomIndex = Math.floor(Math.random() * userReview.results.length);
-  const imageURL = hasContent && `${REVIEWER_PROFILE_BASE_URL}${userReview.results[randomIndex].author_details.avatar_path}`;
+  const avatarPath = hasContent && userReview.results[randomIndex].author_details.avatar_path;
+  const imageURL = avatarPath ? `${REVIEWER_PROFILE_BASE_URL}${avatarPath}` : 'https://placehold.jp/16/ccc/ffffff/45x45.png?text=?';
   const rating = hasContent && userReview.results[randomIndex].author_details.rating * 10;
   const { author } = hasContent && userReview.results[randomIndex];
-  const createdAt = hasContent && formatDate(userReview.results[randomIndex].created_at);
+  const createdAt = hasContent && formatDateLong(userReview.results[randomIndex].created_at);
   const review = hasContent && userReview.results[randomIndex].content;
   const totalResults = hasContent ? userReview.total_results : undefined;
 
@@ -58,14 +33,11 @@ const UserReview = ({ id, contentType, notifyError }) => {
       {hasContent ? (
         <div className={style["review-body"]}>
           <div className={style["review-author"]}>
-            <img
+            <Img
               alt="Content Reviewer"
               className={style["profile-image"]}
-              loading="lazy"
-              src={imageURL || undefined}
-              onError={(event) => {
-                event.target.src = "https://placehold.jp/16/ccc/ffffff/45x45.png?text=?";
-              }}
+              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/45x45.png?text=?"
+              src={imageURL}
             />
             <div className={style["author-details"]}>
               <h3 className={style["author-name"]}>
@@ -97,12 +69,6 @@ const UserReview = ({ id, contentType, notifyError }) => {
       ) : <span className={style.message}>Sorry! but there is no review available at the time.</span> }
     </div>
   );
-};
-
-UserReview.propTypes = {
-  id: PropTypes.number.isRequired,
-  contentType: PropTypes.string.isRequired,
-  notifyError: PropTypes.func.isRequired,
 };
 
 export default UserReview;
