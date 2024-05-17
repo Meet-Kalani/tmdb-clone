@@ -10,9 +10,12 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 30%;
+    height: 141px;
+    min-width: 250px;
+    border-radius: $border-radius-8;
+    overflow: hidden;
 
     .recommendation-image {
-      border-radius: $border-radius-8;
       cursor: pointer;
       min-height: 141px;
       min-width: 250px;
@@ -25,7 +28,7 @@
     .hidden-container {
       visibility: hidden;
       position: absolute;
-      bottom: 4px;
+      bottom: 0;
       background-color: rgba(255, 255, 255, 0.9);
       width: 100%;
       height: 40px;
@@ -48,6 +51,7 @@
 
   .recommendation-info {
     display: flex;
+    margin-top: 4px;
     justify-content: space-between;
 
     .recommendation-title {

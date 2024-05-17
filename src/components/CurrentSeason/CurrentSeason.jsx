@@ -1,14 +1,12 @@
-import { useLoaderData } from "react-router-dom";
+import PropTypes from "prop-types";
 import style from "./current-season.module.scss";
 import { CURRENT_SEASON_POSTER_BASE_URL } from "../../constants/constants";
 import Img from "../Img/Img";
 
-const CurrentSeason = () => {
-  const { data } = useLoaderData();
-
+const CurrentSeason = ({ data }) => {
   const {
     air_date: airDate, episode_count: episodeCount, name, overview, poster_path: posterPath, rating,
-  } = data.seasons.at(-1);
+  } = data;
 
   const airYear = airDate ? airDate.slice(0, 4) : null;
 
@@ -20,7 +18,7 @@ const CurrentSeason = () => {
       <div className={style.content}>
         <div className={style["poster-container"]}>
           <Img
-            alt="Current Season's Poster"
+            alt={`Poster of ${name}`}
             fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/130x195.png?text=Not+Found!"
             src={`${CURRENT_SEASON_POSTER_BASE_URL}${posterPath}`}
           />
@@ -48,6 +46,17 @@ const CurrentSeason = () => {
       </div>
     </div>
   );
+};
+
+CurrentSeason.propTypes = {
+  data: PropTypes.shape({
+    air_date: PropTypes.string,
+    episode_count: PropTypes.number,
+    name: PropTypes.string,
+    overview: PropTypes.string,
+    poster_path: PropTypes.string,
+    rating: PropTypes.number,
+  }).isRequired,
 };
 
 export default CurrentSeason;

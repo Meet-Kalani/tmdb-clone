@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useLoaderData } from "react-router-dom";
 import style from "./stats-panel.module.scss";
 import Keywords from "./Keywords/Keywords";
 import { NETWORKS_LOGO_BASE_URL } from "../../constants/constants";
@@ -10,9 +9,9 @@ import Img from "../Img/Img";
 const StatsPanel = ({
   id,
   contentType,
+  data,
+  socialMediaLinks,
 }) => {
-  const { data } = useLoaderData();
-
   const {
     budget, homepage, networks, revenue, status, type, spoken_languages: spokenLanguages,
   } = data;
@@ -22,7 +21,7 @@ const StatsPanel = ({
 
   return (
     <div className={style["stats-panel"]}>
-      <SocialMediaLinks contentType={contentType} homepageLink={homepage} id={id} />
+      <SocialMediaLinks homepageLink={homepage} socialMediaLinks={socialMediaLinks} />
       <div className={style.wrapper}>
         <span className={style.label}>Status</span>
         <span>{status}</span>
@@ -68,6 +67,24 @@ const StatsPanel = ({
 StatsPanel.propTypes = {
   id: PropTypes.number.isRequired,
   contentType: PropTypes.string.isRequired,
+  socialMediaLinks: PropTypes.shape({
+    facebook_id: PropTypes.string,
+    instagram_id: PropTypes.string,
+    twitter_id: PropTypes.string,
+  }).isRequired,
+  data: PropTypes.shape({
+    budget: PropTypes.number,
+    homepage: PropTypes.string,
+    networks: PropTypes.arrayOf(PropTypes.shape({
+      logo_path: PropTypes.string,
+    })),
+    revenue: PropTypes.number,
+    status: PropTypes.string,
+    type: PropTypes.string,
+    spoken_languages: PropTypes.arrayOf(PropTypes.shape({
+      english_name: PropTypes.string,
+    })),
+  }).isRequired,
 };
 
 export default StatsPanel;

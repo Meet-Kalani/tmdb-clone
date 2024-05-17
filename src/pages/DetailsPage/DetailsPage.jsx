@@ -1,9 +1,11 @@
 import {
-  useLoaderData, useLocation, useNavigation, useParams,
+  Await, useLoaderData, useParams,
 } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Suspense, lazy } from "react";
+import {
+  Suspense, lazy, useEffect, useState,
+} from "react";
 import style from "./details-page.module.scss";
 import PrimaryInfo from "../../components/PrimaryInfo/PrimaryInfo";
 import CastInfo from "../../components/CastInfo/CastInfo";
@@ -13,77 +15,94 @@ import CurrentSeason from "../../components/CurrentSeason/CurrentSeason";
 import { BACKDROP_BASE_URL } from "../../constants/constants";
 import useTitle from "../../hooks/useTitle";
 import Spinner from "../../components/Spinner/Spinner";
+import Error from "../ErrorPage/ErrorPage";
 
 const Recommendation = lazy(() => import("../../components/Recommendation/Recommendation"));
 
 const DetailsPage = () => {
-  const { movieId } = useParams();
-  const location = useLocation();
-  const navigation = useNavigation();
-  const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
+  const data = useLoaderData();
+  const [documentTitleData, setDocumentTitleData] = useState({});
 
-  const { data } = useLoaderData();
+  const { id, contentType } = useParams();
 
   const backdropStyle = {
     background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${encodeURI(BACKDROP_BASE_URL + data.backdrop_path)})`,
   };
 
-  const documentTitle = `${data.name || data.original_title} (${data?.first_air_date?.slice(0, 4) || data?.release_date?.slice(0, 4)}) — The Movie Database (TMDB)`;
-  useTitle(documentTitle);
-
   const creatorName = data?.created_by?.[0]?.name ?? undefined;
-  const parsedMovieId = parseInt(movieId, 10);
+  const parsedId = parseInt(id, 10);
 
-  if (navigation.state === "loading") {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    (async () => {
+      const resolvedData = await data.results;
+      setDocumentTitleData({
+        name: resolvedData[0].name,
+        originalTitle: resolvedData[0].original_title,
+        firstAIRDate: resolvedData[0].first_air_date,
+        releaseDate: resolvedData[0].release_date,
+      });
+    })();
+  }, [data]);
+
+  const {
+    name, originalTitle, firstAIRDate, releaseDate,
+  } = documentTitleData;
+
+  const documentTitle = `${name || originalTitle} (${firstAIRDate?.slice(0, 4) || releaseDate?.slice(0, 4)}) — The Movie Database (TMDB)`;
+  useTitle(documentTitle);
 
   return (
     <>
       <ToastContainer />
       <div className={style["movie-page"]}>
-        <div className={style["primary-info"]} style={backdropStyle}>
-          <div className={style["movie-info-wrapper"]}>
-            {contentType === 'tv' ? (
-              <PrimaryInfo
-                contentType={contentType}
-                creator={creatorName}
-                data={data}
-                id={movieId}
-                originalTitle={data.name}
-                releaseDate={data.first_air_date}
-              />
-            ) : (
-              <PrimaryInfo
-                contentType={contentType}
-                data={data}
-                id={movieId}
-                originalTitle={data.original_title}
-                releaseDate={data.release_date}
-              />
+        <Suspense fallback={<Spinner />}>
+          <Await
+            resolve={data.results}
+            errorElement={
+              <Error />
+          }
+          >
+            {(results) => (
+              <>
+                <div className={style["primary-info"]} style={{ ...backdropStyle }}>
+                  <div className={style["movie-info-wrapper"]}>
+                    <PrimaryInfo
+                      contentType={contentType}
+                      creator={contentType === 'tv' ? creatorName : undefined}
+                      data={results[0]}
+                      originalTitle={contentType === 'tv' ? name : originalTitle}
+                      releaseDate={contentType === 'tv' ? firstAIRDate : releaseDate}
+                      watchProvider={results[1]}
+                      youtubeId={results[5]}
+                    />
+                  </div>
+                </div>
+                <div className={style["secondary-info"]}>
+                  <div className={style.wrapper}>
+                    <CastInfo castData={results[2].slice(0, 9)} />
+                    {(contentType === 'tv')
+                      ? (
+                        <CurrentSeason data={results[0].seasons.at(-1)} />
+                      )
+                      : undefined}
+                    <UserReview userReview={results[3]} />
+                    <Suspense fallback={<Spinner />}>
+                      <Recommendation contentType={contentType} id={parsedId} />
+                    </Suspense>
+                  </div>
+                  <div>
+                    <StatsPanel
+                      contentType={contentType}
+                      data={results[0]}
+                      id={parsedId}
+                      socialMediaLinks={results[4]}
+                    />
+                  </div>
+                </div>
+              </>
             )}
-          </div>
-        </div>
-        <div className={style["secondary-info"]}>
-          <div className={style.wrapper}>
-            <CastInfo />
-            {(contentType === 'tv')
-              ? (
-                <CurrentSeason />
-              )
-              : undefined}
-            <UserReview />
-            <Suspense fallback={<Spinner />}>
-              <Recommendation contentType={contentType} id={parsedMovieId} />
-            </Suspense>
-          </div>
-          <div>
-            <StatsPanel
-              contentType={contentType}
-              id={parsedMovieId}
-            />
-          </div>
-        </div>
+          </Await>
+        </Suspense>
       </div>
     </>
   );

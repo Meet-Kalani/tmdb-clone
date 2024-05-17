@@ -17,13 +17,9 @@ const router = createBrowserRouter([
       element: <HomePage />,
     },
     {
-      path: "movie/:movieId",
+      path: ":contentType/:id",
       element: <DetailsPage />,
-      loader,
-    },
-    {
-      path: "tv/:movieId",
-      element: <DetailsPage />,
+      errorElement: <NotFound />,
       loader,
     },
     {

@@ -1,53 +1,13 @@
-import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import { formatDate, notifyError } from "../../utils/helpers";
+import { formatDate } from "../../utils/helpers";
 import style from "./recommendation.module.scss";
 import RecommendationCard from "./RecommendationCard/RecommendationCard";
-import { fetchRecommendations } from "../../service/api";
+import useRecommendationObserver from "../../hooks/useRecommendationsObserver";
 
 const Recommendation = ({
   id, contentType,
 }) => {
-  const [recommendations, setRecommendations] = useState([]);
-  const recommendationRef = useRef();
-
-  useEffect(() => {
-    const recommendationRefCurrent = recommendationRef.current;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          (async () => {
-            try {
-              const res = await fetchRecommendations(id, contentType);
-              setRecommendations(res);
-            }
-            catch (err) {
-              notifyError(err);
-            }
-            finally {
-              observer.unobserve(recommendationRefCurrent);
-            }
-          })();
-        }
-      },
-      {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1,
-      },
-    );
-
-    if (recommendationRefCurrent) {
-      observer.observe(recommendationRefCurrent);
-    }
-
-    return () => {
-      if (recommendationRefCurrent) {
-        observer.unobserve(recommendationRefCurrent);
-      }
-    };
-  }, [contentType, id]);
+  const { recommendations, recommendationRef } = useRecommendationObserver(id, contentType);
 
   return (
     <div className={style.recommendation} ref={recommendationRef}>
@@ -55,7 +15,7 @@ const Recommendation = ({
         <h3 className={style.title}>Recommendations</h3>
       </div>
       <div className={style["recommendation-body"]}>
-        { recommendations.length > 0 ? recommendations.map(
+        { recommendations?.length > 0 ? recommendations.map(
           ({
             id: recommendationId, backdrop_path: backdropPath, original_title: originalTitle, original_name: originalName, vote_average: voteAverage, release_date: releaseDate, first_air_date: firstAIRDate,
           }) => (

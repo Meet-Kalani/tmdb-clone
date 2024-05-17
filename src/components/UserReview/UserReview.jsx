@@ -1,22 +1,15 @@
-import { useLoaderData } from "react-router-dom";
+import PropTypes from "prop-types";
 import style from "./user-review.module.scss";
-import { REVIEWER_PROFILE_BASE_URL } from "../../constants/constants";
-import { formatDateLong } from "../../utils/helpers";
 import Img from "../Img/Img";
+import { getRandomReview } from "../../utils/helpers";
 
-const UserReview = () => {
-  const { userReview } = useLoaderData();
+const UserReview = ({ userReview }) => {
+  const totalResults = userReview.total_results;
+  const hasContent = totalResults > 0;
 
-  const hasContent = userReview.total_results > 0;
-
-  const randomIndex = Math.floor(Math.random() * userReview.results.length);
-  const avatarPath = hasContent && userReview.results[randomIndex].author_details.avatar_path;
-  const imageURL = avatarPath ? `${REVIEWER_PROFILE_BASE_URL}${avatarPath}` : 'https://placehold.jp/16/ccc/ffffff/45x45.png?text=?';
-  const rating = hasContent && userReview.results[randomIndex].author_details.rating * 10;
-  const { author } = hasContent && userReview.results[randomIndex];
-  const createdAt = hasContent && formatDateLong(userReview.results[randomIndex].created_at);
-  const review = hasContent && userReview.results[randomIndex].content;
-  const totalResults = hasContent ? userReview.total_results : undefined;
+  const {
+    imageURL, rating, author, createdAt, content: review,
+  } = hasContent ? getRandomReview(userReview.results) : {};
 
   return (
     <div className={style["user-review"]}>
@@ -69,6 +62,19 @@ const UserReview = () => {
       ) : <span className={style.message}>Sorry! but there is no review available at the time.</span> }
     </div>
   );
+};
+
+UserReview.propTypes = {
+  userReview: PropTypes.shape({
+    total_results: PropTypes.number,
+    results: PropTypes.arrayOf(PropTypes.shape({
+      imageURL: PropTypes.string,
+      rating: PropTypes.number,
+      author: PropTypes.string,
+      createdAt: PropTypes.string,
+      content: PropTypes.string,
+    })),
+  }).isRequired,
 };
 
 export default UserReview;

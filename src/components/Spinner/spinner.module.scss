@@ -1,7 +1,7 @@
 @use "../../styles" as *;
 
 .wrapper {
-  min-height: calc(100% - 386px);
+  min-height: calc(100vh - 386px);
   display: flex;
   justify-content: center;
   align-items: center;

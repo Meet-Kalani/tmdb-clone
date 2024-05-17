@@ -28,6 +28,7 @@ $maxPrimaryPageWidth: 1400px;
     .wrapper {
       max-width: 1052px;
       padding-right: 30px;
+      width: 100%;
 
       @include laptop {
         padding-right: 0;

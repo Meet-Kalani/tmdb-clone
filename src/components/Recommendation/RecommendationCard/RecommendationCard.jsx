@@ -34,12 +34,16 @@ const RecommendationCard = ({
           }
         }}
       >
-        <Img
-          alt="Recommended Movie"
-          className={style["recommendation-image"]}
-          fallbackImageURL="https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!"
-          src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
-        />
+        {
+          backdropPath ? (
+            <Img
+              alt={originalTitle}
+              className={style["recommendation-image"]}
+              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!"
+              src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
+            />
+          ) : undefined
+        }
         <div className={style["hidden-container"]}>
           <span className={style["calendar-icon"]} />
           <span className={style["recommendation-relase_date"]}>
