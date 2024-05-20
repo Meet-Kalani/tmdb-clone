@@ -54,7 +54,7 @@ export const fetchYoutubeVideo = async (id) => {
     return null;
   });
 
-  return data[0].key;
+  return data[0]?.key;
 };
 
 export const fetchCastData = async (id, contentType) => {
