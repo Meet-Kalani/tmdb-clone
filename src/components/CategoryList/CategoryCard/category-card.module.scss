@@ -3,15 +3,19 @@
 .category-card {
   width: 185px;
   border-radius: $border-radius-8;
+  overflow: hidden;
   border: $border-grey;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
   .card-header {
     height: 282px;
+    background-color: $color-placeholder;
+    background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg);
+    background-size: 50%;
 
     .card-image {
       width: 100%;
-      border-radius: 8px 8px 0 0;
+      height: 100%;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       background-color: $color-placeholder;
       color: $color-black;
