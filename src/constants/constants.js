@@ -18,6 +18,8 @@ export const NETWORKS_LOGO_BASE_URL = "https://image.tmdb.org/t/p/h30";
 
 export const CURRENT_SEASON_POSTER_BASE_URL = "https://www.themoviedb.org/t/p/w130_and_h195_bestv2";
 
+export const FLAG_BASE_URL = 'https://raw.githubusercontent.com/SujalShah3234/All-Country-Flags/master';
+
 export const MOBILE_PRIMARY_NAVLINK_DATA = [
   {
     id: 1,

@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import style from "./watch-filter.module.scss";
-import CountrySelector from "./CountrySelector/CountrySelector";
 import WatchProvider from "./WatchProvider/WatchProvider";
 import SelectedFilterContext from '../../../pages/CategoriesPage/context';
+import SelectWithSearch from "../../SelectWithSearch/SelectWithSearch";
 
 const WatchFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { watchProvidersList } = useContext(SelectedFilterContext);
+  const { watchProvidersList, OTTRegion, toggleOTTRegion } = useContext(SelectedFilterContext);
 
   const toggleVisibility = () => {
     setIsVisible((previousValue) => !previousValue);
@@ -43,7 +43,7 @@ const WatchFilter = () => {
         <div className={style["filter-content"]}>
           <div className={style["content-wrapper"]}>
             <span className={style["filter-content-title"]}>Country</span>
-            <CountrySelector />
+            <SelectWithSearch defaultCountry={OTTRegion} toggleCountry={toggleOTTRegion} />
             <WatchProvider />
           </div>
         </div>

@@ -33,12 +33,18 @@ const CategoriesPage = () => {
 
   const [selectedFilters, setSelectedFilters] = useState({
     sort: defaultSelectedSort,
-    OTTRegion: 'IN',
+    OTTRegion: {
+      id: "IN",
+      country: "India",
+    },
     watchProviders: new Set(),
     availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
     genres: new Set(),
     certifications: new Set(),
-    releaseRegion: 'IN',
+    releaseRegion: {
+      id: 'IN',
+      country: 'India',
+    },
     language: "xx",
     releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
     releaseDate: {
@@ -83,14 +89,14 @@ const CategoriesPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetchOTTPlatforms(contentType, selectedFilters.OTTRegion);
+        const res = await fetchOTTPlatforms(contentType, selectedFilters.OTTRegion.id);
         setWatchProvidersList(res);
       }
       catch (err) {
         notifyError(err);
       }
     })();
-  }, [contentType, selectedFilters.OTTRegion]);
+  }, [contentType, selectedFilters.OTTRegion.id]);
 
   const fetchData = useCallback(async (isFilterChanged) => {
     const newPageNumber = isFilterChanged ? defaultPageNumber : pageNumber;

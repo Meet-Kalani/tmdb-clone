@@ -8,13 +8,13 @@ import {
   USER_SCORE_MARKS,
 } from '../../../utils/filterSliderDefaults';
 import { AVAILABILITIES } from "../../../utils/availabilities";
-import { OTT_REGIONS } from "../../../utils/ottRegions";
 import { RELEASE_TYPES } from "../../../utils/releaseTypes";
 import { MOVIE_CERTIFICATIONS, TV_CERTIFICATIONS } from "../../../utils/certifications";
 import { MOVIE_GENRES, TV_GENRES } from "../../../utils/genres";
 import FilterWrapper from "./FilterWrapper/FilterWrapper";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import List from "./List/List";
+import SelectWithSearch from "../../SelectWithSearch/SelectWithSearch";
 
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -163,17 +163,9 @@ const SortFilter = () => {
                 Search all countries?
               </label>
               {!isReleaseTypeCountryVisible && (
-              <select
-                className={style['region-options-container']}
-                id="region"
-                name="region"
-                value={releaseRegion}
-                onChange={(event) => toggleReleaseRegion(event.target.value)}
-              >
-                {OTT_REGIONS.map(({ iso_3166_1: id, english_name: label }) => (
-                  <option className={style['region-option']} key={id} value={id}>{label}</option>
-                ))}
-              </select>
+              <div className={style['region-options-container']}>
+                <SelectWithSearch defaultCountry={releaseRegion} toggleCountry={toggleReleaseRegion} />
+              </div>
               )}
             </>
             )}

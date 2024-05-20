@@ -32,14 +32,14 @@ export const buildFilterQueryURL = (
   const params = [];
   const releaseTypesCount = Object.keys(RELEASE_TYPES).length;
 
-  if (OTTRegion) params.push(`watch_region=${OTTRegion}`);
+  if (OTTRegion) params.push(`watch_region=${OTTRegion.id}`);
   if (pageNumber) params.push(`page=${pageNumber}`);
   if (formattedWatchProvider) params.push(`with_watch_providers=${formattedWatchProvider}`);
   if (sort) params.push(`sort_by=${sort}`);
   if (formattedAvailability) params.push(`with_ott_monetization_types=${formattedAvailability}`);
   if (genreParam) params.push(`with_genres=${genreParam}`);
   if (formattedCertification) params.push(`certification=${formattedCertification}`);
-  if (releaseRegion) params.push(`region=${releaseRegion}`);
+  if (releaseRegion) params.push(`region=${releaseRegion.id}`);
   if (formattedReleaseTypes && releaseTypesArray.length !== releaseTypesCount) params.push(`with_release_type=${formattedReleaseTypes}`);
   if (releaseDate.lte) params.push(`release_date.lte=${releaseDate.lte}`);
   if (releaseDate.gte) params.push(`release_date.gte=${releaseDate.gte}`);

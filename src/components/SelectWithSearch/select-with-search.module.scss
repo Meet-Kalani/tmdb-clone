@@ -1,0 +1,81 @@
+@use "../../styles" as *;
+
+.select-with-search {
+  font-size: 14.4px;
+
+  .flag {
+    height: 24px;
+    width: 24px;
+  }
+  .selected-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e4e7eb;
+    color: #212529;
+    padding: 6px 12px;
+    border-radius: $border-radius-4;
+    cursor: pointer;
+
+    .label-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .arrow-dropdown {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .options {
+    width: 357px;
+    max-height: 268px;
+    position: absolute;
+    z-index: 2;
+    padding: 8px 0;
+    background-color: $color-white;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: $border-radius-4;
+
+    .options-input-wrapper {
+      padding: 16px;
+      position: relative;
+
+      .options-input {
+        width: 100%;
+        height: 35px;
+        font-size: 14.4px;
+        padding: 6px 32px 6px 12px;
+        border: 1px solid #ced4da;
+        border-radius: $border-radius-4;
+        outline: none;
+      }
+
+      .search-icon {
+        position: absolute;
+        right: 26px;
+        top: 25px;
+        cursor: pointer;
+      }
+    }
+
+    .country-list {
+      max-height: 182px;
+      overflow-y: scroll;
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 24px;
+        cursor: pointer;
+
+        &:hover {
+          color: #16181b;
+          background-color: #f8f9fa;
+        }
+      }
+    }
+  }
+}
