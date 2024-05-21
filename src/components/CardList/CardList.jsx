@@ -40,11 +40,11 @@ const CardList = ({
             <Card
               id={id}
               key={id}
-              original_title={originalTitle || name}
-              poster_path={posterPath}
-              release_date={firstAIRDate || releaseDate}
+              originalTitle={originalTitle || name}
+              posterPath={posterPath}
+              releaseDate={firstAIRDate || releaseDate}
               selectedTab={selectedTab}
-              vote_average={voteAverage}
+              voteAverage={voteAverage}
             />
           ),
         )

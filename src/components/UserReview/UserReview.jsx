@@ -1,42 +1,15 @@
-import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import style from "./user-review.module.scss";
-import { fetchUserReviews } from "../../service/api";
-import { REVIEWER_PROFILE_BASE_URL } from "../../constants/constants";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
-import { formatDateLong } from "../../helpers/formatDate";
+import Img from "../Img/Img";
+import { getRandomReview } from "../../helpers/getRandomReview";
 
-const UserReview = ({ id, contentType, notifyError }) => {
-  const [userReview, setUserReview] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const hasContent = userReview.total_results > 0;
+const UserReview = ({ userReview }) => {
+  const totalResults = userReview.total_results;
+  const hasContent = totalResults > 0;
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetchUserReviews(id, contentType);
-        setUserReview(res);
-      }
-      catch (err) {
-        notifyError(err, style.toast);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [id, notifyError, contentType]);
-
-  if (isLoading) {
-    return <SkeletonLoader />;
-  }
-
-  const randomIndex = Math.floor(Math.random() * userReview.results.length);
-  const imageURL = hasContent && `${REVIEWER_PROFILE_BASE_URL}${userReview.results[randomIndex].author_details.avatar_path}`;
-  const rating = hasContent && userReview.results[randomIndex].author_details.rating * 10;
-  const { author } = hasContent && userReview.results[randomIndex];
-  const createdAt = hasContent && formatDateLong(userReview.results[randomIndex].created_at);
-  const review = hasContent && userReview.results[randomIndex].content;
-  const totalResults = hasContent ? userReview.total_results : undefined;
+  const {
+    imageURL, rating, author, createdAt, content: review,
+  } = hasContent ? getRandomReview(userReview.results) : {};
 
   return (
     <div className={style["user-review"]}>
@@ -53,13 +26,11 @@ const UserReview = ({ id, contentType, notifyError }) => {
       {hasContent ? (
         <div className={style["review-body"]}>
           <div className={style["review-author"]}>
-            <img
+            <Img
               alt="Content Reviewer"
               className={style["profile-image"]}
-              src={imageURL || undefined}
-              onError={(event) => {
-                event.target.src = "https://placehold.jp/16/ccc/ffffff/45x45.png?text=?";
-              }}
+              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/45x45.png?text=?"
+              src={imageURL}
             />
             <div className={style["author-details"]}>
               <h3 className={style["author-name"]}>
@@ -94,9 +65,16 @@ const UserReview = ({ id, contentType, notifyError }) => {
 };
 
 UserReview.propTypes = {
-  id: PropTypes.number.isRequired,
-  contentType: PropTypes.string.isRequired,
-  notifyError: PropTypes.func.isRequired,
+  userReview: PropTypes.shape({
+    total_results: PropTypes.number,
+    results: PropTypes.arrayOf(PropTypes.shape({
+      imageURL: PropTypes.string,
+      rating: PropTypes.number,
+      author: PropTypes.string,
+      createdAt: PropTypes.string,
+      content: PropTypes.string,
+    })),
+  }).isRequired,
 };
 
 export default UserReview;

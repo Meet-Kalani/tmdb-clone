@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import clsx from 'clsx';
 import style from "./desktop-navbar.module.scss";
 import {
   DESKTOP_CTA_NAVLINK_DATA,
@@ -41,11 +41,10 @@ const Navbar = () => (
               <li className={style["navlink-wrapper"]} key={id}>
                 <a
                   href={href}
-                  className={
-                      id === 2
-                        ? `${style.navlink} ${style["language-btn"]}`
-                        : style.navlink
-                    }
+                  className={clsx(
+                    style.navlink,
+                    id === 2 && style["language-btn"],
+                  )}
                 >
                   {label}
                 </a>

@@ -1,19 +1,12 @@
 import PropTypes from "prop-types";
 import style from "./current-season.module.scss";
 import { CURRENT_SEASON_POSTER_BASE_URL } from "../../constants/constants";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
+import Img from "../Img/Img";
 
-const CurrentSeason = ({
-  isLoading,
-  data,
-}) => {
-  if (isLoading) {
-    return <SkeletonLoader />;
-  }
-
+const CurrentSeason = ({ data }) => {
   const {
     air_date: airDate, episode_count: episodeCount, name, overview, poster_path: posterPath, rating,
-  } = data.seasons.at(-1);
+  } = data;
 
   const airYear = airDate ? airDate.slice(0, 4) : null;
 
@@ -24,12 +17,10 @@ const CurrentSeason = ({
       </div>
       <div className={style.content}>
         <div className={style["poster-container"]}>
-          <img
-            alt="Current Season's Poster"
+          <Img
+            alt={`Poster of ${name}`}
+            fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/130x195.png?text=Not+Found!"
             src={`${CURRENT_SEASON_POSTER_BASE_URL}${posterPath}`}
-            onError={(e) => {
-              e.target.src = "https://placehold.jp/16/ccc/ffffff/130x195.png?text=Not+Found!";
-            }}
           />
         </div>
         <div className={style["current-season-body"]}>
@@ -58,28 +49,14 @@ const CurrentSeason = ({
 };
 
 CurrentSeason.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   data: PropTypes.shape({
-    seasons: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      episodeCount: PropTypes.number,
-      airDate: PropTypes.string,
-      overview: PropTypes.string,
-      posterPath: PropTypes.string,
-      rating: PropTypes.number,
-    })),
-  }),
-};
-
-CurrentSeason.defaultProps = {
-  data: {
-    name: undefined,
-    episodeCount: undefined,
-    airDate: undefined,
-    overview: undefined,
-    posterPath: undefined,
-    rating: undefined,
-  },
+    air_date: PropTypes.string,
+    episode_count: PropTypes.number,
+    name: PropTypes.string,
+    overview: PropTypes.string,
+    poster_path: PropTypes.string,
+    rating: PropTypes.number,
+  }).isRequired,
 };
 
 export default CurrentSeason;
