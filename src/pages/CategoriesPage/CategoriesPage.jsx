@@ -19,7 +19,10 @@ import { AVAILABILITIES } from "../../utils/availabilities";
 import { RELEASE_TYPES } from "../../utils/releaseTypes";
 import SelectedFilterContext from "./context";
 
-const defaultSelectedSort = 'popularity.desc';
+const defaultSelectedSort = {
+  value: 'popularity.desc',
+  label: 'Popularity Descending',
+};
 const defaultPageNumber = 1;
 
 const CategoriesPage = () => {
@@ -68,7 +71,6 @@ const CategoriesPage = () => {
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
   const documentTitle = `${title} ${contentType === 'tv' ? 'TV Shows' : 'Movies'} — The Movie Database (TMDB)`;
   useTitle(documentTitle);
-
   useEffect(() => {
     (async () => {
       try {

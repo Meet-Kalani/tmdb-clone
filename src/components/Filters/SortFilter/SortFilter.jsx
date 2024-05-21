@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import style from "./sort-filter.module.scss";
-import { SORT_OPTIONS } from "../../../utils/sortOptions";
 import SelectedFilterContext from "../../../pages/CategoriesPage/context";
+import DropDown from "../../DropDown/DropDown";
+import { SORT_OPTIONS } from "../../../utils/sortOptions";
 
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,27 +40,7 @@ const SortFilter = () => {
             <span className={style["filter-content-title"]}>
               Sort Results By
             </span>
-            <select
-              className={style["sort-options-container"]}
-              id="sort_by"
-              name="sort_by"
-              value={sort}
-              onChange={(event) => {
-                toggleSort(event.target.value);
-              }}
-            >
-              {
-                SORT_OPTIONS.map(({ id, label, value }) => (
-                  <option
-                    className={style["sort-option"]}
-                    key={id}
-                    value={value}
-                  >
-                    {label}
-                  </option>
-                ))
-              }
-            </select>
+            <DropDown options={SORT_OPTIONS} selectedOption={sort} toggleOption={toggleSort} />
           </div>
         </div>
       ) : null}
