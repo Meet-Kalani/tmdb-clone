@@ -18,6 +18,7 @@ import { buildFilterQueryURL } from "../../helpers/buildFilterQueryURL";
 import { AVAILABILITIES } from "../../utils/availabilities";
 import { RELEASE_TYPES } from "../../utils/releaseTypes";
 import SelectedFilterContext from "./context";
+import Spinner from "../../components/Spinner/Spinner";
 
 const defaultSelectedSort = {
   value: 'popularity.desc',
@@ -301,6 +302,10 @@ const CategoriesPage = () => {
     toggleLanguage,
   }), [selectedFilters, contentType, toggleWatchProviders, fetchData, watchProvidersList]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <ToastContainer />
@@ -316,7 +321,6 @@ const CategoriesPage = () => {
             contentType={contentType}
             data={data}
             fetchData={fetchData}
-            isLoading={isLoading}
             isScrollable={isScrollable}
             toggleScrolling={toggleScrolling}
           />

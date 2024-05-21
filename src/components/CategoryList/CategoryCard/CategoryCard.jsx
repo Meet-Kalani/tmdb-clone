@@ -3,16 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import style from "./category-card.module.scss";
 import { IMAGE_BASE_URL } from "../../../constants/constants";
 import Rating from "../../Rating/Rating";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
 
 const CategoryCard = ({
-  id, name, posterPath, voteAverage, releaseDate, contentType, isLoading,
+  id, name, posterPath, voteAverage, releaseDate, contentType,
 }) => {
   const navigate = useNavigate();
-
-  if (isLoading) {
-    return <SkeletonLoader />;
-  }
 
   const handleCardOpener = () => {
     if (contentType === "tv") {
@@ -43,15 +38,16 @@ const CategoryCard = ({
       }}
     >
       <div className={style["card-header"]}>
-        <img
-          alt="poster of the movie"
-          className={style["card-image"]}
-          loading="lazy"
-          src={`${IMAGE_BASE_URL}${posterPath}`}
-          onError={(event) => {
-            event.target.src = "https://placehold.jp/16/ccc/ffffff/186x279.png?text=Not+Found!";
-          }}
-        />
+        {
+          posterPath ? (
+            <img
+              alt="poster of the movie"
+              className={style["card-image"]}
+              loading="lazy"
+              src={`${IMAGE_BASE_URL}${posterPath}`}
+            />
+          ) : undefined
+        }
       </div>
       <div className={style["card-content"]}>
         <div className={style["rating-container"]}>
@@ -75,7 +71,6 @@ CategoryCard.propTypes = {
   voteAverage: PropTypes.number,
   releaseDate: PropTypes.string,
   contentType: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 CategoryCard.defaultProps = {

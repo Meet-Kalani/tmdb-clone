@@ -1,5 +1,5 @@
 import { REVIEWER_PROFILE_BASE_URL } from "../constants/constants";
-import formatDateLong from "./formatDate";
+import { formatDateLong } from "./formatDate";
 
 export const getRandomReview = (reviews) => {
   const randomIndex = Math.floor(Math.random() * reviews.length);
