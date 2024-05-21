@@ -1,0 +1,65 @@
+@use "../../../styles" as *;
+
+.recommendation-card {
+  width: 250px;
+
+  .wrapper {
+    position: relative;
+    background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg);
+    background-color: $color-placeholder;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30%;
+    height: 141px;
+    min-width: 250px;
+    border-radius: $border-radius-8;
+    overflow: hidden;
+
+    .recommendation-image {
+      cursor: pointer;
+      min-height: 141px;
+      min-width: 250px;
+
+      &:hover + .hidden-container {
+        visibility: visible;
+      }
+    }
+
+    .hidden-container {
+      visibility: hidden;
+      position: absolute;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 10px;
+
+      &:hover {
+        visibility: visible;
+      }
+
+      .calendar-icon {
+        background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-46-calendar-3e0931dfeba8f62c51e81dfa4364a6d836f3a03aaf739a51d0846902ee367645.svg);
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+
+  .recommendation-info {
+    display: flex;
+    margin-top: 4px;
+    justify-content: space-between;
+
+    .recommendation-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      padding-right: 20px;
+    }
+  }
+}

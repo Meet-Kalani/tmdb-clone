@@ -1,3 +1,5 @@
+@use "./styles" as *;
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +7,7 @@
 }
 
 html {
-  font-size: 10px;
+  scroll-behavior: smooth;
 
   body {
     font-family: "Source Sans Pro", Arial, sans-serif;
@@ -14,6 +16,15 @@ html {
     #root {
       height: 100vh;
     }
+
+    button {
+      font-size: 16px;
+      font-family: "Source Sans Pro", Arial, sans-serif;
+    }
+
+    input {
+      font-family: "Source Sans Pro", Arial, sans-serif;
+    }
   }
 }
 
@@ -21,7 +32,7 @@ html {
   width: 8px;
 
   &-thumb:vertical {
-    background-color: #dbdbdb;
-    border-radius: 10px;
+    background-color: $color-scrollbar;
+    border-radius: $border-radius-10;
   }
 }

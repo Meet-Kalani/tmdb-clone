@@ -1,0 +1,77 @@
+@use "../../styles" as *;
+
+.cardlist {
+  padding-top: 30px;
+  max-width: $maxPrimaryPageWidth;
+  margin: auto;
+  position: relative;
+
+  .cardlist-header {
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    @include tablet() {
+      padding: 0 20px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cardlist-title {
+      font-size: 24px;
+      font-weight: $font-weight-600;
+    }
+  }
+
+  .cardlist-content {
+    display: flex;
+    overflow-x: scroll;
+    gap: 20px;
+    padding: 20px 40px;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+      background-color: $color-scrollbar;
+      border-radius: $border-radius-10;
+    }
+
+    &::after {
+      content: "";
+      width: 60px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0,
+        #fff 100%
+      );
+      will-change: opacity;
+      pointer-events: none;
+    }
+
+    .skeleton-wrapper {
+      display: flex;
+      gap: 20px;
+
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb:horizontal {
+        background-color: $color-scrollbar;
+        border-radius: $border-radius-10;
+      }
+    }
+
+    @include tablet {
+      padding: 20px;
+    }
+  }
+}

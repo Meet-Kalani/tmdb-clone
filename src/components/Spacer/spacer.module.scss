@@ -1,4 +1,6 @@
+@use "../../styles" as *;
+
 .spacer {
   height: 64px;
-  background-color: rgb(3, 37, 65);
+  background-color: $color-primary;
 }

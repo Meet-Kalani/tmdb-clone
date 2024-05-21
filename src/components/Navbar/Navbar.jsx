@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import DesktopNavbar from "../DesktopNavbar/DesktopNavbar";
-import MobileNavbar from "../MobileNavbar/MobileNavbar";
+import DesktopNavbar from "./DesktopNavbar/DesktopNavbar";
+import MobileNavbar from "./MobileNavbar/MobileNavbar";
 import style from "./navbar.module.scss";
 
 const Navbar = () => {

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from 'react-toastify';
 import SignupCTA from "../../components/SignupCTA/SignupCTA";
 import Hero from "../../components/Hero/Hero";
-import MovieCardList from "../../components/MovieCardList/MovieCardList";
+import CardList from "../../components/CardList/CardList";
 import style from "./home-page.module.scss";
 import { fetchPopularData, fetchTrendingData } from "../../service/api";
 import { CONTENT_TYPE, TIME_WINDOW } from "../../constants/constants";
 import 'react-toastify/dist/ReactToastify.css';
-import notifyError from "../../utils/helpers";
+import { notifyError } from "../../utils/helpers";
 
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
@@ -29,7 +29,7 @@ const HomePage = () => {
         setData({ trending: trendingResponse, popular: popularResponse });
       }
       catch (err) {
-        notifyError(err, style.toast);
+        notifyError(err);
       }
       finally {
         setIsLoading({ popular: false, trending: false });
@@ -50,7 +50,7 @@ const HomePage = () => {
       <ToastContainer />
       <Hero />
       <div className={style.wrapper}>
-        <MovieCardList
+        <CardList
           data={data.trending}
           handleTabSelection={(event) => handleTabSelection(event, 'trending')}
           isLoading={isLoading.trending}
@@ -59,7 +59,7 @@ const HomePage = () => {
           tabs={tabsOfTrendingList}
         />
       </div>
-      <MovieCardList
+      <CardList
         data={data.popular}
         handleTabSelection={(event) => handleTabSelection(event, 'popular')}
         isLoading={isLoading.popular}

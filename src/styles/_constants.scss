@@ -3,9 +3,20 @@ $maxPrimaryPageWidth: 1300px;
 $color-white: #fff;
 $color-white-hover: #f8f9fa;
 $color-black: #000;
+$color-placeholder: #dbdbdb;
+$color-scrollbar: #dbdbdb;
+$color-primary: rgb(3, 37, 65);
 
-// font weight
 $font-weight-400: 400;
 $font-weight-500: 500;
 $font-weight-600: 600;
 $font-weight-700: 700;
+
+$border-radius-round: 50%;
+$border-radius-10: 10px;
+$border-radius-8: 8px;
+$border-radius-6: 6px;
+$border-radius-4: 4px;
+
+$border-grey: 1px solid rgb(227, 227, 227);
+$border-blue: 1px solid rgb(3, 37, 65);

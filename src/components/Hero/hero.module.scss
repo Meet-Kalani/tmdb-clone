@@ -34,7 +34,6 @@
 
       .search-input {
         width: 100%;
-        font-family: "Source Sans Pro", Arial, sans-serif;
         height: 46px;
         line-height: 46px;
         font-size: 17.6px;
@@ -61,14 +60,12 @@
           rgba(30, 213, 169, 1) 0%,
           rgba(1, 180, 228, 1) 100%
         );
-        font-family: "Source Sans Pro", Arial, sans-serif;
         font-weight: $font-weight-700;
         border-radius: 30px;
         position: absolute;
         top: 0;
         right: -1px;
         color: $color-white;
-        font-size: 16px;
         cursor: pointer;
 
         &:hover {
@@ -101,9 +98,7 @@
       display: flex;
       gap: 4px;
       align-items: center;
-      font-size: 16px;
       font-weight: $font-weight-600;
-      font-family: "Source Sans Pro", Arial, sans-serif;
 
       .right-arrow {
         background-image: url("https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-830-arrow-thin-right-white-27b356aac3227210acca2ae44fcfed8a6c0ca7adde4e867fe9793cae4ebda9d1.svg");
@@ -114,7 +109,7 @@
     }
   }
 
-  @include laptop {
+  @include tablet {
     .welcome-section {
       height: 100%;
       min-height: 300px;

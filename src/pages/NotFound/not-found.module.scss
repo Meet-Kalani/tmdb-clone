@@ -6,10 +6,9 @@
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
-  font-size: 16px;
   min-height: calc(100% - 386px);
 
-  @include laptop {
+  @include tablet {
     min-height: calc(100% - 833px);
   }
 

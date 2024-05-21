@@ -9,6 +9,18 @@
   align-items: center;
 }
 
+@mixin tablet() {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin medium-screen() {
+  @media screen and (max-width: 820px) {
+    @content;
+  }
+}
+
 @mixin laptop() {
   @media screen and (max-width: 1024px) {
     @content;
@@ -17,6 +29,12 @@
 
 @mixin desktop() {
   @media screen and (min-width: 1025px) {
+    @content;
+  }
+}
+
+@mixin big-screen() {
+  @media screen and (max-width: 1260px) {
     @content;
   }
 }

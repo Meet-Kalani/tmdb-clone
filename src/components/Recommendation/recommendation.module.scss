@@ -1,0 +1,70 @@
+@use "../../styles" as *;
+
+.recommendation {
+  border-top: 1px solid #d7d7d7;
+  padding-top: 30px;
+
+  .recommendation-header {
+    padding-bottom: 20px;
+
+    .title {
+      font-weight: $font-weight-600;
+      font-size: 22.4px;
+
+      @include laptop {
+        font-size: 19.2px;
+      }
+    }
+
+    @include laptop {
+      padding: 0 20px 20px;
+    }
+  }
+
+  .recommendation-body {
+    display: flex;
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    gap: 15px;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb:horizontal {
+      background-color: $color-scrollbar;
+      border-radius: $border-radius-10;
+    }
+
+    &::after {
+      content: "";
+      width: 60px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0,
+        #fff 100%
+      );
+      will-change: opacity;
+      pointer-events: none;
+    }
+
+    @include laptop {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .message {
+      padding: 20px 0 0 20px;
+      display: inline-block;
+    }
+  }
+
+  @include laptop {
+    padding: 20px 0;
+  }
+}

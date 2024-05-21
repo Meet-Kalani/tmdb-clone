@@ -5,10 +5,9 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  font-size: 16px;
-  min-height: calc(100% - 386px);
+  min-height: calc(100vh - 386px);
 
-  @include laptop {
+  @include tablet {
     min-height: calc(100% - 833px);
   }
 

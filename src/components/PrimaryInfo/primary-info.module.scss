@@ -1,0 +1,202 @@
+@use "../../styles" as *;
+
+.movie-info {
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+  color: $color-white;
+
+  .poster-container {
+    border-radius: $border-radius-8;
+    @include flex-column();
+    min-width: 300px;
+    min-height: 450px;
+
+    .poster {
+      border-radius: 8px 8px 0 0;
+    }
+
+    .poster-border {
+      border-radius: $border-radius-8;
+    }
+
+    .watch-provider-container {
+      margin-top: auto;
+      background-color: $color-primary;
+      height: 60px;
+      font-size: 16px;
+
+      color: $color-white;
+      @include flex-center();
+      gap: 12px;
+
+      .watch-provider-logo {
+        width: 36px;
+        height: 36px;
+        border-radius: $border-radius-4;
+        cursor: pointer;
+      }
+
+      .watch-provider-link-wrapper {
+        align-items: center;
+        align-content: center;
+
+        .label {
+          opacity: 0.8;
+          display: block;
+          line-height: 16px;
+        }
+
+        .watch-provider-link {
+          text-decoration: none;
+          color: $color-white;
+          font-weight: $font-weight-600;
+          line-height: 16px;
+        }
+      }
+    }
+
+    @include tablet {
+      width: fit-content;
+    }
+  }
+
+  .content {
+    @include flex-column();
+    justify-content: center;
+
+    .name-container {
+      .name {
+        font-size: 35.2px;
+        display: inline;
+
+        @include tablet {
+          font-size: 22.45px;
+        }
+      }
+
+      .release-year {
+        font-size: 35.2px;
+        opacity: 0.8;
+
+        @include tablet {
+          font-size: 17.96px;
+        }
+      }
+
+      @include tablet {
+        text-align: center;
+      }
+    }
+
+    .info-container {
+      .divider {
+        padding: 0 8px;
+      }
+
+      @include tablet {
+        text-align: center;
+      }
+    }
+
+    .rating-wrapper {
+      margin-top: 24px;
+
+      .rating-container {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 24px;
+
+        .rating-title {
+          font-weight: $font-weight-700;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .wrapper {
+      margin: 16px 0 36px 0;
+      display: flex;
+      gap: 20px;
+
+      .action {
+        width: 46px;
+        height: 46px;
+        background-color: $color-primary;
+        border-radius: $border-radius-round;
+        @include flex-center();
+
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .play-link-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: linear 0.1s;
+
+        &:hover {
+          opacity: 0.6;
+        }
+
+        .play-icon {
+          filter: invert(1);
+          width: 22.4px;
+          height: 22.4px;
+        }
+
+        .play-link {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          color: $color-white;
+          font-weight: $font-weight-600;
+        }
+      }
+    }
+
+    .overview-container {
+      .tagline {
+        opacity: 0.7;
+        font-style: italic;
+        font-size: 17.6px;
+        line-height: 17.6px;
+      }
+
+      .overview-title {
+        display: block;
+        font-size: 20.8px;
+        font-weight: 600;
+        margin: 10px 0 8px;
+      }
+
+      .overview {
+        line-height: 24px;
+      }
+    }
+
+    .creator-container {
+      margin-top: 30px;
+
+      .creator-name {
+        font-weight: $font-weight-700;
+        display: block;
+      }
+
+      .creator-label {
+        font-size: 14.4px;
+      }
+    }
+  }
+
+  @include tablet {
+    flex-direction: column;
+    padding: 20px;
+  }
+}

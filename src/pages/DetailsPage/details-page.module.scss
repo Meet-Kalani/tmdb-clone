@@ -1,0 +1,46 @@
+@use "../../styles" as *;
+
+$maxPrimaryPageWidth: 1400px;
+
+.movie-page {
+  .primary-info {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left calc((50vw - 170px) - 340px) top;
+  }
+
+  .movie-info-wrapper {
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+    height: 570px;
+
+    @include tablet {
+      height: 100%;
+    }
+  }
+
+  .secondary-info {
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+    display: flex;
+    padding: 30px 40px;
+
+    .wrapper {
+      max-width: 1052px;
+      padding-right: 30px;
+      width: 100%;
+
+      @include laptop {
+        padding-right: 0;
+      }
+    }
+
+    @include big-screen {
+      flex-direction: column;
+    }
+
+    @include laptop {
+      padding: 0;
+    }
+  }
+}
