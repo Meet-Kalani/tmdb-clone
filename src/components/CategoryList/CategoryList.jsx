@@ -4,7 +4,7 @@ import style from "./category-list.module.scss";
 import CategoryCard from "./CategoryCard/CategoryCard";
 
 const CategoryList = ({
-  contentType, fetchData, data, isScrollable, toggleScrolling,
+  contentType, fetchData, data, isScrollable, toggleScrolling, showLoadMoreBtn,
 }) => (
   <div className={style.wrapper}>
     <InfiniteScroll
@@ -27,7 +27,7 @@ const CategoryList = ({
       )) : <span>No items were found that match your query.</span>}
     </InfiniteScroll>
     {
-        data.results.length ? (
+        data.total_pages > 1 && showLoadMoreBtn ? (
           <button
             className={style['load-btn']}
             type="button"
@@ -53,9 +53,11 @@ CategoryList.propTypes = {
       first_air_date: PropTypes.string,
       vote_average: PropTypes.number,
     })),
+    total_pages: PropTypes.number.isRequired,
   }),
   isScrollable: PropTypes.bool.isRequired,
   toggleScrolling: PropTypes.func.isRequired,
+  showLoadMoreBtn: PropTypes.bool.isRequired,
 };
 
 CategoryList.defaultProps = {

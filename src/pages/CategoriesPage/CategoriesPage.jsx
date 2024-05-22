@@ -34,6 +34,7 @@ const CategoriesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(defaultPageNumber);
   const [watchProvidersList, setWatchProvidersList] = useState([]);
+  const [showLoadMorebtn, setShowLoadMorebtn] = useState(true);
 
   const [selectedFilters, setSelectedFilters] = useState({
     sort: defaultSelectedSort,
@@ -122,6 +123,11 @@ const CategoriesPage = () => {
           total_results: res.total_results,
         };
       });
+
+      if (res.results.length === 0) {
+        setIsScrollable(false);
+        setShowLoadMorebtn(false);
+      }
     }
     catch (err) {
       notifyError(err);
@@ -322,6 +328,7 @@ const CategoriesPage = () => {
             data={data}
             fetchData={fetchData}
             isScrollable={isScrollable}
+            showLoadMoreBtn={showLoadMorebtn}
             toggleScrolling={toggleScrolling}
           />
         </div>
