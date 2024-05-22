@@ -51,7 +51,7 @@ const CategoryCard = ({
       </div>
       <div className={style["card-content"]}>
         <div className={style["rating-container"]}>
-          <Rating rating={voteAverage} size={38} />
+          <Rating rating={voteAverage} size={34} />
         </div>
         <Link className={style.name} to="/">
           {name}
