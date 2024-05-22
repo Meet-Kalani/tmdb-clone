@@ -34,10 +34,15 @@
     }
   }
 
+  .hidden {
+    display: none;
+  }
+
   .filter-content {
     padding: 14px 16px 16px;
     border-top: 1px solid #eee;
     width: 100%;
+    display: initial;
 
     .content-wrapper {
       @include flex-column();

@@ -39,15 +39,13 @@ const WatchFilter = () => {
           />
         </div>
       </div>
-      {isVisible ? (
-        <div className={style["filter-content"]}>
-          <div className={style["content-wrapper"]}>
-            <span className={style["filter-content-title"]}>Country</span>
-            <SelectWithSearch defaultCountry={OTTRegion} toggleCountry={toggleOTTRegion} />
-            <WatchProvider />
-          </div>
+      <div className={isVisible ? style["filter-content"] : style.hidden}>
+        <div className={style["content-wrapper"]}>
+          <span className={style["filter-content-title"]}>Country</span>
+          <SelectWithSearch defaultCountry={OTTRegion} toggleCountry={toggleOTTRegion} />
+          <WatchProvider />
         </div>
-      ) : null}
+      </div>
     </div>
   );
 };

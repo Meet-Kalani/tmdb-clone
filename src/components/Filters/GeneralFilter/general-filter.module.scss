@@ -34,8 +34,13 @@
     }
   }
 
+  .hidden {
+    display: none;
+  }
+
   .filter-content {
     width: 100%;
+    display: initial;
 
     .label {
       margin-bottom: 6px;

@@ -93,36 +93,35 @@ const SortFilter = () => {
           }
         />
       </div>
-      {isVisible ? (
-        <div className={style["filter-content"]}>
-          <FilterWrapper title="Show Me" tooltipMessage="Log in to filter items you've watched.">
-            <label className={style.label} htmlFor="all">
-              <input className={style['radio-input']} id="all" type="radio" defaultChecked />
-              Everything
-            </label>
-            <label className={`${style.label} ${style.disabled}`} htmlFor="seenmovies">
-              <input className={style['radio-input']} id="seenmovies" type="radio" disabled />
-              Movies I Haven&#39;t Seen
-            </label>
-            <label className={`${style.label} ${style.disabled}`} htmlFor="unseenmovies">
-              <input className={style['radio-input']} id="unseenmovies" type="radio" disabled />
-              Movies I Have Seen
-            </label>
-          </FilterWrapper>
-          <FilterWrapper title="Availabilities">
-            <label className={style.label} htmlFor="unseenmovies">
-              <input
-                checked={isAvailabilityVisible}
-                className={style['checkbox-input']}
-                id="unseenmovies"
-                type="checkbox"
-                onChange={() => {
-                  setIsAvailabilityVisible((previousValue) => !previousValue);
-                }}
-              />
-              Search all availabilities?
-            </label>
-            {
+      <div className={isVisible ? style["filter-content"] : style.hidden}>
+        <FilterWrapper title="Show Me" tooltipMessage="Log in to filter items you've watched.">
+          <label className={style.label} htmlFor="all">
+            <input className={style['radio-input']} id="all" type="radio" defaultChecked />
+            Everything
+          </label>
+          <label className={`${style.label} ${style.disabled}`} htmlFor="seenmovies">
+            <input className={style['radio-input']} id="seenmovies" type="radio" disabled />
+            Movies I Haven&#39;t Seen
+          </label>
+          <label className={`${style.label} ${style.disabled}`} htmlFor="unseenmovies">
+            <input className={style['radio-input']} id="unseenmovies" type="radio" disabled />
+            Movies I Have Seen
+          </label>
+        </FilterWrapper>
+        <FilterWrapper title="Availabilities">
+          <label className={style.label} htmlFor="unseenmovies">
+            <input
+              checked={isAvailabilityVisible}
+              className={style['checkbox-input']}
+              id="unseenmovies"
+              type="checkbox"
+              onChange={() => {
+                setIsAvailabilityVisible((previousValue) => !previousValue);
+              }}
+            />
+            Search all availabilities?
+          </label>
+          {
                 !isAvailabilityVisible ? AVAILABILITIES.map(({ id, label }) => (
                   <label className={style.label} htmlFor="unseenmovies" key={id}>
                     <input
@@ -138,19 +137,19 @@ const SortFilter = () => {
                   </label>
                 )) : null
               }
-          </FilterWrapper>
-          <FilterWrapper title="Release Dates">
-            <label className={style.label} htmlFor="release-types">
-              <input
-                checked={isReleaseTypesVisible}
-                className={style['checkbox-input']}
-                id="release-types"
-                type="checkbox"
-                onChange={() => setIsReleaseTypesVisible((prev) => !prev)}
-              />
-              Search all releases?
-            </label>
-            {!isReleaseTypesVisible && (
+        </FilterWrapper>
+        <FilterWrapper title="Release Dates">
+          <label className={style.label} htmlFor="release-types">
+            <input
+              checked={isReleaseTypesVisible}
+              className={style['checkbox-input']}
+              id="release-types"
+              type="checkbox"
+              onChange={() => setIsReleaseTypesVisible((prev) => !prev)}
+            />
+            Search all releases?
+          </label>
+          {!isReleaseTypesVisible && (
             <>
               <label className={`${style.label} ${style['release-region-label']}`} htmlFor="release-type-region">
                 <input
@@ -168,44 +167,44 @@ const SortFilter = () => {
               </div>
               )}
             </>
-            )}
-            {!isReleaseTypesVisible && RELEASE_TYPES.map(({ id, label }) => (
-              <label className={style.label} htmlFor="release-type" key={id}>
-                <input
-                  checked={checkSelectedReleaseTypes(id)}
-                  className={style['checkbox-input']}
-                  id="release-type"
-                  type="checkbox"
-                  onChange={() => toggleReleaseTypes(id)}
-                />
-                {label}
-              </label>
-            ))}
-            <div className={style['dates-container']}>
-              <label className={style['from-date-label']} htmlFor="from_date">
-                from
-                <input className={style['from-date']} id="from_date" min="1950-01-01" name="from_date" type="date" onChange={(event) => { toggleReleaseDate(event, "gte"); }} />
-              </label>
-              <label className={style['to-date-label']} htmlFor="to_date">
-                to
-                <input className={style['to-date']} id="to_date" max="2024-12-31" name="to_date" type="date" value={releaseDate.lte} onChange={(event) => { toggleReleaseDate(event, "lte"); }} />
-              </label>
-            </div>
-          </FilterWrapper>
+          )}
+          {!isReleaseTypesVisible && RELEASE_TYPES.map(({ id, label }) => (
+            <label className={style.label} htmlFor="release-type" key={id}>
+              <input
+                checked={checkSelectedReleaseTypes(id)}
+                className={style['checkbox-input']}
+                id="release-type"
+                type="checkbox"
+                onChange={() => toggleReleaseTypes(id)}
+              />
+              {label}
+            </label>
+          ))}
+          <div className={style['dates-container']}>
+            <label className={style['from-date-label']} htmlFor="from_date">
+              from
+              <input className={style['from-date']} id="from_date" min="1950-01-01" name="from_date" type="date" onChange={(event) => { toggleReleaseDate(event, "gte"); }} />
+            </label>
+            <label className={style['to-date-label']} htmlFor="to_date">
+              to
+              <input className={style['to-date']} id="to_date" max="2024-12-31" name="to_date" type="date" value={releaseDate.lte} onChange={(event) => { toggleReleaseDate(event, "lte"); }} />
+            </label>
+          </div>
+        </FilterWrapper>
 
-          <List checkSelection={checkSelectedGenres} items={GENRES} title="Genres" toggleSelection={toggleGenres} type="genre" />
-          <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} title="Certification" toggleSelection={toggleCertifications} type="certification" />
-          <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">
-            <select
-              className={style["language-options-container"]}
-              id="language"
-              name="language"
-              value={language}
-              onChange={(event) => {
-                toggleLanguage(event.target.value);
-              }}
-            >
-              {
+        <List checkSelection={checkSelectedGenres} items={GENRES} title="Genres" toggleSelection={toggleGenres} type="genre" />
+        <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} title="Certification" toggleSelection={toggleCertifications} type="certification" />
+        <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">
+          <select
+            className={style["language-options-container"]}
+            id="language"
+            name="language"
+            value={language}
+            onChange={(event) => {
+              toggleLanguage(event.target.value);
+            }}
+          >
+            {
 
                 LANGUAGES.map(({ iso_639_1: id, english_name: label }) => (
                   <option
@@ -217,40 +216,39 @@ const SortFilter = () => {
                   </option>
                 ))
               }
-            </select>
-          </FilterWrapper>
-          <RangeSlider
-            handleOnChange={toggleUserScore}
-            marks={USER_SCORE_MARKS}
-            max={10}
-            min={0}
-            step={1}
-            title="User Score"
-            tooltipFormat={userScoreTooltipFormat}
-            value={userScore}
-          />
-          <RangeSlider
-            handleOnChange={toggleMinimumUserVotes}
-            marks={MINIMUM_USER_VOTES_MARKS}
-            max={500}
-            min={0}
-            step={50}
-            title="Minimum User Votes"
-            tooltipFormat={minimumUserVotesTooltipFormat}
-            value={minimumUserVotes}
-          />
-          <RangeSlider
-            handleOnChange={toggleRuntime}
-            marks={RUNTIME_MARKS}
-            max={400}
-            min={0}
-            step={15}
-            title="Runtime"
-            tooltipFormat={runtimeTooltipFormat}
-            value={runtime}
-          />
-        </div>
-      ) : null}
+          </select>
+        </FilterWrapper>
+        <RangeSlider
+          handleOnChange={toggleUserScore}
+          marks={USER_SCORE_MARKS}
+          max={10}
+          min={0}
+          step={1}
+          title="User Score"
+          tooltipFormat={userScoreTooltipFormat}
+          value={userScore}
+        />
+        <RangeSlider
+          handleOnChange={toggleMinimumUserVotes}
+          marks={MINIMUM_USER_VOTES_MARKS}
+          max={500}
+          min={0}
+          step={50}
+          title="Minimum User Votes"
+          tooltipFormat={minimumUserVotesTooltipFormat}
+          value={minimumUserVotes}
+        />
+        <RangeSlider
+          handleOnChange={toggleRuntime}
+          marks={RUNTIME_MARKS}
+          max={400}
+          min={0}
+          step={15}
+          title="Runtime"
+          tooltipFormat={runtimeTooltipFormat}
+          value={runtime}
+        />
+      </div>
     </div>
   );
 };

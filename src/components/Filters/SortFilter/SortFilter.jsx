@@ -34,16 +34,14 @@ const SortFilter = () => {
           }
         />
       </div>
-      {isVisible ? (
-        <div className={style["filter-content"]}>
-          <div className={style['content-wrapper']}>
-            <span className={style["filter-content-title"]}>
-              Sort Results By
-            </span>
-            <DropDown options={SORT_OPTIONS} selectedOption={sort} toggleOption={toggleSort} />
-          </div>
+      <div className={isVisible ? style["filter-content"] : style.hidden}>
+        <div className={style['content-wrapper']}>
+          <span className={style["filter-content-title"]}>
+            Sort Results By
+          </span>
+          <DropDown options={SORT_OPTIONS} selectedOption={sort} toggleOption={toggleSort} />
         </div>
-      ) : null}
+      </div>
     </div>
   );
 };
