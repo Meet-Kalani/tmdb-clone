@@ -8,7 +8,7 @@ import GeneralFilter from "./GeneralFilter/GeneralFilter";
 import SelectedFilterContext from "../../pages/CategoriesPage/context";
 
 const Filters = () => {
-  const { fetchData } = useContext(SelectedFilterContext);
+  const { fetchData, isInitialFiltersChanged } = useContext(SelectedFilterContext);
   const [isVisible, setIsVisible] = useState(false);
   const searchBtnRef = useRef(null);
 
@@ -32,19 +32,25 @@ const Filters = () => {
     };
   }, []);
 
+  const searchBtnClassnames = `${style['search-btn']}
+  ${!isVisible && isInitialFiltersChanged ? style['search-btn-bottom'] : ''}
+  ${!isInitialFiltersChanged ? style['search-btn-initial'] : ''}`;
+
   return (
     <div className={style.filters}>
       <SortFilter />
       <WatchFilter />
       <GeneralFilter />
-      <button
-        className={isVisible ? style['search-btn'] : `${style['search-btn']} ${style['search-btn-bottom']}`}
-        type="button"
-        onClick={() => fetchData(true)}
-      >
-        Search
-      </button>
-      <div ref={searchBtnRef} />
+      <div ref={searchBtnRef}>
+        <button
+          className={searchBtnClassnames}
+          disabled={!isInitialFiltersChanged}
+          type="button"
+          onClick={() => fetchData(true)}
+        >
+          Search
+        </button>
+      </div>
     </div>
   );
 };

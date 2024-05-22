@@ -25,6 +25,38 @@ const defaultSelectedSort = {
   label: 'Popularity Descending',
 };
 const defaultPageNumber = 1;
+const defaultSelectedFilters = {
+  sort: defaultSelectedSort,
+  OTTRegion: {
+    id: "IN",
+    country: "India",
+  },
+  watchProviders: new Set(),
+  availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
+  genres: new Set(),
+  certifications: new Set(),
+  releaseRegion: {
+    id: 'IN',
+    country: 'India',
+  },
+  language: "xx",
+  releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
+  releaseDate: {
+    gte: undefined,
+    lte: getReleaseDate(),
+  },
+  userScore: {
+    gte: 0,
+    lte: 10,
+  },
+  minimumUserVotes: {
+    gte: 0,
+  },
+  runtime: {
+    gte: 0,
+    lte: 400,
+  },
+};
 
 const CategoriesPage = () => {
   const { category } = useParams();
@@ -35,39 +67,15 @@ const CategoriesPage = () => {
   const [pageNumber, setPageNumber] = useState(defaultPageNumber);
   const [watchProvidersList, setWatchProvidersList] = useState([]);
   const [showLoadMorebtn, setShowLoadMorebtn] = useState(true);
+  const [isInitialFiltersChanged, setIsInitialFiltersChanged] = useState(false);
 
-  const [selectedFilters, setSelectedFilters] = useState({
-    sort: defaultSelectedSort,
-    OTTRegion: {
-      id: "IN",
-      country: "India",
-    },
-    watchProviders: new Set(),
-    availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
-    genres: new Set(),
-    certifications: new Set(),
-    releaseRegion: {
-      id: 'IN',
-      country: 'India',
-    },
-    language: "xx",
-    releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
-    releaseDate: {
-      gte: undefined,
-      lte: getReleaseDate(),
-    },
-    userScore: {
-      gte: 0,
-      lte: 10,
-    },
-    minimumUserVotes: {
-      gte: 0,
-    },
-    runtime: {
-      gte: 0,
-      lte: 400,
-    },
-  });
+  const [selectedFilters, setSelectedFilters] = useState(defaultSelectedFilters);
+
+  useEffect(() => {
+    if (selectedFilters !== defaultSelectedFilters) {
+      setIsInitialFiltersChanged(true);
+    }
+  }, [selectedFilters]);
 
   const [isScrollable, setIsScrollable] = useState(false);
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
@@ -292,6 +300,7 @@ const CategoriesPage = () => {
     ...selectedFilters,
     contentType,
     watchProvidersList,
+    isInitialFiltersChanged,
     toggleWatchProviders,
     fetchData,
     toggleOTTRegion,
@@ -306,7 +315,7 @@ const CategoriesPage = () => {
     toggleCertifications,
     toggleGenres,
     toggleLanguage,
-  }), [selectedFilters, contentType, toggleWatchProviders, fetchData, watchProvidersList]);
+  }), [selectedFilters, isInitialFiltersChanged, contentType, toggleWatchProviders, fetchData, watchProvidersList]);
 
   if (isLoading) {
     return <Spinner />;
