@@ -17,13 +17,14 @@ const Img = ({
 Img.propTypes = {
   alt: PropTypes.string.isRequired,
   src: PropTypes.string,
-  fallbackImageURL: PropTypes.string.isRequired,
+  fallbackImageURL: PropTypes.string,
   className: PropTypes.string,
 };
 
 Img.defaultProps = {
   className: undefined,
   src: undefined,
+  fallbackImageURL: undefined,
 };
 
 export default Img;

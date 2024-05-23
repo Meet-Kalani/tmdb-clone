@@ -1,0 +1,54 @@
+@use "../../styles" as *;
+
+$maxPrimaryPageWidth: 1400px;
+
+.cast-page {
+  max-width: $maxPrimaryPageWidth;
+  margin: auto;
+  display: flex;
+  padding: 30px 40px;
+  min-height: calc(100% - 386px);
+
+  .cast,
+  .crew {
+    flex: 1;
+    .cast-title,
+    .crew-title {
+      font-size: 22.4px;
+      font-weight: $font-weight-600;
+      margin-bottom: 20px;
+
+      .cast-count,
+      .crew-count {
+        font-weight: $font-weight-400;
+        opacity: 0.6;
+      }
+
+      @include tablet {
+        font-size: 19.2px;
+      }
+    }
+
+    @include tablet {
+      padding: 20px;
+    }
+  }
+
+  .cast {
+    .cards-container {
+      @include flex-column();
+      gap: 10px;
+    }
+  }
+
+  .crew {
+    @include tablet {
+      border-top: 1px solid #d7d7d7;
+    }
+  }
+
+  @include tablet {
+    flex-direction: column;
+    padding: 0;
+  }
+}
