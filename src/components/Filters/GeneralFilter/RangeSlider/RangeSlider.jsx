@@ -1,10 +1,9 @@
 import { Slider } from "@mui/material";
 import PropTypes from "prop-types";
 import style from "./range-slider.module.scss";
-import FilterWrapper from "../FilterWrapper/FilterWrapper";
 
 const RangeSlider = ({
-  marks, max, min, step, value, handleOnChange, title, tooltipFormat,
+  marks, max, min, step, value, handleOnChange, tooltipFormat,
 }) => {
   const sliderStyle = {
     '& .MuiSlider-thumb': {
@@ -16,20 +15,18 @@ const RangeSlider = ({
   const valueArray = value.lte ? [value.gte, value.lte] : [value.gte];
 
   return (
-    <FilterWrapper title={title}>
-      <Slider
-        className={style['range-slider']}
-        marks={marks}
-        max={max}
-        min={min}
-        step={step}
-        sx={sliderStyle}
-        value={valueArray}
-        valueLabelDisplay="auto"
-        valueLabelFormat={tooltipFormat(value)}
-        onChange={handleOnChange}
-      />
-    </FilterWrapper>
+    <Slider
+      className={style['range-slider']}
+      marks={marks}
+      max={max}
+      min={min}
+      step={step}
+      sx={sliderStyle}
+      value={valueArray}
+      valueLabelDisplay="auto"
+      valueLabelFormat={tooltipFormat(value)}
+      onChange={handleOnChange}
+    />
   );
 };
 
@@ -44,7 +41,6 @@ RangeSlider.propTypes = {
   // eslint-disable-next-line
   value: PropTypes.shape({ lte: PropTypes.number, gte: PropTypes.number }),
   handleOnChange: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
   tooltipFormat: PropTypes.func.isRequired,
 };
 

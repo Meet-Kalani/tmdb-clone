@@ -191,9 +191,12 @@ const SortFilter = () => {
             </label>
           </div>
         </FilterWrapper>
-
-        <List checkSelection={checkSelectedGenres} items={GENRES} title="Genres" toggleSelection={toggleGenres} type="genre" />
-        <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} title="Certification" toggleSelection={toggleCertifications} type="certification" />
+        <FilterWrapper title="Genres">
+          <List checkSelection={checkSelectedGenres} items={GENRES} toggleSelection={toggleGenres} type="genre" />
+        </FilterWrapper>
+        <FilterWrapper title="Certification">
+          <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} toggleSelection={toggleCertifications} type="certification" />
+        </FilterWrapper>
         <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">
           <select
             className={style["language-options-container"]}
@@ -218,36 +221,39 @@ const SortFilter = () => {
               }
           </select>
         </FilterWrapper>
-        <RangeSlider
-          handleOnChange={toggleUserScore}
-          marks={USER_SCORE_MARKS}
-          max={10}
-          min={0}
-          step={1}
-          title="User Score"
-          tooltipFormat={userScoreTooltipFormat}
-          value={userScore}
-        />
-        <RangeSlider
-          handleOnChange={toggleMinimumUserVotes}
-          marks={MINIMUM_USER_VOTES_MARKS}
-          max={500}
-          min={0}
-          step={50}
-          title="Minimum User Votes"
-          tooltipFormat={minimumUserVotesTooltipFormat}
-          value={minimumUserVotes}
-        />
-        <RangeSlider
-          handleOnChange={toggleRuntime}
-          marks={RUNTIME_MARKS}
-          max={400}
-          min={0}
-          step={15}
-          title="Runtime"
-          tooltipFormat={runtimeTooltipFormat}
-          value={runtime}
-        />
+        <FilterWrapper title="User Score">
+          <RangeSlider
+            handleOnChange={toggleUserScore}
+            marks={USER_SCORE_MARKS}
+            max={10}
+            min={0}
+            step={1}
+            tooltipFormat={userScoreTooltipFormat}
+            value={userScore}
+          />
+        </FilterWrapper>
+        <FilterWrapper title="Minimum User Votes">
+          <RangeSlider
+            handleOnChange={toggleMinimumUserVotes}
+            marks={MINIMUM_USER_VOTES_MARKS}
+            max={500}
+            min={0}
+            step={50}
+            tooltipFormat={minimumUserVotesTooltipFormat}
+            value={minimumUserVotes}
+          />
+        </FilterWrapper>
+        <FilterWrapper title="Runtime">
+          <RangeSlider
+            handleOnChange={toggleRuntime}
+            marks={RUNTIME_MARKS}
+            max={400}
+            min={0}
+            step={15}
+            tooltipFormat={runtimeTooltipFormat}
+            value={runtime}
+          />
+        </FilterWrapper>
       </div>
     </div>
   );
