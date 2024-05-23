@@ -3,10 +3,11 @@ import {
 } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage";
 import DetailsPage from "../pages/DetailsPage/DetailsPage";
+import CategoriesPage from "../pages/CategoriesPage/CategoriesPage";
 import Error from "../pages/ErrorPage/ErrorPage";
 import NotFound from "../pages/NotFound/NotFound";
 import RootLayout from "../layout/RootLayout";
-import loader from "./loader";
+import detailsPageLoader from "./detailsPageLoader";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,12 @@ const router = createBrowserRouter([
       path: ":contentType/:id",
       element: <DetailsPage />,
       errorElement: <NotFound />,
-      loader,
+      loader: detailsPageLoader,
+    },
+    {
+      path: ":contentType/category/:category",
+      element: <CategoriesPage />,
+      errorElement: <NotFound />,
     },
     {
       path: "error",

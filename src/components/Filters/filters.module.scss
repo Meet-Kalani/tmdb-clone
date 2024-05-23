@@ -1,0 +1,42 @@
+@use "../../styles" as *;
+
+.filters {
+  position: relative;
+  @include flex-column();
+  gap: 12px;
+
+  .search-btn {
+    height: 44px;
+    margin-top: 8px;
+    color: $color-white;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    background-color: rgb(1, 180, 228);
+    font-size: 19.2px;
+    font-weight: 600;
+
+    &:hover:not([disabled]) {
+      background-color: rgb(2, 36, 65);
+    }
+
+    &:disabled {
+      cursor: auto;
+    }
+  }
+
+  .search-btn-bottom {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-radius: 0;
+    z-index: 5;
+    height: 50px;
+  }
+
+  .search-btn-initial {
+    background-color: rgba(228, 228, 228, 0.7);
+    color: rgba(0, 0, 0, 0.5);
+  }
+}

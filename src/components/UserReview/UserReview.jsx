@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import style from "./user-review.module.scss";
 import Img from "../Img/Img";
-import { getRandomReview } from "../../utils/helpers";
+import { getRandomReview } from "../../helpers/getRandomReview";
 
 const UserReview = ({ userReview }) => {
   const totalResults = userReview.total_results;

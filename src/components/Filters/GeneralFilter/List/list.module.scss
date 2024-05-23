@@ -1,0 +1,30 @@
+@use "../../../../styles" as *;
+
+.list-container {
+  display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+
+  .list-item {
+    display: inline-flex;
+    border: 1px solid #9e9e9e;
+    border-radius: 14px;
+    padding: 4px 12px;
+    font-size: 0.9em;
+    margin-right: 6px;
+    margin-top: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(1, 180, 228);
+      color: $color-white;
+      border-color: rgb(1, 180, 228);
+    }
+  }
+
+  .selected-item {
+    background-color: rgb(1, 180, 228);
+    color: $color-white;
+    border-color: rgb(1, 180, 228);
+  }
+}

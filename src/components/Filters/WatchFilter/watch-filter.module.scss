@@ -1,0 +1,78 @@
+@use "../../../styles" as *;
+
+.watch-filter {
+  width: 260px;
+  border: 1px solid #e3e3e3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .filter-header {
+    padding: 14px 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .filter-title {
+      font-size: 17.6px;
+      font-weight: $font-weight-600;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .watch-provider-count {
+        height: 22px;
+        background-color: rgba(0, 0, 0, 0.08);
+        border-radius: $border-radius-8;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 10px;
+        font-family: "Roboto Mono", monospace;
+        font-size: 14px;
+        font-weight: 300;
+      }
+    }
+
+    .right-arrow {
+      background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-224-chevron-right-d1f88a6c15e68190c3b47e1ee4f39fe47f4b69f4966ca7c250c2e14cfa689a04.svg);
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .down-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .filter-content {
+    padding: 14px 16px 16px;
+    border-top: 1px solid #eee;
+    width: 100%;
+    display: initial;
+
+    .content-wrapper {
+      @include flex-column();
+      gap: 10px;
+    }
+
+    .filter-content-title {
+      font-weight: $font-weight-300;
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+  }
+}

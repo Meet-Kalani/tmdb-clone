@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { notifyError } from "../utils/helpers";
+import { notifyError } from "../helpers/notifyError";
 import { fetchRecommendations } from "../service/api";
 
 const useRecommendationObserver = (id, contentType) => {

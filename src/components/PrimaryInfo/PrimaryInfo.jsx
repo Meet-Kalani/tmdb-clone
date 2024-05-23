@@ -8,7 +8,7 @@ import {
   LIST_ICON, PLAY_ICON, POSTER_URL, WATCH_PROVIDER_LOGO_BASE_URL,
 } from "../../constants/constants";
 import Rating from "../Rating/Rating";
-import { formatMovieDetails } from "../../utils/helpers";
+import { formatMovieDetails } from "../../helpers/formatMovieDetails";
 import Img from "../Img/Img";
 import Spinner from "../Spinner/Spinner";
 

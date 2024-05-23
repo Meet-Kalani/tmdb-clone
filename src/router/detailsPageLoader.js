@@ -7,7 +7,7 @@ import {
   fetchWatchProviders,
   fetchYoutubeVideo,
 } from "../service/api";
-import { notifyError } from "../utils/helpers";
+import { notifyError } from "../helpers/notifyError";
 
 export default ({ params }) => {
   const { contentType, id } = params;

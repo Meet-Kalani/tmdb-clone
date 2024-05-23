@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { formatDate } from "../../utils/helpers";
+import { formatDate } from "../../helpers/formatDate";
 import style from "./recommendation.module.scss";
 import RecommendationCard from "./RecommendationCard/RecommendationCard";
 import useRecommendationObserver from "../../hooks/useRecommendationsObserver";

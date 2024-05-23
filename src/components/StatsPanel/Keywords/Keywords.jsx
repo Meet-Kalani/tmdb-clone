@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { fetchKeywordsData } from "../../../service/api";
 import style from "./keywords.module.scss";
-import { notifyError } from "../../../utils/helpers";
+import { notifyError } from "../../../helpers/notifyError";
 
 const Keywords = ({ id, contentType }) => {
   const [keywords, setKeywords] = useState({});

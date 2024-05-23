@@ -96,3 +96,27 @@ export const fetchSocialMediaLinks = async (id, contentType) => {
   );
   return res.data;
 };
+
+export const fetchCategoriesContent = async (category, contentType, pageNumber) => {
+  const res = await axios.get(
+    `${BASE_URL}/${contentType}/${category}?page=${pageNumber}`,
+    defaultHeaders,
+  );
+  return res.data;
+};
+
+export const fetchOTTPlatforms = async (contentType, region) => {
+  const res = await axios.get(
+    `${BASE_URL}/watch/providers/${contentType}?watch_region=${region}`,
+    defaultHeaders,
+  );
+  return res.data.results;
+};
+
+export const fetchFilteredContent = async (contentType, url) => {
+  const res = await axios.get(
+    `${BASE_URL}/discover/${contentType}?${url}`,
+    defaultHeaders,
+  );
+  return res.data;
+};

@@ -40,16 +40,18 @@ export const PLAY_ICON = "https://www.themoviedb.org/assets/2/v4/glyphicons/basi
 
 export const WOMAN_GENDER_ID = 1;
 
+export const FLAG_BASE_URL = 'https://raw.githubusercontent.com/SujalShah3234/All-Country-Flags/master';
+
 export const MOBILE_PRIMARY_NAVLINK_DATA = [
   {
     id: 1,
     label: "Movies",
     href: "#",
     nestedLinks: [
-      { id: 1, label: "Popular", href: "#" },
-      { id: 2, label: "Top Rated", href: "#" },
-      { id: 3, label: "Upcoming", href: "#" },
-      { id: 4, label: "Now Playing", href: "#" },
+      { id: 1, label: "Popular", href: "/movie/category/popular" },
+      { id: 4, label: "Top Rated", href: "/movie/category/top_rated" },
+      { id: 3, label: "Upcoming", href: "/movie/category/upcoming" },
+      { id: 2, label: "Now Playing", href: "/movie/category/now_playing" },
     ],
   },
   {
@@ -57,10 +59,10 @@ export const MOBILE_PRIMARY_NAVLINK_DATA = [
     label: "TV Shows",
     href: "#",
     nestedLinks: [
-      { id: 1, label: "Popular", href: "#" },
-      { id: 2, label: "Top Rated", href: "#" },
-      { id: 3, label: "On TV", href: "#" },
-      { id: 4, label: "Airing Today", href: "#" },
+      { id: 1, label: "Popular", href: "/tv/category/popular" },
+      { id: 4, label: "Top Rated", href: "/tv/category/top_rated" },
+      { id: 3, label: "On TV", href: "/tv/category/on_the_air" },
+      { id: 2, label: "Airing Today", href: "/tv/category/airing_today" },
     ],
   },
   {
@@ -86,10 +88,10 @@ export const DESKTOP_PRIMARY_NAVLINK_DATA = [
     label: "Movies",
     href: "#",
     nestedLinks: [
-      { id: 1, label: "Popular", href: "#" },
-      { id: 2, label: "Now Playing", href: "#" },
-      { id: 3, label: "Upcoming", href: "#" },
-      { id: 4, label: "Top Rated", href: "#" },
+      { id: 1, label: "Popular", href: "/movie/category/popular" },
+      { id: 2, label: "Now Playing", href: "/movie/category/now_playing" },
+      { id: 3, label: "Upcoming", href: "/movie/category/upcoming" },
+      { id: 4, label: "Top Rated", href: "/movie/category/top_rated" },
     ],
   },
   {
@@ -97,10 +99,10 @@ export const DESKTOP_PRIMARY_NAVLINK_DATA = [
     label: "TV Shows",
     href: "#",
     nestedLinks: [
-      { id: 1, label: "Popular", href: "#" },
-      { id: 2, label: "Airing Today", href: "#" },
-      { id: 3, label: "On TV", href: "#" },
-      { id: 4, label: "Top Rated", href: "#" },
+      { id: 1, label: "Popular", href: "/tv/category/popular" },
+      { id: 2, label: "Airing Today", href: "/tv/category/airing_today" },
+      { id: 3, label: "On TV", href: "/tv/category/on_the_air" },
+      { id: 4, label: "Top Rated", href: "/tv/category/top_rated" },
     ],
   },
   {

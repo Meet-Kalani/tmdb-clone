@@ -1,0 +1,53 @@
+@use "../../styles" as *;
+
+.dropdown {
+  font-size: 14.4px;
+
+  .selected-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e4e7eb;
+    color: #212529;
+    padding: 6px 12px;
+    border-radius: $border-radius-4;
+    cursor: pointer;
+    height: 36px;
+
+    .arrow-dropdown {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  .options {
+    width: 226px;
+    height: 218px;
+    line-height: 21.6px;
+    position: absolute;
+    z-index: 2;
+    padding: 8px 0;
+    background-color: $color-white;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: $border-radius-4;
+    overflow-y: scroll;
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 24px;
+      cursor: pointer;
+
+      &:hover {
+        color: #16181b;
+        background-color: #f8f9fa;
+      }
+    }
+  }
+}
+
+.active-option {
+  background-color: #f2f2f2;
+  font-weight: $font-weight-600;
+}

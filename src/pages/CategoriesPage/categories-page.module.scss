@@ -1,0 +1,32 @@
+@use "../../styles" as *;
+
+$maxPrimaryPageWidth: 1400px;
+
+.category-page {
+  max-width: $maxPrimaryPageWidth;
+  margin: auto;
+  padding: 30px 40px;
+  min-height: calc(100% - 386px);
+
+  .category-header {
+    margin-bottom: 20px;
+    .category-title {
+      font-weight: $font-weight-600;
+      font-size: 25.6px;
+    }
+  }
+
+  .category-body {
+    display: flex;
+    gap: 30px;
+
+    @include tablet {
+      flex-direction: column;
+      gap: 40px;
+    }
+  }
+
+  @include tablet {
+    padding: 20px;
+  }
+}

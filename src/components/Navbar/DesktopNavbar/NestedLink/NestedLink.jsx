@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import style from "./nested-link.module.scss";
 
 const NestedLink = ({
@@ -10,6 +11,7 @@ const NestedLink = ({
     <a
       className={style.navlink}
       href={href}
+      onClick={(event) => event.preventDefault()}
     >
       {label}
     </a>
@@ -20,9 +22,9 @@ const NestedLink = ({
             className={nestedLabel === "Popular People" ? `${style["nested-navlink-wrapper"]} ${style.popular}` : style["nested-navlink-wrapper"]}
             key={nestedId}
           >
-            <a className={style["nested-navlink"]} href={nestedHref}>
+            <Link className={style["nested-navlink"]} to={nestedHref}>
               {nestedLabel}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>

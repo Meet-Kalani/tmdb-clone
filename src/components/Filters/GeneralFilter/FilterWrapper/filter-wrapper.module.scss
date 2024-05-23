@@ -1,0 +1,60 @@
+@use "../../../../styles" as *;
+
+.filter {
+  border-top: 1px solid #eee;
+  padding: 14px 16px 16px;
+
+  @include flex-column();
+
+  .title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+
+    .title {
+      font-weight: $font-weight-300;
+    }
+
+    .wrapper {
+      position: relative;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      .tooltip {
+        visibility: hidden;
+        width: 170px;
+        background-color: $color-primary;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: -55px;
+        left: -77px;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: black transparent transparent transparent;
+        }
+      }
+
+      .question-mark-icon {
+        opacity: 0.4;
+        width: 16px;
+        height: 16px;
+
+        &:hover + .tooltip {
+          visibility: visible;
+        }
+      }
+    }
+  }
+}
