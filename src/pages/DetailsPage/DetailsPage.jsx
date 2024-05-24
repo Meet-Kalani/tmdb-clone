@@ -43,7 +43,7 @@ const DetailsPage = () => {
   } = resolvedData;
 
   const backdropStyle = {
-    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${encodeURI(BACKDROP_BASE_URL + backdropPath)})`,
+    backgroundImage: `url(${encodeURI(BACKDROP_BASE_URL + backdropPath)})`,
   };
 
   const documentTitle = `${name || originalTitle} (${firstAIRDate?.slice(0, 4) || releaseDate?.slice(0, 4)}) — The Movie Database (TMDB)`;
@@ -63,16 +63,18 @@ const DetailsPage = () => {
             {(results) => (
               <>
                 <div className={style["primary-info"]} style={{ ...backdropStyle }}>
-                  <div className={style["movie-info-wrapper"]}>
-                    <PrimaryInfo
-                      contentType={contentType}
-                      creator={contentType === 'tv' ? results[0].created_by[0].name : undefined}
-                      data={results[0]}
-                      originalTitle={contentType === 'tv' ? results[0].name : results[0].original_title}
-                      releaseDate={contentType === 'tv' ? results[0].first_air_date : results[0].release_date}
-                      watchProvider={results[1]}
-                      youtubeId={results[5]}
-                    />
+                  <div className={style.wrapper}>
+                    <div className={style["movie-info-wrapper"]}>
+                      <PrimaryInfo
+                        contentType={contentType}
+                        creator={contentType === 'tv' ? results[0].created_by[0].name : undefined}
+                        data={results[0]}
+                        originalTitle={contentType === 'tv' ? results[0].name : results[0].original_title}
+                        releaseDate={contentType === 'tv' ? results[0].first_air_date : results[0].release_date}
+                        watchProvider={results[1]}
+                        youtubeId={results[5]}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className={style["secondary-info"]}>

@@ -7,12 +7,20 @@ $maxPrimaryPageWidth: 1400px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left calc((50vw - 170px) - 340px) top;
+
+    .wrapper {
+      background-image: linear-gradient(
+        to right,
+        rgba(31.5, 31.5, 31.5, 1) calc((50vw - 170px) - 340px),
+        rgba(31.5, 31.5, 31.5, 0.84) 50%,
+        rgba(31.5, 31.5, 31.5, 0.84) 100%
+      );
+    }
   }
 
   .movie-info-wrapper {
     max-width: $maxPrimaryPageWidth;
     margin: auto;
-    height: 570px;
 
     @include tablet {
       height: 100%;
