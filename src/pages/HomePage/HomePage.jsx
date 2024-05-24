@@ -9,6 +9,7 @@ import { CONTENT_TYPE } from "../../constants/contentType";
 import { TIME_WINDOW } from "../../constants/timeWindow";
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyError } from "../../helpers/notifyError";
+import Spinner from "../../components/Spinner/Spinner";
 
 const tabsOfPopularList = ["On TV", "In Theaters"];
 const tabsOfTrendingList = ["Today", "This Week"];
@@ -21,7 +22,7 @@ const HomePage = () => {
   const [data, setData] = useState({ popular: [], trending: [] });
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const [trendingResponse, popularResponse] = await Promise.all([
           fetchTrendingData(selectedTab.trending === defaultTrendingTab ? TIME_WINDOW.DAY : TIME_WINDOW.WEEK),
@@ -35,9 +36,7 @@ const HomePage = () => {
       finally {
         setIsLoading({ popular: false, trending: false });
       }
-    };
-
-    fetchData();
+    })();
   }, [selectedTab]);
 
   const handleTabSelection = async (event, type) => {
@@ -45,6 +44,10 @@ const HomePage = () => {
     const currentTab = event.target.value;
     setSelectedTab((prevState) => ({ ...prevState, [type]: currentTab }));
   };
+
+  if (isLoading.popular || isLoading.trending) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -54,7 +57,6 @@ const HomePage = () => {
         <CardList
           data={data.trending}
           handleTabSelection={(event) => handleTabSelection(event, 'trending')}
-          isLoading={isLoading.trending}
           label="Trending"
           selectedTab={selectedTab.trending}
           tabs={tabsOfTrendingList}
@@ -63,7 +65,6 @@ const HomePage = () => {
       <CardList
         data={data.popular}
         handleTabSelection={(event) => handleTabSelection(event, 'popular')}
-        isLoading={isLoading.popular}
         label="What's Popular"
         selectedTab={selectedTab.popular}
         tabs={tabsOfPopularList}
