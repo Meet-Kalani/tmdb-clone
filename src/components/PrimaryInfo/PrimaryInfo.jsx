@@ -21,7 +21,6 @@ const PrimaryInfo = ({
   contentType,
   data,
   youtubeId,
-  // eslint-disable-next-line
   watchProvider,
 }) => {
   const [isIframeVisible, setIsIframeVisible] = useState(false);
@@ -212,6 +211,25 @@ PrimaryInfo.propTypes = {
     origin_country: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   youtubeId: PropTypes.string,
+  watchProvider: PropTypes.shape({
+    IN: PropTypes.shape({
+      flatrate: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      buy: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      ads: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      free: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      rent: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+    }),
+  }).isRequired,
 };
 
 PrimaryInfo.defaultProps = {
