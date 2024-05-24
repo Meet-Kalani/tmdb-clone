@@ -21,32 +21,30 @@ const Recommendation = lazy(() => import("../../components/Recommendation/Recomm
 
 const DetailsPage = () => {
   const data = useLoaderData();
-  const [documentTitleData, setDocumentTitleData] = useState({});
-
+  const [resolvedData, setResolvedData] = useState({});
   const { id, contentType } = useParams();
-
-  const backdropStyle = {
-    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${encodeURI(BACKDROP_BASE_URL + data.backdrop_path)})`,
-  };
-
-  const creatorName = data?.created_by?.[0]?.name ?? undefined;
   const parsedId = parseInt(id, 10);
 
   useEffect(() => {
     (async () => {
-      const resolvedData = await data.results;
-      setDocumentTitleData({
-        name: resolvedData[0].name,
-        originalTitle: resolvedData[0].original_title,
-        firstAIRDate: resolvedData[0].first_air_date,
-        releaseDate: resolvedData[0].release_date,
+      const resolved = await data.results;
+      setResolvedData({
+        name: resolved[0].name,
+        originalTitle: resolved[0].original_title,
+        firstAIRDate: resolved[0].first_air_date,
+        releaseDate: resolved[0].release_date,
+        backdropPath: resolved[0].backdrop_path,
       });
     })();
   }, [data]);
 
   const {
-    name, originalTitle, firstAIRDate, releaseDate,
-  } = documentTitleData;
+    name, originalTitle, firstAIRDate, releaseDate, backdropPath,
+  } = resolvedData;
+
+  const backdropStyle = {
+    background: `linear-gradient(to right, rgb(32, 32, 32) calc(-510px + 50vw), rgba(32, 32, 32, 0.84) 50%, rgba(32, 32, 32, 0.84) 100%), url(${encodeURI(BACKDROP_BASE_URL + backdropPath)})`,
+  };
 
   const documentTitle = `${name || originalTitle} (${firstAIRDate?.slice(0, 4) || releaseDate?.slice(0, 4)}) — The Movie Database (TMDB)`;
   useTitle(documentTitle);
@@ -68,10 +66,10 @@ const DetailsPage = () => {
                   <div className={style["movie-info-wrapper"]}>
                     <PrimaryInfo
                       contentType={contentType}
-                      creator={contentType === 'tv' ? creatorName : undefined}
+                      creator={contentType === 'tv' ? results[0].created_by[0].name : undefined}
                       data={results[0]}
-                      originalTitle={contentType === 'tv' ? name : originalTitle}
-                      releaseDate={contentType === 'tv' ? firstAIRDate : releaseDate}
+                      originalTitle={contentType === 'tv' ? results[0].name : results[0].original_title}
+                      releaseDate={contentType === 'tv' ? results[0].first_air_date : results[0].release_date}
                       watchProvider={results[1]}
                       youtubeId={results[5]}
                     />
