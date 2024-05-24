@@ -1,0 +1,31 @@
+@use "../../styles" as *;
+
+.cast-card {
+  display: flex;
+  gap: 24px;
+
+  .cast-profile-container {
+    background-color: $color-placeholder;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 66px;
+    height: 66px;
+    border-radius: $border-radius-8;
+    overflow: hidden;
+  }
+
+  .cast-info-container {
+    @include flex-column();
+    justify-content: center;
+    height: 68px;
+
+    .cast-original-name {
+      font-weight: $font-weight-700;
+    }
+
+    .cast-character-name {
+      font-size: 14.4px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@use "../../styles" as *;
+
+.wrapper {
+  @include flex-column();
+  gap: 10px;
+  margin-bottom: 30px;
+
+  .department-title {
+    font-weight: $font-weight-700;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

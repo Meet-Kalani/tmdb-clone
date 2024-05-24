@@ -46,6 +46,33 @@
       pointer-events: none;
     }
 
+    .view-more {
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+
+      .view-more-link {
+        text-decoration: none;
+        font-weight: 700;
+        color: $color-black;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &:hover {
+          color: rgba(0, 0, 0, 0.5);
+        }
+
+        .right-arrow {
+          background-image: url(https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-830-arrow-thin-right-5c2f4e65afc985448cd9042f9d64426f1e002fbd3c2546053d190fa27f77600f.svg);
+          width: 18px;
+          height: 18px;
+          display: inline-block;
+        }
+      }
+    }
+
     @include laptop {
       padding-left: 20px;
       padding-right: 20px;

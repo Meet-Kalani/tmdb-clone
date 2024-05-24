@@ -62,7 +62,7 @@ export const fetchCastData = async (id, contentType) => {
     `${BASE_URL}/${contentType}/${id}/credits`,
     defaultHeaders,
   );
-  return res.data.cast;
+  return res.data;
 };
 
 export const fetchKeywordsData = async (id, contentType) => {

@@ -4,10 +4,12 @@ import {
 import HomePage from "../pages/HomePage/HomePage";
 import DetailsPage from "../pages/DetailsPage/DetailsPage";
 import CategoriesPage from "../pages/CategoriesPage/CategoriesPage";
+import CastPage from "../pages/CastPage/CastPage";
 import Error from "../pages/ErrorPage/ErrorPage";
 import NotFound from "../pages/NotFound/NotFound";
 import RootLayout from "../layout/RootLayout";
 import detailsPageLoader from "./detailsPageLoader";
+import castPageLoader from "./castPageLoader";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,12 @@ const router = createBrowserRouter([
       path: ":contentType/category/:category",
       element: <CategoriesPage />,
       errorElement: <NotFound />,
+    },
+    {
+      path: ":contentType/:id/cast",
+      element: <CastPage />,
+      errorElement: <NotFound />,
+      loader: castPageLoader,
     },
     {
       path: "error",

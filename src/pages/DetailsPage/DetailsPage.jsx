@@ -15,7 +15,7 @@ import CurrentSeason from "../../components/CurrentSeason/CurrentSeason";
 import { BACKDROP_BASE_URL } from "../../constants/constants";
 import useTitle from "../../hooks/useTitle";
 import Spinner from "../../components/Spinner/Spinner";
-import Error from "../ErrorPage/ErrorPage";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const Recommendation = lazy(() => import("../../components/Recommendation/Recommendation"));
 
@@ -59,7 +59,7 @@ const DetailsPage = () => {
           <Await
             resolve={data.results}
             errorElement={
-              <Error />
+              <ErrorPage />
           }
           >
             {(results) => (
@@ -79,7 +79,7 @@ const DetailsPage = () => {
                 </div>
                 <div className={style["secondary-info"]}>
                   <div className={style.wrapper}>
-                    <CastInfo castData={results[2].slice(0, 9)} />
+                    <CastInfo castData={results[2].cast} contentType={contentType} id={parsedId} />
                     {(contentType === 'tv')
                       ? (
                         <CurrentSeason data={results[0].seasons.at(-1)} />

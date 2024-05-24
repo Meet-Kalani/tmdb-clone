@@ -3,7 +3,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import useTitle from "../../hooks/useTitle";
 import style from "./error-page.module.scss";
 
-const NotFound = () => {
+const ErrorPage = () => {
   useTitle('Something went wrong!');
   return (
     <div className={style['error-page']}>
@@ -25,4 +25,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default ErrorPage;
