@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import style from "./cast-page.module.scss";
 import CastCard from "../../components/CastCard/CastCard";
 import Spinner from "../../components/Spinner/Spinner";
-import { CREW_DEPARTMENTS } from "../../utils/crewDepartments";
+import { CREW_DEPARTMENTS } from "../../constants/crewDepartments";
 import CrewDepartment from "../../components/CrewDepartment/CrewDepartment";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import useTitle from "../../hooks/useTitle";

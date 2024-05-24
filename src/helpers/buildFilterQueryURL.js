@@ -1,5 +1,5 @@
-import { AVAILABILITIES } from "../utils/availabilities";
-import { RELEASE_TYPES } from "../utils/releaseTypes";
+import { AVAILABILITIES } from "../constants/availabilities";
+import { RELEASE_TYPES } from "../constants/releaseTypes";
 
 export const buildFilterQueryURL = (
   selectedFilters,

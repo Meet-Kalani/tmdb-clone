@@ -6,7 +6,7 @@ import {
 import style from "./categories-page.module.scss";
 import Filters from "../../components/Filters/Filters";
 import CategoryList from "../../components/CategoryList/CategoryList";
-import { CATEGORY_TITLE } from "../../utils/categoryTitle";
+import { CATEGORY_TITLE } from "../../constants/categoryTitle";
 import useTitle from "../../hooks/useTitle";
 import {
   fetchCategoriesContent, fetchFilteredContent, fetchOTTPlatforms,
@@ -15,8 +15,8 @@ import { notifyError } from "../../helpers/notifyError";
 import { removeDuplicates } from "../../helpers/removeDuplicates";
 import { getReleaseDate } from "../../helpers/getReleaseDate";
 import { buildFilterQueryURL } from "../../helpers/buildFilterQueryURL";
-import { AVAILABILITIES } from "../../utils/availabilities";
-import { RELEASE_TYPES } from "../../utils/releaseTypes";
+import { AVAILABILITIES } from "../../constants/availabilities";
+import { RELEASE_TYPES } from "../../constants/releaseTypes";
 import SelectedFilterContext from "./context";
 import Spinner from "../../components/Spinner/Spinner";
 

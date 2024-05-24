@@ -3,6 +3,8 @@
 $maxPrimaryPageWidth: 1400px;
 
 .cast-page {
+  min-height: calc(100% - 386px);
+
   .cast-page-header {
     background-color: #243938;
     color: $color-white;
@@ -89,7 +91,6 @@ $maxPrimaryPageWidth: 1400px;
     margin: auto;
     display: flex;
     padding: 30px 40px;
-    min-height: calc(100% - 386px);
 
     .cast,
     .crew {

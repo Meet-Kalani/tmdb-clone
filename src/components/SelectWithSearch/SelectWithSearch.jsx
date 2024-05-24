@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import style from "./select-with-search.module.scss";
 import { FLAG_BASE_URL } from "../../constants/constants";
-import { OTT_REGIONS } from "../../utils/ottRegions";
+import { OTT_REGIONS } from "../../constants/ottRegions";
 
 const SelectWithSearch = ({ defaultCountry, toggleCountry }) => {
   const [selectedCountry, setSelectedCountry] = useState({

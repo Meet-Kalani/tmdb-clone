@@ -5,7 +5,8 @@ import Hero from "../../components/Hero/Hero";
 import CardList from "../../components/CardList/CardList";
 import style from "./home-page.module.scss";
 import { fetchPopularData, fetchTrendingData } from "../../service/api";
-import { CONTENT_TYPE, TIME_WINDOW } from "../../constants/constants";
+import { CONTENT_TYPE } from "../../constants/contentType";
+import { TIME_WINDOW } from "../../constants/timeWindow";
 import 'react-toastify/dist/ReactToastify.css';
 import { notifyError } from "../../helpers/notifyError";
 

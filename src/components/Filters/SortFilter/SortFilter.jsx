@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import style from "./sort-filter.module.scss";
 import SelectedFilterContext from "../../../pages/CategoriesPage/context";
 import DropDown from "../../DropDown/DropDown";
-import { SORT_OPTIONS } from "../../../utils/sortOptions";
+import { SORT_OPTIONS } from "../../../constants/sortOptions";
 
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);

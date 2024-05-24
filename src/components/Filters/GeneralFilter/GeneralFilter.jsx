@@ -1,16 +1,16 @@
 import { useContext, useState } from "react";
 import SelectedFilterContext from "../../../pages/CategoriesPage/context";
-import { LANGUAGES } from "../../../utils/languages";
+import { LANGUAGES } from "../../../constants/languages";
 import style from "./general-filter.module.scss";
 import {
   MINIMUM_USER_VOTES_MARKS,
   RUNTIME_MARKS,
   USER_SCORE_MARKS,
-} from '../../../utils/filterSliderDefaults';
-import { AVAILABILITIES } from "../../../utils/availabilities";
-import { RELEASE_TYPES } from "../../../utils/releaseTypes";
-import { MOVIE_CERTIFICATIONS, TV_CERTIFICATIONS } from "../../../utils/certifications";
-import { MOVIE_GENRES, TV_GENRES } from "../../../utils/genres";
+} from '../../../constants/filterSliderDefaults';
+import { AVAILABILITIES } from "../../../constants/availabilities";
+import { RELEASE_TYPES } from "../../../constants/releaseTypes";
+import { MOVIE_CERTIFICATIONS, TV_CERTIFICATIONS } from "../../../constants/certifications";
+import { MOVIE_GENRES, TV_GENRES } from "../../../constants/genres";
 import FilterWrapper from "./FilterWrapper/FilterWrapper";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import List from "./List/List";
