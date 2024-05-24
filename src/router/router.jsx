@@ -9,6 +9,7 @@ import Error from "../pages/ErrorPage/ErrorPage";
 import NotFound from "../pages/NotFound/NotFound";
 import RootLayout from "../layout/RootLayout";
 import detailsPageLoader from "./detailsPageLoader";
+import castPageLoader from "./castPageLoader";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
       path: ":contentType/:id/cast",
       element: <CastPage />,
       errorElement: <NotFound />,
+      loader: castPageLoader,
     },
     {
       path: "error",

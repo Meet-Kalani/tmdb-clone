@@ -40,6 +40,8 @@ export const PLAY_ICON = "https://www.themoviedb.org/assets/2/v4/glyphicons/basi
 
 export const CAST_AND_CREW_PROFILE_BASE_URL = "https://media.themoviedb.org/t/p/w66_and_h66_face";
 
+export const CAST_PAGE_POSTER_BASE_URL = "https://media.themoviedb.org/t/p/w58_and_h87_face";
+
 export const WOMAN_GENDER_ID = 1;
 
 export const FLAG_BASE_URL = 'https://raw.githubusercontent.com/SujalShah3234/All-Country-Flags/master';

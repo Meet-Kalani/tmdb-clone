@@ -3,52 +3,135 @@
 $maxPrimaryPageWidth: 1400px;
 
 .cast-page {
-  max-width: $maxPrimaryPageWidth;
-  margin: auto;
-  display: flex;
-  padding: 30px 40px;
-  min-height: calc(100% - 386px);
+  .cast-page-header {
+    background-color: #243938;
+    color: $color-white;
+    height: 117px;
 
-  .cast,
-  .crew {
-    flex: 1;
-    .cast-title,
-    .crew-title {
-      font-size: 22.4px;
-      font-weight: $font-weight-600;
-      margin-bottom: 20px;
+    .wrapper {
+      padding: 15px 40px;
+      display: flex;
+      gap: 20px;
+      max-width: $maxPrimaryPageWidth;
+      margin: auto;
 
-      .cast-count,
-      .crew-count {
-        font-weight: $font-weight-400;
-        opacity: 0.6;
+      .poster-wrapper {
+        width: 58px;
+        height: 87px;
+        border-radius: $border-radius-4;
+        overflow: hidden;
+      }
+
+      .header-content {
+        @include flex-column();
+        justify-content: center;
+
+        .title-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .title {
+            font-size: 35.2px;
+            cursor: pointer;
+
+            @include tablet {
+              font-size: 25.6px;
+            }
+
+            .title-link {
+              text-decoration: none;
+              color: $color-white;
+
+              &:hover {
+                color: rgba(255, 255, 255, 0.7);
+              }
+            }
+          }
+
+          .release-year {
+            font-size: 35.2px;
+            opacity: 0.8;
+            font-weight: $font-weight-400;
+
+            @include tablet {
+              font-size: 20.48px;
+            }
+          }
+        }
+
+        .details-link {
+          width: fit-content;
+          color: $color-white;
+          text-decoration: none;
+          font-size: 17.6px;
+          font-weight: $font-weight-600;
+          opacity: 0.6;
+
+          &:hover {
+            color: rgba(255, 255, 255, 0.7);
+          }
+        }
       }
 
       @include tablet {
-        font-size: 19.2px;
+        padding: 0;
       }
     }
 
     @include tablet {
-      padding: 20px;
+      padding: 15px 20px;
     }
   }
 
-  .cast {
-    .cards-container {
-      @include flex-column();
-      gap: 10px;
-    }
-  }
+  .cast-page-content {
+    max-width: $maxPrimaryPageWidth;
+    margin: auto;
+    display: flex;
+    padding: 30px 40px;
+    min-height: calc(100% - 386px);
 
-  .crew {
+    .cast,
+    .crew {
+      flex: 1;
+      .cast-title,
+      .crew-title {
+        font-size: 22.4px;
+        font-weight: $font-weight-600;
+        margin-bottom: 20px;
+
+        .cast-count,
+        .crew-count {
+          font-weight: $font-weight-400;
+          opacity: 0.6;
+        }
+
+        @include tablet {
+          font-size: 19.2px;
+        }
+      }
+
+      @include tablet {
+        padding: 20px;
+      }
+    }
+
+    .cast {
+      .cards-container {
+        @include flex-column();
+        gap: 10px;
+      }
+    }
+
+    .crew {
+      @include tablet {
+        border-top: 1px solid #d7d7d7;
+      }
+    }
+
     @include tablet {
-      border-top: 1px solid #d7d7d7;
+      flex-direction: column;
+      padding: 0;
     }
-  }
-
-  @include tablet {
-    flex-direction: column;
-    padding: 0;
   }
 }

@@ -15,7 +15,7 @@ import CurrentSeason from "../../components/CurrentSeason/CurrentSeason";
 import { BACKDROP_BASE_URL } from "../../constants/constants";
 import useTitle from "../../hooks/useTitle";
 import Spinner from "../../components/Spinner/Spinner";
-import Error from "../ErrorPage/ErrorPage";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const Recommendation = lazy(() => import("../../components/Recommendation/Recommendation"));
 
@@ -59,7 +59,7 @@ const DetailsPage = () => {
           <Await
             resolve={data.results}
             errorElement={
-              <Error />
+              <ErrorPage />
           }
           >
             {(results) => (
