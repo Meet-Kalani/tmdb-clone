@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import style from "./filter-wrapper.module.scss";
 
-const FilterWrapper = ({ title, tooltipMessage, children }) => (
-  <div className={style.filter}>
+const FilterWrapper = ({
+  title, tooltipMessage, className, children,
+}) => (
+  <div className={`${style.filter} ${className}`}>
     <div className={style['title-wrapper']}>
       <h4 className={style.title}>
         {title}
@@ -24,10 +26,12 @@ FilterWrapper.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   tooltipMessage: PropTypes.string,
+  className: PropTypes.string,
 };
 
 FilterWrapper.defaultProps = {
   tooltipMessage: undefined,
+  className: undefined,
 };
 
 export default FilterWrapper;

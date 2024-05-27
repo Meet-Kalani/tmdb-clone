@@ -94,7 +94,7 @@ const SortFilter = () => {
         />
       </div>
       <div className={isVisible ? style["filter-content"] : style.hidden}>
-        <FilterWrapper title="Show Me" tooltipMessage="Log in to filter items you've watched.">
+        <FilterWrapper className={style['show-me-wrapper']} title="Show Me" tooltipMessage="Log in to filter items you've watched.">
           <label className={style.label} htmlFor="all">
             <input className={style['radio-input']} id="all" type="radio" defaultChecked />
             Everything

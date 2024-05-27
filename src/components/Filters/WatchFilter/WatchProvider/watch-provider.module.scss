@@ -6,4 +6,10 @@
   flex-wrap: wrap;
   row-gap: 10px;
   column-gap: 6px;
+  justify-content: space-between;
+
+  &::after {
+    content: "";
+    flex: auto;
+  }
 }

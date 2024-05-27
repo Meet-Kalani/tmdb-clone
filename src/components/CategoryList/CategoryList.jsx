@@ -13,7 +13,7 @@ const CategoryList = ({
       loadMore={() => fetchData(false)}
     >
       {data.results.length ? data.results.map(({
-        id, release_date: releaseDate, first_air_date: firstAIRDate, original_name: originalName, original_title: originalTitle, poster_path: posterPath, vote_average: voteAverage,
+        id, release_date: releaseDate, first_air_date: firstAIRDate, original_name: originalName, title: originalTitle, poster_path: posterPath, vote_average: voteAverage,
       }) => (
         <CategoryCard
           contentType={contentType}
