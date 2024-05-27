@@ -1,3 +1,5 @@
+@use "./constants" as *;
+
 @mixin flex-column() {
   display: flex;
   flex-direction: column;
@@ -7,6 +9,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin image-placeholder($bg-size, $image-url: null) {
+  background-color: $color-placeholder;
+
+  @if $image-url {
+    background-image: url($image-url);
+  }
+
+  background-size: $bg-size;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @mixin tablet() {
