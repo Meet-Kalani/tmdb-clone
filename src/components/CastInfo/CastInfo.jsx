@@ -5,7 +5,7 @@ import CastCard from "./CastCard/CastCard";
 
 const CastInfo = ({ castData, contentType, id }) => (
   <div className={style["cast-info"]}>
-    <h3 className={style.title}>Top Billed Cast</h3>
+    <h3 className={style.title}>{contentType === 'tv' ? 'Series Cast' : 'Top Billed Cast'}</h3>
     <div className={style["cast-card-container"]}>
       {
         castData.slice(0, 9).map(({
@@ -30,6 +30,12 @@ const CastInfo = ({ castData, contentType, id }) => (
         </Link>
       </div>
     </div>
+    <Link
+      className={style['full-cast-link']}
+      to={`/${contentType}/${id}/cast`}
+    >
+      Full Cast & Crew
+    </Link>
   </div>
 );
 

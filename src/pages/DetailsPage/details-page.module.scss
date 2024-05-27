@@ -34,20 +34,19 @@ $maxPrimaryPageWidth: 1400px;
     padding: 30px 40px;
 
     .wrapper {
-      max-width: 1052px;
+      max-width: calc($maxPrimaryPageWidth - 80px - 268px);
+      width: calc(100vw - 80px - 268px);
       padding-right: 30px;
-      width: 100%;
 
       @include laptop {
         padding-right: 0;
+        max-width: 100%;
+        width: 100%;
       }
     }
 
-    @include big-screen {
-      flex-direction: column;
-    }
-
     @include laptop {
+      flex-direction: column;
       padding: 0;
     }
   }

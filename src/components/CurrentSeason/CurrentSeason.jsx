@@ -5,10 +5,11 @@ import Img from "../Img/Img";
 
 const CurrentSeason = ({ data }) => {
   const {
-    air_date: airDate, episode_count: episodeCount, name, overview, poster_path: posterPath, rating,
+    air_date: airDate, episode_count: episodeCount, name, overview, poster_path: posterPath, vote_average: voteAverage,
   } = data;
 
   const airYear = airDate ? airDate.slice(0, 4) : null;
+  const rating = Math.floor(voteAverage * 10);
 
   return (
     <div className={style["current-season"]}>
@@ -41,7 +42,7 @@ const CurrentSeason = ({ data }) => {
               {`${episodeCount} Episodes`}
             </span>
           </div>
-          <p className={style.overview}>{overview}</p>
+          {overview ? <p className={style.overview}>{overview}</p> : undefined}
         </div>
       </div>
     </div>
@@ -55,7 +56,7 @@ CurrentSeason.propTypes = {
     name: PropTypes.string,
     overview: PropTypes.string,
     poster_path: PropTypes.string,
-    rating: PropTypes.number,
+    vote_average: PropTypes.number,
   }).isRequired,
 };
 

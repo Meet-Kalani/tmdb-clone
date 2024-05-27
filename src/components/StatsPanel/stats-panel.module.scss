@@ -1,7 +1,7 @@
 @use "../../styles" as *;
 
 .stats-panel {
-  max-width: 300px;
+  max-width: 260px;
 
   .wrapper {
     margin-bottom: 20px;
@@ -16,9 +16,5 @@
   @include laptop {
     max-width: 100%;
     padding: 20px;
-  }
-
-  @include big-screen {
-    padding-top: 20px;
   }
 }

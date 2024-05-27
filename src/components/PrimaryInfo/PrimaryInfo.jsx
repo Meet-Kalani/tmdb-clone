@@ -109,7 +109,7 @@ const PrimaryInfo = ({
           </div>
           <div className={style['rating-wrapper']}>
             <div className={style["rating-container"]}>
-              <Rating rating={rating} size={68} />
+              <Rating rating={rating} size={60} />
               <span className={style["rating-title"]}>
                 User
                 {' '}
@@ -119,7 +119,7 @@ const PrimaryInfo = ({
               </span>
             </div>
           </div>
-          <div className={style.wrapper}>
+          <div className={style.actions}>
             <div className={style.action}>
               <Img
                 alt="list icon"
@@ -144,32 +144,32 @@ const PrimaryInfo = ({
                 src={BOOKMARK_ICON}
               />
             </div>
-            {contentType === 'movie' && (
-            <div
-              className={style["play-link-container"]}
-              role="button"
-              tabIndex={0}
-              onClick={handlePlayTrailer}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  handlePlayTrailer();
-                }
-              }}
-            >
-              <Img
-                alt="play icon"
-                className={style["play-icon"]}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/22x22.png?text=!"
-                src={PLAY_ICON}
-              />
-              <button className={style["play-link"]} type="button">
-                Play Trailer
-              </button>
-            </div>
-            )}
+            {youtubeId ? (
+              <div
+                className={style["play-link-container"]}
+                role="button"
+                tabIndex={0}
+                onClick={handlePlayTrailer}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    handlePlayTrailer();
+                  }
+                }}
+              >
+                <Img
+                  alt="play icon"
+                  className={style["play-icon"]}
+                  fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/22x22.png?text=!"
+                  src={PLAY_ICON}
+                />
+                <button className={style["play-link"]} type="button">
+                  Play Trailer
+                </button>
+              </div>
+            ) : null}
           </div>
           <div className={style["overview-container"]}>
-            {contentType === 'movie' && <span className={style.tagline}>{tagLine}</span>}
+            <span className={style.tagline}>{tagLine}</span>
             <span className={style["overview-title"]}>Overview</span>
             <p className={style.overview}>{overview}</p>
           </div>
