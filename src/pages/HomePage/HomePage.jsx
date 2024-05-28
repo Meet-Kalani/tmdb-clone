@@ -40,7 +40,6 @@ const HomePage = () => {
   }, [selectedTab]);
 
   const handleTabSelection = async (event, type) => {
-    setIsLoading((prevState) => ({ ...prevState, [type]: true }));
     const currentTab = event.target.value;
     setSelectedTab((prevState) => ({ ...prevState, [type]: currentTab }));
   };
