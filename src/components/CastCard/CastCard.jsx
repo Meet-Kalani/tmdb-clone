@@ -17,9 +17,7 @@ const CastCard = ({
   return (
     <div className={style['cast-card']}>
       <div className={style['cast-profile-container']} style={wrapperStyle}>
-        {
-          profilePath ? <Img alt={name} className={style['cast-profile']} src={`${CAST_AND_CREW_PROFILE_BASE_URL}${profilePath}`} /> : undefined
-        }
+        <Img alt={name} className={style['cast-profile']} src={`${CAST_AND_CREW_PROFILE_BASE_URL}${profilePath}`} />
       </div>
       <div className={style['cast-info-container']}>
         <span className={style['cast-original-name']}>

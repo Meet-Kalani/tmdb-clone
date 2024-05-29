@@ -17,7 +17,6 @@ const SocialMediaLinks = ({
     >
       <Img
         alt="facebook icon"
-        fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/30x30.png?text=!"
         src={FACEBOOK_ICON}
       />
     </Link>
@@ -27,7 +26,6 @@ const SocialMediaLinks = ({
     >
       <Img
         alt="twitter icon"
-        fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/30x30.png?text=!"
         src={TWITTER_ICON}
       />
     </Link>
@@ -38,7 +36,6 @@ const SocialMediaLinks = ({
     >
       <Img
         alt="instagram icon"
-        fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/30x30.png?text=!"
         src={INSTAGRAM_ICON}
       />
     </Link>
@@ -50,7 +47,6 @@ const SocialMediaLinks = ({
     >
       <Img
         alt="link icon"
-        fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/30x30.png?text=!"
         src={LINK_ICON}
       />
     </Link>

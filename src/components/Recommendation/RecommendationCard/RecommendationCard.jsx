@@ -34,16 +34,11 @@ const RecommendationCard = ({
           }
         }}
       >
-        {
-          backdropPath ? (
-            <Img
-              alt={originalTitle}
-              className={style["recommendation-image"]}
-              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/250x141.png?text=Not+Found!"
-              src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
-            />
-          ) : undefined
-        }
+        <Img
+          alt={originalTitle}
+          className={style["recommendation-image"]}
+          src={`${RECOMMENDATION_BASE_URL}${backdropPath}`}
+        />
         <div className={style["hidden-container"]}>
           <span className={style["calendar-icon"]} />
           <span className={style["recommendation-relase_date"]}>

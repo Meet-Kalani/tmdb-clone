@@ -20,7 +20,6 @@ const CurrentSeason = ({ data }) => {
         <div className={style["poster-container"]}>
           <Img
             alt={`Poster of ${name}`}
-            fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/130x195.png?text=Not+Found!"
             src={`${CURRENT_SEASON_POSTER_BASE_URL}${posterPath}`}
           />
         </div>

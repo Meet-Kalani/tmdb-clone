@@ -52,7 +52,6 @@ const PrimaryInfo = ({
           <Img
             alt="Movie poster"
             className={`${style.poster} ${!watchProviderSlug && style['poster-border']}`}
-            fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/138x175.png?text=Not+Found!"
             src={`${POSTER_URL}${posterPath}`}
           />
           {watchProvider && watchProviderSlug ? (
@@ -60,7 +59,6 @@ const PrimaryInfo = ({
               <Img
                 alt="logo of the watch provider"
                 className={style["watch-provider-logo"]}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/36x36.png?text=!"
                 src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderSlug}`}
               />
               <div className={style["watch-provider-link-wrapper"]}>
@@ -124,7 +122,6 @@ const PrimaryInfo = ({
               <Img
                 alt="list icon"
                 className={style.icon}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!"
                 src={LIST_ICON}
               />
             </div>
@@ -132,7 +129,6 @@ const PrimaryInfo = ({
               <Img
                 alt="like icon"
                 className={style.icon}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!"
                 src={LIKE_ICON}
               />
             </div>
@@ -140,7 +136,6 @@ const PrimaryInfo = ({
               <Img
                 alt="bookmark icon"
                 className={style.icon}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!"
                 src={BOOKMARK_ICON}
               />
             </div>
@@ -159,7 +154,6 @@ const PrimaryInfo = ({
                 <Img
                   alt="play icon"
                   className={style["play-icon"]}
-                  fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/22x22.png?text=!"
                   src={PLAY_ICON}
                 />
                 <button className={style["play-link"]} type="button">

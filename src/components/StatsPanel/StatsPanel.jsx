@@ -32,7 +32,6 @@ const StatsPanel = ({
             <span className={style.label}>Networks</span>
             <Img
               alt="Network Logo"
-              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/30x30.png?text=!"
               src={`${NETWORKS_LOGO_BASE_URL}${networks[0].logo_path}`}
             />
           </div>
