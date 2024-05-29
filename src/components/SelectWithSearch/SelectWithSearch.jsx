@@ -43,7 +43,7 @@ const SelectWithSearch = ({ defaultCountry, toggleCountry }) => {
           </span>
         </div>
         <div>
-          <img alt="drop down arrow" className={style['arrow-dropdown']} src="/dropdown-arrow.png" />
+          <img alt="drop down arrow" className={style['arrow-dropdown']} src="/images/dropdown-arrow.png" />
         </div>
       </div>
       {
@@ -56,7 +56,7 @@ const SelectWithSearch = ({ defaultCountry, toggleCountry }) => {
                 value={countryInput}
                 onChange={(event) => setCountryInput(event.target.value)}
               />
-              <img alt="search icon" className={style['search-icon']} src="/search-icon.png" />
+              <img alt="search icon" className={style['search-icon']} src="/images/search-icon.png" />
             </div>
             <ul className={style['country-list']}>
               {

@@ -65,7 +65,7 @@ const DetailsPage = () => {
                     <div className={style["movie-info-wrapper"]}>
                       <PrimaryInfo
                         contentType={contentType}
-                        creator={contentType === 'tv' ? primaryInfo.created_by[0].name : undefined}
+                        creator={contentType === 'tv' ? primaryInfo.created_by[0]?.name : undefined}
                         data={primaryInfo}
                         originalTitle={contentType === 'tv' ? primaryInfo.name : primaryInfo.original_title}
                         releaseDate={contentType === 'tv' ? primaryInfo.first_air_date : primaryInfo.release_date}
