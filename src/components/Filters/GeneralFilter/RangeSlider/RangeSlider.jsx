@@ -10,6 +10,11 @@ const RangeSlider = ({
       width: 14,
       height: 14,
     },
+
+    '& .MuiSlider-mark': {
+      backgroundColor: "currentColor !important",
+      height: "10px !important",
+    },
   };
 
   const valueArray = value.lte ? [value.gte, value.lte] : [value.gte];

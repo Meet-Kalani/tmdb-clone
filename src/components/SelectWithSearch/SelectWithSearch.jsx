@@ -56,7 +56,7 @@ const SelectWithSearch = ({ defaultCountry, toggleCountry }) => {
                 value={countryInput}
                 onChange={(event) => setCountryInput(event.target.value)}
               />
-              <img alt="search icon" className={style['search-icon']} src="/images/search-icon.png" />
+              <img alt="search icon" className={style['search-icon']} src="/images/search-icon.svg" />
             </div>
             <ul className={style['country-list']}>
               {
