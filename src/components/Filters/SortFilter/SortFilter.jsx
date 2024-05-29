@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import style from "./sort-filter.module.scss";
 import SelectedFilterContext from "../../../pages/CategoriesPage/context";
 import DropDown from "../../DropDown/DropDown";
-import { SORT_OPTIONS } from "../../../constants/sortOptions";
+import { SORT_OPTIONS_MOVIE, SORT_OPTIONS_TV } from "../../../constants/sortOptions";
 
 const SortFilter = () => {
+  const { contentType } = useParams();
   const [isVisible, setIsVisible] = useState(false);
   const { sort, toggleSort } = useContext(SelectedFilterContext);
 
@@ -39,7 +41,7 @@ const SortFilter = () => {
           <span className={style["filter-content-title"]}>
             Sort Results By
           </span>
-          <DropDown options={SORT_OPTIONS} selectedOption={sort} toggleOption={toggleSort} />
+          <DropDown options={contentType === 'tv' ? SORT_OPTIONS_TV : SORT_OPTIONS_MOVIE} selectedOption={sort} toggleOption={toggleSort} />
         </div>
       </div>
     </div>

@@ -19,6 +19,8 @@ export const buildFilterQueryURL = (
     minimumUserVotes,
     runtime,
     releaseDate,
+    airDate,
+    firstAirDate,
   } = selectedFilters;
 
   const availabilityArray = Array.from(availabilities);
@@ -43,6 +45,10 @@ export const buildFilterQueryURL = (
   if (formattedReleaseTypes && releaseTypesArray.length !== releaseTypesCount) params.push(`with_release_type=${formattedReleaseTypes}`);
   if (releaseDate.lte) params.push(`release_date.lte=${releaseDate.lte}`);
   if (releaseDate.gte) params.push(`release_date.gte=${releaseDate.gte}`);
+  if (airDate.lte) params.push(`air_date.lte=${airDate.lte}`);
+  if (airDate.gte) params.push(`air_date.gte=${airDate.gte}`);
+  if (firstAirDate.lte) params.push(`first_air_date.lte=${firstAirDate.lte}`);
+  if (firstAirDate.gte) params.push(`first_air_date.gte=${firstAirDate.gte}`);
   if (language && language !== "xx") params.push(`with_original_language=${language}`);
   params.push(`vote_average.gte=${userScore.gte}&vote_average.lte=${userScore.lte}`);
   params.push(`vote_count.gte=${minimumUserVotes.gte}`);

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import style from "./watch-element.module.scss";
 import { WATCH_PROVIDER_LOGO_BASE_URL } from "../../../../../constants/constants";
 import SelectedFilterContext from '../../../../../pages/CategoriesPage/context';
@@ -7,7 +7,7 @@ import SelectedFilterContext from '../../../../../pages/CategoriesPage/context';
 const WatchElement = ({ watchProvider }) => {
   const [isCheckVisible, setIsCheckVisible] = useState(false);
 
-  const { toggleWatchProviders } = useContext(SelectedFilterContext);
+  const { watchProvidersList, toggleWatchProviders } = useContext(SelectedFilterContext);
   const { provider_name: providerName, logo_path: logoPath, provider_id: id } = watchProvider;
 
   const toggleWatchProvider = () => {
@@ -16,12 +16,16 @@ const WatchElement = ({ watchProvider }) => {
     toggleWatchProviders(id);
   };
 
+  useEffect(() => {
+    setIsCheckVisible(false);
+  }, [watchProvidersList]);
+
   return (
     <li className={style['watch-element']}>
       <img alt={providerName} className={style['watch-provider-logo']} src={`${WATCH_PROVIDER_LOGO_BASE_URL}${logoPath}`} />
       <span className={style.tooltip}>{providerName}</span>
       <div
-        className={`${style['check-icon-container']} ${isCheckVisible ? style['check-visible'] : undefined}`}
+        className={`${style['check-icon-container']} ${isCheckVisible && style['check-visible']}`}
         role="button"
         tabIndex={0}
         onClick={toggleWatchProvider}

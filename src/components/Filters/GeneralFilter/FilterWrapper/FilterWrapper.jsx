@@ -31,7 +31,7 @@ FilterWrapper.propTypes = {
 
 FilterWrapper.defaultProps = {
   tooltipMessage: undefined,
-  className: undefined,
+  className: '',
 };
 
 export default FilterWrapper;

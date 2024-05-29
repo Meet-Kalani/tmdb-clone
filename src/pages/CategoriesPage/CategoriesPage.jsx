@@ -7,56 +7,18 @@ import style from "./categories-page.module.scss";
 import Filters from "../../components/Filters/Filters";
 import CategoryList from "../../components/CategoryList/CategoryList";
 import { CATEGORY_TITLE } from "../../constants/categoryTitle";
+import { DEFAULT_SELECTED_FILTERS } from "../../constants/defaultSelectedFilters";
 import useTitle from "../../hooks/useTitle";
 import {
   fetchCategoriesContent, fetchFilteredContent, fetchOTTPlatforms,
 } from "../../service/api";
 import { notifyError } from "../../helpers/notifyError";
 import { removeDuplicates } from "../../helpers/removeDuplicates";
-import { getReleaseDate } from "../../helpers/getReleaseDate";
 import { buildFilterQueryURL } from "../../helpers/buildFilterQueryURL";
-import { AVAILABILITIES } from "../../constants/availabilities";
-import { RELEASE_TYPES } from "../../constants/releaseTypes";
 import SelectedFilterContext from "./context";
 import Spinner from "../../components/Spinner/Spinner";
 
-const defaultSelectedSort = {
-  value: 'popularity.desc',
-  label: 'Popularity Descending',
-};
 const defaultPageNumber = 1;
-const defaultSelectedFilters = {
-  sort: defaultSelectedSort,
-  OTTRegion: {
-    id: "IN",
-    country: "India",
-  },
-  watchProviders: new Set(),
-  availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
-  genres: new Set(),
-  certifications: new Set(),
-  releaseRegion: {
-    id: 'IN',
-    country: 'India',
-  },
-  language: "xx",
-  releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
-  releaseDate: {
-    gte: undefined,
-    lte: getReleaseDate(),
-  },
-  userScore: {
-    gte: 0,
-    lte: 10,
-  },
-  minimumUserVotes: {
-    gte: 0,
-  },
-  runtime: {
-    gte: 0,
-    lte: 400,
-  },
-};
 
 const CategoriesPage = () => {
   const { category } = useParams();
@@ -69,13 +31,20 @@ const CategoriesPage = () => {
   const [showLoadMorebtn, setShowLoadMorebtn] = useState(true);
   const [isInitialFiltersChanged, setIsInitialFiltersChanged] = useState(false);
 
-  const [selectedFilters, setSelectedFilters] = useState(defaultSelectedFilters);
+  const [selectedFilters, setSelectedFilters] = useState(DEFAULT_SELECTED_FILTERS);
 
   useEffect(() => {
-    if (selectedFilters !== defaultSelectedFilters) {
+    if (JSON.stringify(selectedFilters) !== JSON.stringify(DEFAULT_SELECTED_FILTERS)) {
       setIsInitialFiltersChanged(true);
     }
   }, [selectedFilters]);
+
+  useEffect(() => {
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      watchProviders: new Set(),
+    }));
+  }, [selectedFilters.OTTRegion]);
 
   const [isScrollable, setIsScrollable] = useState(false);
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
@@ -280,6 +249,36 @@ const CategoriesPage = () => {
     }
   };
 
+  const toggleAirDate = (event, type) => {
+    if (type === "gte") {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        airDate: { ...prevFilters.releaseDate, gte: event.target.value },
+      }));
+    }
+    else {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        airDate: { ...prevFilters.releaseDate, lte: event.target.value },
+      }));
+    }
+  };
+
+  const toggleFirstAirDate = (event, type) => {
+    if (type === "gte") {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        firstAirDate: { ...prevFilters.releaseDate, gte: event.target.value },
+      }));
+    }
+    else {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        firstAirDate: { ...prevFilters.releaseDate, lte: event.target.value },
+      }));
+    }
+  };
+
   const toggleAvailabilities = (availability) => {
     setSelectedFilters((prevFilters) => {
       const newSelectedAvailabilities = new Set(prevFilters.availabilities);
@@ -309,6 +308,8 @@ const CategoriesPage = () => {
     toggleAvailabilities,
     toggleReleaseRegion,
     toggleReleaseDate,
+    toggleAirDate,
+    toggleFirstAirDate,
     toggleUserScore,
     toggleMinimumUserVotes,
     toggleRuntime,
