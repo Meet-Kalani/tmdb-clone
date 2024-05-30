@@ -33,7 +33,7 @@ const CategoriesPage = () => {
   const [selectedFilters, setSelectedFilters] = useState(DEFAULT_SELECTED_FILTERS);
 
   useEffect(() => {
-    if (JSON.stringify(selectedFilters) !== JSON.stringify(DEFAULT_SELECTED_FILTERS)) {
+    if (selectedFilters !== DEFAULT_SELECTED_FILTERS) {
       setIsInitialFiltersChanged(true);
     }
   }, [selectedFilters]);
