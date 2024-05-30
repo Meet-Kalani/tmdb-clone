@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import {
   useCallback, useEffect, useMemo, useState,
@@ -21,9 +21,7 @@ import Spinner from "../../components/Spinner/Spinner";
 const defaultPageNumber = 1;
 
 const CategoriesPage = () => {
-  const { category } = useParams();
-  const location = useLocation();
-  const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
+  const { category, contentType } = useParams();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(defaultPageNumber);
