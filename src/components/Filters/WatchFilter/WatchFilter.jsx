@@ -3,6 +3,7 @@ import style from "./watch-filter.module.scss";
 import WatchProvider from "./WatchProvider/WatchProvider";
 import SelectedFilterContext from '../../../pages/CategoriesPage/context';
 import SelectWithSearch from "../../SelectWithSearch/SelectWithSearch";
+import { OTT_REGIONS } from "../../../constants/ottRegions";
 
 const WatchFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,6 +14,8 @@ const WatchFilter = () => {
   };
 
   const watchProviderCount = watchProvidersList.length;
+
+  const defaultOTTRegion = { id: OTTRegion.id, englishName: OTTRegion.country, imageId: OTTRegion.imageId };
 
   return (
     <div className={style["watch-filter"]}>
@@ -42,7 +45,7 @@ const WatchFilter = () => {
       <div className={isVisible ? style["filter-content"] : style.hidden}>
         <div className={style["content-wrapper"]}>
           <span className={style["filter-content-title"]}>Country</span>
-          <SelectWithSearch defaultCountry={OTTRegion} toggleCountry={toggleOTTRegion} />
+          <SelectWithSearch defaultOption={defaultOTTRegion} options={OTT_REGIONS} toggleOption={toggleOTTRegion} />
           <WatchProvider />
         </div>
       </div>

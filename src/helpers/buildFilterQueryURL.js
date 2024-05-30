@@ -49,7 +49,7 @@ export const buildFilterQueryURL = (
   if (airDate.gte) params.push(`air_date.gte=${airDate.gte}`);
   if (firstAirDate.lte) params.push(`first_air_date.lte=${firstAirDate.lte}`);
   if (firstAirDate.gte) params.push(`first_air_date.gte=${firstAirDate.gte}`);
-  if (language && language !== "xx") params.push(`with_original_language=${language}`);
+  if (language.id && language.id !== "xx") params.push(`with_original_language=${language.id}`);
   params.push(`vote_average.gte=${userScore.gte}&vote_average.lte=${userScore.lte}`);
   params.push(`vote_count.gte=${minimumUserVotes.gte}`);
   params.push(`with_runtime.gte=${runtime.gte}&with_runtime.lte=${runtime.lte}`);

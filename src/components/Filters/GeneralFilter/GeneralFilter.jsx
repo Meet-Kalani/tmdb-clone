@@ -15,6 +15,7 @@ import List from "./List/List";
 import ReleaseDateFilter from "./ReleaseDateFilter/ReleaseDateFilter";
 import AvailabilityFilter from "./AvailabilityFilter/AvailabilityFilter";
 import ShowMeFilter from "./ShowMeFilter/ShowMeFilter";
+import SelectWithSearch from "../../SelectWithSearch/SelectWithSearch";
 
 const SortFilter = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -58,6 +59,8 @@ const SortFilter = () => {
     return `${gte}`;
   };
 
+  const defaultLanguage = { id: language.id, englishName: language.englishName };
+
   return (
     <div className={style["general-filter"]}>
       <div
@@ -97,28 +100,7 @@ const SortFilter = () => {
           <List checkSelection={checkSelectedCertifications} items={CERTIFICATIONS} toggleSelection={toggleCertifications} type="certification" />
         </FilterWrapper>
         <FilterWrapper title="Language" tooltipMessage="Filter items based on their original language.">
-          <select
-            className={style["language-options-container"]}
-            id="language"
-            name="language"
-            value={language}
-            onChange={(event) => {
-              toggleLanguage(event.target.value);
-            }}
-          >
-            {
-
-                LANGUAGES.map(({ iso_639_1: id, english_name: label }) => (
-                  <option
-                    className={style["language-option"]}
-                    key={id}
-                    value={id}
-                  >
-                    {label}
-                  </option>
-                ))
-              }
-          </select>
+          <SelectWithSearch defaultOption={defaultLanguage} options={LANGUAGES} toggleOption={toggleLanguage} />
         </FilterWrapper>
         <FilterWrapper title="User Score">
           <RangeSlider

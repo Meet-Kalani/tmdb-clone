@@ -10,6 +10,7 @@ export const DEFAULT_SELECTED_FILTERS = {
   OTTRegion: {
     id: "IN",
     country: "India",
+    imageId: "IN",
   },
   watchProviders: new Set(),
   availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
@@ -18,8 +19,12 @@ export const DEFAULT_SELECTED_FILTERS = {
   releaseRegion: {
     id: 'IN',
     country: 'India',
+    imageId: 'IN',
   },
-  language: "xx",
+  language: {
+    id: "xx",
+    englishName: "None Selected",
+  },
   releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
   releaseDate: {
     gte: undefined,

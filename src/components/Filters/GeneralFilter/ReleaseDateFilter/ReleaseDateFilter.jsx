@@ -3,6 +3,7 @@ import style from './release-date-filter.module.scss';
 import SelectWithSearch from '../../../SelectWithSearch/SelectWithSearch';
 import { RELEASE_TYPES } from '../../../../constants/releaseTypes';
 import SelectedFilterContext from '../../../../pages/CategoriesPage/context';
+import { OTT_REGIONS } from '../../../../constants/ottRegions';
 
 const ReleaseDateFilter = () => {
   const {
@@ -23,6 +24,8 @@ const ReleaseDateFilter = () => {
   const [isReleaseTypeCountryVisible, setIsReleaseTypeCountryVisible] = useState(true);
 
   const checkSelectedReleaseTypes = (releaseType) => releaseTypes.has(releaseType);
+
+  const defaultReleaseRegion = { id: releaseRegion.id, englishName: releaseRegion.country, imageId: releaseRegion.imageId };
 
   return (
     <div className={style['release-filter']}>
@@ -52,7 +55,7 @@ const ReleaseDateFilter = () => {
               </label>
               {!isReleaseTypeCountryVisible && (
                 <div className={style['region-options-container']}>
-                  <SelectWithSearch defaultCountry={releaseRegion} toggleCountry={toggleReleaseRegion} />
+                  <SelectWithSearch defaultOption={defaultReleaseRegion} options={OTT_REGIONS} toggleOption={toggleReleaseRegion} />
                 </div>
               )}
             </>
