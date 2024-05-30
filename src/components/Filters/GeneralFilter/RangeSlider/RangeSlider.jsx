@@ -17,7 +17,7 @@ const RangeSlider = ({
     },
   };
 
-  const valueArray = value.lte ? [value.gte, value.lte] : [value.gte];
+  const valueArray = value.lte ? [value.gte, value.lte] : value.gte;
 
   return (
     <Slider

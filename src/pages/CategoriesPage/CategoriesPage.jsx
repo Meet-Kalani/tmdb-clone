@@ -219,7 +219,7 @@ const CategoriesPage = () => {
   };
 
   const toggleMinimumUserVotes = (e, newValue) => {
-    const [gte] = newValue;
+    const gte = newValue;
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       minimumUserVotes: { gte },
