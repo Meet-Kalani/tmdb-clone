@@ -42,9 +42,9 @@ export const fetchWatchProviders = async (movieId, contentType) => {
   return res.data.results;
 };
 
-export const fetchYoutubeVideo = async (id) => {
+export const fetchYoutubeVideo = async (id, contentType) => {
   const res = await axios.get(
-    `${BASE_URL}/movie/${id}/videos`,
+    `${BASE_URL}/${contentType}/${id}/videos`,
     defaultHeaders,
   );
   const data = res.data.results.filter((result) => {

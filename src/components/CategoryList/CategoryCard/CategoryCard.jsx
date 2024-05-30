@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import style from "./category-card.module.scss";
 import { IMAGE_BASE_URL } from "../../../constants/constants";
 import Rating from "../../Rating/Rating";
+import Img from "../../Img/Img";
 
 const CategoryCard = ({
   id, name, posterPath, voteAverage, releaseDate, contentType,
@@ -38,16 +39,11 @@ const CategoryCard = ({
       }}
     >
       <div className={style["card-header"]}>
-        {
-          posterPath ? (
-            <img
-              alt="poster of the movie"
-              className={style["card-image"]}
-              loading="lazy"
-              src={`${IMAGE_BASE_URL}${posterPath}`}
-            />
-          ) : undefined
-        }
+        <Img
+          alt={name}
+          className={style["card-image"]}
+          src={`${IMAGE_BASE_URL}${posterPath}`}
+        />
       </div>
       <div className={style["card-content"]}>
         <div className={style["rating-container"]}>

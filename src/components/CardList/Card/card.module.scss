@@ -5,10 +5,12 @@
 
   .card-header {
     height: 225px;
+    @include image-placeholder(50%, $placeholder-image);
+    border-radius: $border-radius-8;
+    overflow: hidden;
 
     .card-image {
       width: 100%;
-      border-radius: $border-radius-8;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   }

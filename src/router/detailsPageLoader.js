@@ -20,11 +20,8 @@ export default ({ params }) => {
       fetchCastData(id, contentType),
       fetchUserReviews(id, contentType),
       fetchSocialMediaLinks(id, contentType),
+      fetchYoutubeVideo(id, contentType),
     ];
-
-    if (contentType === 'movie') {
-      promises.push(fetchYoutubeVideo(id));
-    }
 
     return {
       results: Promise.all(promises),

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import style from "./mobile-navbar.module.scss";
-import { MOBILE_PRIMARY_NAVLINK_DATA, MOBILE_SECONDARY_NAVLINK_DATA } from "../../../constants/constants";
+import { MOBILE_PRIMARY_NAVLINK_DATA, MOBILE_SECONDARY_NAVLINK_DATA } from "../../../constants/mobileNavbarLinks";
 import NestedLink from "./NestedLink/NestedLink";
 
 const MobileNavbar = () => {

@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import {
   useCallback, useEffect, useMemo, useState,
@@ -6,76 +6,48 @@ import {
 import style from "./categories-page.module.scss";
 import Filters from "../../components/Filters/Filters";
 import CategoryList from "../../components/CategoryList/CategoryList";
-import { CATEGORY_TITLE } from "../../utils/categoryTitle";
+import { CATEGORY_TITLE } from "../../constants/categoryTitle";
+import { DEFAULT_SELECTED_FILTERS } from "../../constants/defaultSelectedFilters";
 import useTitle from "../../hooks/useTitle";
 import {
   fetchCategoriesContent, fetchFilteredContent, fetchOTTPlatforms,
 } from "../../service/api";
 import { notifyError } from "../../helpers/notifyError";
 import { removeDuplicates } from "../../helpers/removeDuplicates";
-import { getReleaseDate } from "../../helpers/getReleaseDate";
 import { buildFilterQueryURL } from "../../helpers/buildFilterQueryURL";
-import { AVAILABILITIES } from "../../utils/availabilities";
-import { RELEASE_TYPES } from "../../utils/releaseTypes";
 import SelectedFilterContext from "./context";
 import Spinner from "../../components/Spinner/Spinner";
 
-const defaultSelectedSort = {
-  value: 'popularity.desc',
-  label: 'Popularity Descending',
-};
 const defaultPageNumber = 1;
-const defaultSelectedFilters = {
-  sort: defaultSelectedSort,
-  OTTRegion: {
-    id: "IN",
-    country: "India",
-  },
-  watchProviders: new Set(),
-  availabilities: new Set(AVAILABILITIES.map(({ label }) => label)),
-  genres: new Set(),
-  certifications: new Set(),
-  releaseRegion: {
-    id: 'IN',
-    country: 'India',
-  },
-  language: "xx",
-  releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
-  releaseDate: {
-    gte: undefined,
-    lte: getReleaseDate(),
-  },
-  userScore: {
-    gte: 0,
-    lte: 10,
-  },
-  minimumUserVotes: {
-    gte: 0,
-  },
-  runtime: {
-    gte: 0,
-    lte: 400,
-  },
-};
 
 const CategoriesPage = () => {
-  const { category } = useParams();
-  const location = useLocation();
-  const contentType = location.pathname.includes('tv') ? 'tv' : 'movie';
+  const { category, contentType } = useParams();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(defaultPageNumber);
   const [watchProvidersList, setWatchProvidersList] = useState([]);
   const [showLoadMorebtn, setShowLoadMorebtn] = useState(true);
   const [isInitialFiltersChanged, setIsInitialFiltersChanged] = useState(false);
+  const [selectedTVDateType, setSelectedTVDateType] = useState('air_date');
 
-  const [selectedFilters, setSelectedFilters] = useState(defaultSelectedFilters);
+  const [selectedFilters, setSelectedFilters] = useState(DEFAULT_SELECTED_FILTERS);
 
   useEffect(() => {
-    if (selectedFilters !== defaultSelectedFilters) {
+    if (JSON.stringify(selectedFilters) !== JSON.stringify(DEFAULT_SELECTED_FILTERS)) {
       setIsInitialFiltersChanged(true);
     }
   }, [selectedFilters]);
+
+  useEffect(() => {
+    setSelectedFilters((prevState) => ({
+      ...prevState,
+      watchProviders: new Set(),
+    }));
+  }, [selectedFilters.OTTRegion]);
+
+  useEffect(() => {
+    setSelectedFilters(DEFAULT_SELECTED_FILTERS);
+  }, [contentType]);
 
   const [isScrollable, setIsScrollable] = useState(false);
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
@@ -112,7 +84,7 @@ const CategoriesPage = () => {
 
   const fetchData = useCallback(async (isFilterChanged) => {
     const newPageNumber = isFilterChanged ? defaultPageNumber : pageNumber;
-    const filterQueryURL = buildFilterQueryURL(selectedFilters, newPageNumber);
+    const filterQueryURL = buildFilterQueryURL(selectedFilters, selectedTVDateType, newPageNumber);
     setPageNumber(newPageNumber);
 
     try {
@@ -143,7 +115,11 @@ const CategoriesPage = () => {
     finally {
       setPageNumber((previousValue) => previousValue + 1);
     }
-  }, [contentType, pageNumber, selectedFilters]);
+  }, [contentType, pageNumber, selectedFilters, selectedTVDateType]);
+
+  const toggleSelectedTVDateType = useCallback((type) => {
+    setSelectedTVDateType(type);
+  }, []);
 
   const toggleSort = (sort) => {
     setSelectedFilters((prevState) => ({
@@ -250,7 +226,7 @@ const CategoriesPage = () => {
   };
 
   const toggleMinimumUserVotes = (e, newValue) => {
-    const [gte] = newValue;
+    const gte = newValue;
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       minimumUserVotes: { gte },
@@ -280,6 +256,36 @@ const CategoriesPage = () => {
     }
   };
 
+  const toggleAirDate = (event, type) => {
+    if (type === "gte") {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        airDate: { ...prevFilters.airDate, gte: event.target.value },
+      }));
+    }
+    else {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        airDate: { ...prevFilters.airDate, lte: event.target.value },
+      }));
+    }
+  };
+
+  const toggleFirstAirDate = (event, type) => {
+    if (type === "gte") {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        firstAirDate: { ...prevFilters.firstAirDate, gte: event.target.value },
+      }));
+    }
+    else {
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        firstAirDate: { ...prevFilters.firstAirDate, lte: event.target.value },
+      }));
+    }
+  };
+
   const toggleAvailabilities = (availability) => {
     setSelectedFilters((prevFilters) => {
       const newSelectedAvailabilities = new Set(prevFilters.availabilities);
@@ -301,6 +307,7 @@ const CategoriesPage = () => {
     contentType,
     watchProvidersList,
     isInitialFiltersChanged,
+    toggleSelectedTVDateType,
     toggleWatchProviders,
     fetchData,
     toggleOTTRegion,
@@ -309,13 +316,15 @@ const CategoriesPage = () => {
     toggleAvailabilities,
     toggleReleaseRegion,
     toggleReleaseDate,
+    toggleAirDate,
+    toggleFirstAirDate,
     toggleUserScore,
     toggleMinimumUserVotes,
     toggleRuntime,
     toggleCertifications,
     toggleGenres,
     toggleLanguage,
-  }), [selectedFilters, isInitialFiltersChanged, contentType, toggleWatchProviders, fetchData, watchProvidersList]);
+  }), [selectedFilters, isInitialFiltersChanged, contentType, toggleWatchProviders, fetchData, watchProvidersList, toggleSelectedTVDateType]);
 
   if (isLoading) {
     return <Spinner />;

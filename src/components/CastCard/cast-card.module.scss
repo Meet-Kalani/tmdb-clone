@@ -5,10 +5,7 @@
   gap: 24px;
 
   .cast-profile-container {
-    background-color: $color-placeholder;
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
+    @include image-placeholder(50%);
     width: 66px;
     height: 66px;
     border-radius: $border-radius-8;

@@ -17,16 +17,11 @@ const CastCard = ({
   return (
     <div className={style["cast-card"]}>
       <div className={style['profile-wrapper']} style={wrapperStyle}>
-        {
-          profilePath ? (
-            <Img
-              alt={originalName}
-              className={style["profile-img"]}
-              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/138x175.png?text=Not+Found!"
-              src={`${CAST_PROFILE_BASE_URL}${profilePath}`}
-            />
-          ) : undefined
-        }
+        <Img
+          alt={originalName}
+          className={style["profile-img"]}
+          src={`${CAST_PROFILE_BASE_URL}${profilePath}`}
+        />
       </div>
       <div className={style["cast-content"]}>
         <span className={style["original-name"]}>{originalName}</span>

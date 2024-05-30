@@ -1,0 +1,24 @@
+@use "../../../../styles" as *;
+
+.show-me-filter {
+  @include flex-column();
+  gap: 10px;
+  justify-content: center;
+  padding-bottom: 4px;
+
+  .label {
+    line-height: initial;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    line-height: 1;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .disabled {
+    opacity: 0.65;
+  }
+}

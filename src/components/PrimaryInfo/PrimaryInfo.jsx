@@ -21,7 +21,6 @@ const PrimaryInfo = ({
   contentType,
   data,
   youtubeId,
-  // eslint-disable-next-line
   watchProvider,
 }) => {
   const [isIframeVisible, setIsIframeVisible] = useState(false);
@@ -53,7 +52,6 @@ const PrimaryInfo = ({
           <Img
             alt="Movie poster"
             className={`${style.poster} ${!watchProviderSlug && style['poster-border']}`}
-            fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/138x175.png?text=Not+Found!"
             src={`${POSTER_URL}${posterPath}`}
           />
           {watchProvider && watchProviderSlug ? (
@@ -61,7 +59,6 @@ const PrimaryInfo = ({
               <Img
                 alt="logo of the watch provider"
                 className={style["watch-provider-logo"]}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/36x36.png?text=!"
                 src={`${WATCH_PROVIDER_LOGO_BASE_URL}${watchProviderSlug}`}
               />
               <div className={style["watch-provider-link-wrapper"]}>
@@ -110,7 +107,7 @@ const PrimaryInfo = ({
           </div>
           <div className={style['rating-wrapper']}>
             <div className={style["rating-container"]}>
-              <Rating rating={rating} size={68} />
+              <Rating rating={rating} size={60} />
               <span className={style["rating-title"]}>
                 User
                 {' '}
@@ -120,12 +117,11 @@ const PrimaryInfo = ({
               </span>
             </div>
           </div>
-          <div className={style.wrapper}>
+          <div className={style.actions}>
             <div className={style.action}>
               <Img
                 alt="list icon"
                 className={style.icon}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!"
                 src={LIST_ICON}
               />
             </div>
@@ -133,7 +129,6 @@ const PrimaryInfo = ({
               <Img
                 alt="like icon"
                 className={style.icon}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!"
                 src={LIKE_ICON}
               />
             </div>
@@ -141,36 +136,34 @@ const PrimaryInfo = ({
               <Img
                 alt="bookmark icon"
                 className={style.icon}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/16x16.png?text=!"
                 src={BOOKMARK_ICON}
               />
             </div>
-            {contentType === 'movie' && (
-            <div
-              className={style["play-link-container"]}
-              role="button"
-              tabIndex={0}
-              onClick={handlePlayTrailer}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  handlePlayTrailer();
-                }
-              }}
-            >
-              <Img
-                alt="play icon"
-                className={style["play-icon"]}
-                fallbackImageURL="https://placehold.jp/16/dbdbdb/ffffff/22x22.png?text=!"
-                src={PLAY_ICON}
-              />
-              <button className={style["play-link"]} type="button">
-                Play Trailer
-              </button>
-            </div>
-            )}
+            {youtubeId ? (
+              <div
+                className={style["play-link-container"]}
+                role="button"
+                tabIndex={0}
+                onClick={handlePlayTrailer}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    handlePlayTrailer();
+                  }
+                }}
+              >
+                <Img
+                  alt="play icon"
+                  className={style["play-icon"]}
+                  src={PLAY_ICON}
+                />
+                <button className={style["play-link"]} type="button">
+                  Play Trailer
+                </button>
+              </div>
+            ) : null}
           </div>
           <div className={style["overview-container"]}>
-            {contentType === 'movie' && <span className={style.tagline}>{tagLine}</span>}
+            <span className={style.tagline}>{tagLine}</span>
             <span className={style["overview-title"]}>Overview</span>
             <p className={style.overview}>{overview}</p>
           </div>
@@ -212,6 +205,25 @@ PrimaryInfo.propTypes = {
     origin_country: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   youtubeId: PropTypes.string,
+  watchProvider: PropTypes.shape({
+    IN: PropTypes.shape({
+      flatrate: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      buy: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      ads: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      free: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+      rent: PropTypes.arrayOf(PropTypes.shape({
+        logo_path: PropTypes.string,
+      })),
+    }),
+  }).isRequired,
 };
 
 PrimaryInfo.defaultProps = {

@@ -25,7 +25,7 @@ const DropDown = ({ options, selectedOption, toggleOption }) => {
         <span className={style.label}>
           {selectedOption.label}
         </span>
-        <img alt="drop down arrow" className={style['arrow-dropdown']} src="/dropdown-arrow.png" />
+        <img alt="drop down arrow" className={style['arrow-dropdown']} src="/images/dropdown-arrow.png" />
       </div>
       {
         isVisible ? (

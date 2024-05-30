@@ -10,6 +10,7 @@
     .title {
       font-weight: $font-weight-600;
       font-size: 22.4px;
+      line-height: 1;
 
       @include laptop {
         font-size: 19.2px;

@@ -5,7 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import style from "./cast-page.module.scss";
 import CastCard from "../../components/CastCard/CastCard";
 import Spinner from "../../components/Spinner/Spinner";
-import { CREW_DEPARTMENTS } from "../../utils/crewDepartments";
+import { CREW_DEPARTMENTS } from "../../constants/crewDepartments";
 import CrewDepartment from "../../components/CrewDepartment/CrewDepartment";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import useTitle from "../../hooks/useTitle";
@@ -39,32 +39,34 @@ const CastPage = () => {
   return (
     <Suspense fallback={<Spinner />}>
       <Await
+        errorElement={<ErrorPage />}
         resolve={data?.results}
-        errorElement={
-          <ErrorPage />
-          }
       >
-        {(results) => (
+        {([primaryInfo, castData]) => (
           <div className={style['cast-page']}>
             <header className={style['cast-page-header']}>
               <div className={style.wrapper}>
                 <div className={style['poster-wrapper']}>
-                  <Img alt={results[0].name || results[0].original_title} className={style.poster} src={`${CAST_PAGE_POSTER_BASE_URL}${results[0].poster_path}`} />
+                  <Img
+                    alt={primaryInfo.name || primaryInfo.original_title}
+                    className={style.poster}
+                    src={`${CAST_PAGE_POSTER_BASE_URL}${primaryInfo.poster_path}`}
+                  />
                 </div>
                 <div className={style['header-content']}>
                   <div className={style['title-wrapper']}>
                     <h2 className={style.title}>
-                      <Link className={style['title-link']} to={`/${contentType}/${results[0].id}`}>
-                        {results[0].name || results[0].original_title}
+                      <Link className={style['title-link']} to={`/${contentType}/${primaryInfo.id}`}>
+                        {primaryInfo.name || primaryInfo.original_title}
                       </Link>
                     </h2>
                     <span className={style['release-year']}>
                       (
-                      {results[0].first_air_date?.slice(0, 4) || results[0].release_date?.slice(0, 4)}
+                      {primaryInfo.first_air_date?.slice(0, 4) || primaryInfo.release_date?.slice(0, 4)}
                       )
                     </span>
                   </div>
-                  <Link className={style['details-link']} to={`/${contentType}/${results[0].id}`}>
+                  <Link className={style['details-link']} to={`/${contentType}/${primaryInfo.id}`}>
                     ← Back to main
                   </Link>
                 </div>
@@ -75,25 +77,35 @@ const CastPage = () => {
                 <h3 className={style['cast-title']}>
                   Cast
                   {' '}
-                  <span className={style['cast-count']}>{results[1].cast.length}</span>
+                  <span className={style['cast-count']}>{castData.cast.length}</span>
                 </h3>
                 <div className={style['cards-container']}>
-                  {
-            results[1].cast.map(({
-              profile_path: profilePath, character, name, gender, id: castId,
-            }) => <CastCard character={character} gender={gender} key={castId} name={name} profilePath={profilePath} />)
-          }
+                  {castData.cast.map(({
+                    profile_path: profilePath, character, name, gender, id: castId,
+                  }) => (
+                    <CastCard
+                      character={character}
+                      gender={gender}
+                      key={castId}
+                      name={name}
+                      profilePath={profilePath}
+                    />
+                  ))}
                 </div>
               </div>
               <div className={style.crew}>
                 <h3 className={style['crew-title']}>
                   Crew
                   {' '}
-                  <span className={style['crew-count']}>{results[1].crew.length}</span>
+                  <span className={style['crew-count']}>{castData.crew.length}</span>
                 </h3>
                 <div className={style['cards-container']}>
                   {CREW_DEPARTMENTS.map((department) => (
-                    <CrewDepartment crew={results[1].crew} department={department} key={department} />
+                    <CrewDepartment
+                      crew={castData.crew}
+                      department={department}
+                      key={department}
+                    />
                   ))}
                 </div>
               </div>

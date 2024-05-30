@@ -9,10 +9,7 @@
 
   .profile-wrapper {
     width: 138px;
-    background-color: $color-placeholder;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 50%;
+    @include image-placeholder(50%);
     height: 175px;
     border-radius: 8px 8px 0 0;
     .profile-img {

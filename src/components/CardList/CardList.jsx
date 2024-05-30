@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import Card from "./Card/Card";
 import Tabs from "./Tabs/Tabs";
-import SkeletonLoader from "./SkeletonLoader/SkeletonLoader";
 import style from "./card-list.module.scss";
 
 const CardList = ({
@@ -10,7 +9,6 @@ const CardList = ({
   handleTabSelection,
   selectedTab,
   label,
-  isLoading,
 }) => (
   <section className={style.cardlist}>
     <div className={style["cardlist-header"]}>
@@ -22,11 +20,7 @@ const CardList = ({
       />
     </div>
     <div className={style["cardlist-content"]}>
-      {isLoading ? (
-        <div className={style["skeleton-wrapper"]}>
-          {[...Array(20)].map(() => <SkeletonLoader key={crypto.randomUUID()} />)}
-        </div>
-      ) : (
+      {
         data.map(
           ({
             id,
@@ -48,7 +42,7 @@ const CardList = ({
             />
           ),
         )
-      )}
+      }
     </div>
   </section>
 );
@@ -66,7 +60,6 @@ CardList.propTypes = {
   handleTabSelection: PropTypes.func.isRequired,
   selectedTab: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 export default CardList;

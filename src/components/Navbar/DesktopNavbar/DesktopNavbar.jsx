@@ -4,7 +4,7 @@ import style from "./desktop-navbar.module.scss";
 import {
   DESKTOP_CTA_NAVLINK_DATA,
   DESKTOP_PRIMARY_NAVLINK_DATA,
-} from "../../../constants/constants";
+} from "../../../constants/desktopNavbarLinks";
 import NestedLink from "./NestedLink/NestedLink";
 
 const Navbar = () => (

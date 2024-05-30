@@ -29,7 +29,6 @@ const UserReview = ({ userReview }) => {
             <Img
               alt="Content Reviewer"
               className={style["profile-image"]}
-              fallbackImageURL="https://placehold.jp/16/ccc/ffffff/45x45.png?text=?"
               src={imageURL}
             />
             <div className={style["author-details"]}>

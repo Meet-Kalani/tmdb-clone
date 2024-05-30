@@ -26,6 +26,88 @@ html {
     input {
       font-family: "Source Sans Pro", Arial, sans-serif;
     }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border: 1px solid;
+      cursor: pointer;
+      appearance: none;
+      background-color: $color-white;
+      border: 1px solid #adb5bd;
+      color: transparent;
+      outline: 0;
+      position: relative;
+      vertical-align: middle;
+      border-radius: $border-radius-4;
+
+      &::before {
+        background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="8" height="8"%3E%3Cpath fill="%23fff" d="m6.564.75-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z"/%3E%3C/svg%3E');
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: 50%;
+        content: "";
+        height: 1rem;
+        left: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        transform: scale(1) translate(-50%, -50%);
+        width: 1rem;
+      }
+
+      &:checked {
+        background-color: #01b4e4;
+        border-color: #01b4e4;
+        color: #fff;
+      }
+
+      &:not(:checked) {
+        border-color: #adb5bd;
+      }
+    }
+
+    input[type="radio"] {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #adb5bd;
+      border-radius: $border-radius-round;
+      outline: 0;
+      vertical-align: middle;
+      position: relative;
+      appearance: none;
+      cursor: pointer;
+
+      &:checked {
+        border-color: rgb(1, 180, 228);
+        color: #fff;
+        background-color: rgb(1, 180, 228);
+
+        &::before {
+          transform: scale(1) translate(-50%, -50%);
+        }
+      }
+
+      &::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: currentColor;
+        transform: scale(0) translate(-50%, -50%);
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+
+      &:disabled {
+        background-color: #e9ecef;
+        cursor: default;
+        opacity: 0.65;
+        filter: grayscale(0.1);
+      }
+    }
   }
 }
 

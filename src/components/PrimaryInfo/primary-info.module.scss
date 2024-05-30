@@ -117,9 +117,11 @@
       }
     }
 
-    .wrapper {
-      margin: 16px 0 36px 0;
+    .actions {
+      height: 68px;
       display: flex;
+      align-items: center;
+      margin-bottom: 20px;
       gap: 20px;
 
       .action {
@@ -182,7 +184,7 @@
     }
 
     .creator-container {
-      margin-top: 30px;
+      margin-top: 20px;
 
       .creator-name {
         font-weight: $font-weight-700;
