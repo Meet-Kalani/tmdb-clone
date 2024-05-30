@@ -30,6 +30,7 @@ const CategoriesPage = () => {
   const [watchProvidersList, setWatchProvidersList] = useState([]);
   const [showLoadMorebtn, setShowLoadMorebtn] = useState(true);
   const [isInitialFiltersChanged, setIsInitialFiltersChanged] = useState(false);
+  const [selectedTVDateType, setSelectedTVDateType] = useState('air_date');
 
   const [selectedFilters, setSelectedFilters] = useState(DEFAULT_SELECTED_FILTERS);
 
@@ -45,6 +46,10 @@ const CategoriesPage = () => {
       watchProviders: new Set(),
     }));
   }, [selectedFilters.OTTRegion]);
+
+  useEffect(() => {
+    setSelectedFilters(DEFAULT_SELECTED_FILTERS);
+  }, [contentType]);
 
   const [isScrollable, setIsScrollable] = useState(false);
   const { title } = CATEGORY_TITLE.find(({ urlSlug }) => urlSlug === category);
@@ -81,7 +86,7 @@ const CategoriesPage = () => {
 
   const fetchData = useCallback(async (isFilterChanged) => {
     const newPageNumber = isFilterChanged ? defaultPageNumber : pageNumber;
-    const filterQueryURL = buildFilterQueryURL(selectedFilters, newPageNumber);
+    const filterQueryURL = buildFilterQueryURL(selectedFilters, selectedTVDateType, newPageNumber);
     setPageNumber(newPageNumber);
 
     try {
@@ -112,7 +117,11 @@ const CategoriesPage = () => {
     finally {
       setPageNumber((previousValue) => previousValue + 1);
     }
-  }, [contentType, pageNumber, selectedFilters]);
+  }, [contentType, pageNumber, selectedFilters, selectedTVDateType]);
+
+  const toggleSelectedTVDateType = useCallback((type) => {
+    setSelectedTVDateType(type);
+  }, []);
 
   const toggleSort = (sort) => {
     setSelectedFilters((prevState) => ({
@@ -253,13 +262,13 @@ const CategoriesPage = () => {
     if (type === "gte") {
       setSelectedFilters((prevFilters) => ({
         ...prevFilters,
-        airDate: { ...prevFilters.releaseDate, gte: event.target.value },
+        airDate: { ...prevFilters.airDate, gte: event.target.value },
       }));
     }
     else {
       setSelectedFilters((prevFilters) => ({
         ...prevFilters,
-        airDate: { ...prevFilters.releaseDate, lte: event.target.value },
+        airDate: { ...prevFilters.airDate, lte: event.target.value },
       }));
     }
   };
@@ -268,13 +277,13 @@ const CategoriesPage = () => {
     if (type === "gte") {
       setSelectedFilters((prevFilters) => ({
         ...prevFilters,
-        firstAirDate: { ...prevFilters.releaseDate, gte: event.target.value },
+        firstAirDate: { ...prevFilters.firstAirDate, gte: event.target.value },
       }));
     }
     else {
       setSelectedFilters((prevFilters) => ({
         ...prevFilters,
-        firstAirDate: { ...prevFilters.releaseDate, lte: event.target.value },
+        firstAirDate: { ...prevFilters.firstAirDate, lte: event.target.value },
       }));
     }
   };
@@ -300,6 +309,7 @@ const CategoriesPage = () => {
     contentType,
     watchProvidersList,
     isInitialFiltersChanged,
+    toggleSelectedTVDateType,
     toggleWatchProviders,
     fetchData,
     toggleOTTRegion,
@@ -316,7 +326,7 @@ const CategoriesPage = () => {
     toggleCertifications,
     toggleGenres,
     toggleLanguage,
-  }), [selectedFilters, isInitialFiltersChanged, contentType, toggleWatchProviders, fetchData, watchProvidersList]);
+  }), [selectedFilters, isInitialFiltersChanged, contentType, toggleWatchProviders, fetchData, watchProvidersList, toggleSelectedTVDateType]);
 
   if (isLoading) {
     return <Spinner />;

@@ -3,6 +3,7 @@ import { RELEASE_TYPES } from "../constants/releaseTypes";
 
 export const buildFilterQueryURL = (
   selectedFilters,
+  selectedTVDateType,
   pageNumber,
 ) => {
   const {
@@ -43,12 +44,12 @@ export const buildFilterQueryURL = (
   if (formattedCertification) params.push(`certification=${formattedCertification}`);
   if (releaseRegion) params.push(`region=${releaseRegion.id}`);
   if (formattedReleaseTypes && releaseTypesArray.length !== releaseTypesCount) params.push(`with_release_type=${formattedReleaseTypes}`);
-  if (releaseDate.lte) params.push(`release_date.lte=${releaseDate.lte}`);
-  if (releaseDate.gte) params.push(`release_date.gte=${releaseDate.gte}`);
-  if (airDate.lte) params.push(`air_date.lte=${airDate.lte}`);
-  if (airDate.gte) params.push(`air_date.gte=${airDate.gte}`);
-  if (firstAirDate.lte) params.push(`first_air_date.lte=${firstAirDate.lte}`);
-  if (firstAirDate.gte) params.push(`first_air_date.gte=${firstAirDate.gte}`);
+  if (releaseDate.lte && selectedTVDateType === "release_date") params.push(`release_date.lte=${releaseDate.lte}`);
+  if (releaseDate.gte && selectedTVDateType === "release_date") params.push(`release_date.gte=${releaseDate.gte}`);
+  if (airDate.lte && selectedTVDateType === "air_date") params.push(`air_date.lte=${airDate.lte}`);
+  if (airDate.gte && selectedTVDateType === "air_date") params.push(`air_date.gte=${airDate.gte}`);
+  if (firstAirDate.lte && selectedTVDateType === "first_air_date") params.push(`first_air_date.lte=${firstAirDate.lte}`);
+  if (firstAirDate.gte && selectedTVDateType === "first_air_date") params.push(`first_air_date.gte=${firstAirDate.gte}`);
   if (language.id && language.id !== "xx") params.push(`with_original_language=${language.id}`);
   params.push(`vote_average.gte=${userScore.gte}&vote_average.lte=${userScore.lte}`);
   params.push(`vote_count.gte=${minimumUserVotes.gte}`);

@@ -27,15 +27,15 @@ export const DEFAULT_SELECTED_FILTERS = {
   },
   releaseTypes: new Set(RELEASE_TYPES.map(({ id }) => id)),
   releaseDate: {
-    gte: undefined,
+    gte: "",
     lte: getReleaseDate(),
   },
   airDate: {
-    gte: undefined,
+    gte: "",
     lte: getReleaseDate(),
   },
   firstAirDate: {
-    gte: undefined,
+    gte: "",
     lte: getReleaseDate(),
   },
   userScore: {
